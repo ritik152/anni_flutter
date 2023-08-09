@@ -45,14 +45,23 @@ class SignupVm {
 
 
   bool validation() {
+
+    RegExp regex = RegExp(pattern.toString());
+
     if(email.text.toString().trim() == ""){
       showError('Please enter email');
+      return false;
+    }else if(!regex.hasMatch(email.text.toString().trim())){
+      showError('Please enter valid email');
       return false;
     }else if (name.text.toString().trim() == ""){
       showError('Please enter name');
       return false;
     }else if (password.text.toString().trim() == ""){
       showError('Please enter password');
+      return false;
+    }else if (password.text.toString().trim().length < 6){
+      showError('Password should be at least 6 creators');
       return false;
     }else if (repeatPassword.text.toString().trim() == ""){
       showError('Please enter repeat password');

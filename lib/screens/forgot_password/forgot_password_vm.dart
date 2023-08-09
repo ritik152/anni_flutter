@@ -13,6 +13,8 @@ class ForgotPasswordVm {
 
 
   TextEditingController email = TextEditingController();
+  var hideButton = false;
+
 
   bool validation() {
     if(email.text.toString().trim() == ""){
@@ -25,7 +27,7 @@ class ForgotPasswordVm {
   }
 
 
-  Future<void> forgotPasswordApi(Map<String, String> map, BuildContext context) async {
+  Future<bool> forgotPasswordApi(Map<String, String> map, BuildContext context) async {
     showLoader(context);
 
     String res = await postMethod("POST", AllKeys.forgotPassword, map, null, context);
@@ -35,11 +37,10 @@ class ForgotPasswordVm {
     CommonModel commonModel = CommonModel.fromJson(response);
     hideLoader(context);
     if(commonModel.code == 200){
-      showDialog(
-          barrierColor: AppColor.dialogBackgroundColor,
-          context: context, builder: (context)=> const ForgotPassSuccess());
+      return true;
     }else {
       showError(commonModel.message.toString());
+      return false;
     }
 
 

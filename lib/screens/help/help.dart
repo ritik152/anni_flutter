@@ -66,7 +66,7 @@ class _HelpState extends State<Help> {
                       child: TextFormField(
                         controller: vm.email,
                         cursorColor: Colors.white,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.visiblePassword,
                         style: TextStyle(color: AppColor.whiteColor),
                         decoration: InputDecoration(
                             suffixIcon: Padding(

@@ -23,7 +23,8 @@ class _ForgotPassSuccess extends State<ForgotPassSuccess> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Login()), (route) => false);
+      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const Login()), (route) => false);
+      Navigator.pop(context);
     });
   }
 

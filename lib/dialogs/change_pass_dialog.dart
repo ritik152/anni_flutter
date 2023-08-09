@@ -23,7 +23,8 @@ class _ChangePassSuccess extends State<ChangePassSuccess> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ProfileScreen()), (route) => false);
+      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ProfileScreen()), (route) => false);
+      Navigator.pop(context,true);
     });
   }
 

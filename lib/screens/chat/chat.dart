@@ -368,6 +368,9 @@ class _ChatState extends State<Chat> {
 
     model = await vm.chatWithAI({'chat': dataMess}, context);
 
+    if(model.code == 400){
+      showError(model.message.toString());
+    }
     if (!mounted) {
       return;
     }
@@ -398,9 +401,11 @@ class _ChatState extends State<Chat> {
 
 
       });
-    } else if ((model.code ?? 0) == 429) {
+    }
+    else if ((model.code ?? 0) == 429) {
       makeSendAIChatRequest(message);
-    } else {
+    }
+    else {
       if ((model.message ?? '') ==
           'You have reached your daily word limit') {
         vm.errorMesasge = '';

@@ -17,8 +17,13 @@ class HelpVm {
   TextEditingController message = TextEditingController();
 
   bool validation() {
+    RegExp regex = RegExp(pattern.toString());
+
     if(email.text.toString().trim() == ""){
       showError('Please enter email');
+      return false;
+    }else if(!regex.hasMatch(email.text.toString().trim())){
+      showError('Please enter valid email');
       return false;
     }else if (subject.text.toString().trim() == ""){
       showError('Please enter subject');

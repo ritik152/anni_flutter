@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 GestureDetector(
                     onTap: (){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Chat()), (route) => false);
+                      Navigator.pop(context);
                     },
                     child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)),
               ],
@@ -103,11 +103,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   GestureDetector(
                     onTap: () async {
                       var data = await Navigator.push(context, MaterialPageRoute(builder: (context)=> const AccountSettings()));
-                      if(data){
                         setState(() {
 
                         });
-                      }
                     },
                     child: Container(
                       decoration: BoxDecoration(

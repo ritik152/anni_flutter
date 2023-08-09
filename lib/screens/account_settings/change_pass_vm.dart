@@ -67,6 +67,9 @@ class ChangePasswordVM with ChangeNotifier{
     }else if(newPassword.text.toString().trim() == ""){
       showError("Please enter new password");
       return false;
+    }else if(newPassword.text.toString().trim().length < 6){
+      showError('Password should be at least 6 creators');
+      return false;
     }else if(confirmPassword.text.toString().trim() == ""){
       showError("Please enter repeat password");
       return false;
@@ -89,6 +92,7 @@ class ChangePasswordVM with ChangeNotifier{
 
   Future<void> changePassword(BuildContext context) async {
 
+    showLoader(context);
     Map<String,String> map = {
       "oldPassword": oldPassword.text.toString().trim(),
       "newPassword": newPassword.text.toString().trim(),
@@ -100,10 +104,11 @@ class ChangePasswordVM with ChangeNotifier{
 
     CommonModel commonModel = CommonModel.fromJson(response);
 
+    hideLoader(context);
     if(commonModel.code == 200){
-      showDialog(
-          barrierColor: AppColor.dialogBackgroundColor,
-          context: context, builder: (context)=> const ChangePassSuccess());
+      getProfile(context);
+      var data = await showDialog(barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const ChangePassSuccess());
+      Navigator.pop(context);
     }else{
       showError(commonModel.message.toString());
     }

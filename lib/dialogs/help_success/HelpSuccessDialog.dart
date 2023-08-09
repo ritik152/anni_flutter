@@ -27,7 +27,9 @@ class _HelpSuccess extends State<HelpSuccess> {
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ProfileScreen()), (route) => false);
+      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ProfileScreen()), (route) => false);
+      Navigator.pop(context);
+      Navigator.pop(context);
     });
 
   }

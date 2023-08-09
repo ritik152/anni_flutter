@@ -12,13 +12,16 @@ import '../../../profile/profile_screen.dart';
 import '../../../saved_chat_detail/saved_chat_detail.dart';
 
 class LeftDrawer extends StatefulWidget {
+
   const LeftDrawer({Key? key}) : super(key: key);
 
   @override
   State<LeftDrawer> createState() => _LeftDrawerState();
+
 }
 
 class _LeftDrawerState extends State<LeftDrawer> {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,11 +36,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
           Expanded(
             flex: 15,
             child: GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                var data = await Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ProfileScreen()));
+                setState(() {
+
+                });
               },
               child: Container(
                 color: AppColor.backColor,
@@ -59,7 +65,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
-                                child: (registerModel.body!.name.toString() == "null")
+                                child: (registerModel.body!.image.toString() == "null")
                                     ? Image.asset(
                                         "assets/images/user.png",
                                         height: 38,
@@ -67,9 +73,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                         fit: BoxFit.cover,
                                       )
                                     : Image.network(
-                                        AllKeys.imageUrl +
-                                            registerModel.body!.image
-                                                .toString(),
+                                        AllKeys.imageUrl + registerModel.body!.image.toString(),
                                         height: 38,
                                         width: 38,
                                         fit: BoxFit.cover,
@@ -280,11 +284,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            var data = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const SaveChats()));
+                            setState(() {
+
+                            });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -304,12 +311,12 @@ class _LeftDrawerState extends State<LeftDrawer> {
                         if(savedChatModel.body != null)SizedBox(
                             height: 150,
                             child: ListView.builder(
-                                itemCount: savedChatModel.body!.length,
+                                itemCount: (savedChatModel.body!.length <= 3)?savedChatModel.body!.length:3,
                                 padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
 
                                       List<Map<String, String>> messageList = [];
 
@@ -324,12 +331,15 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                         mapRate['id'] = savedChatModel.body![index].jsonData![i].id.toString();
                                         messageList.add(mapRate);
                                       }
-                                      Navigator.push(
+                                      var data = await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>  SavedChatDetail(messageList: messageList,
                                                   chatId : savedChatModel.body![index].id,
                                                   title : savedChatModel.body![index].title.toString())));
+                                      setState(() {
+
+                                      });
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -372,7 +382,6 @@ class _LeftDrawerState extends State<LeftDrawer> {
     );
   }
 
-
   String dateFormat(String eventDate) {
     var createTime = "";
     String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
@@ -381,4 +390,5 @@ class _LeftDrawerState extends State<LeftDrawer> {
     createTime = formattedDate2.toString();
     return createTime;
   }
+
 }

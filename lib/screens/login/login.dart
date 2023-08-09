@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                   child: TextFormField(
                     controller: vm.email,
                     cursorColor: Colors.white,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.visiblePassword,
                     style: TextStyle(color: AppColor.whiteColor),
                     decoration: InputDecoration(
                         suffixIcon: Padding(

@@ -55,14 +55,18 @@ class _DeleteAccountDialog extends State<DeleteAccountDialog> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,// To make the card compact
         children: <Widget>[
+
           Container(
             height: 100,
             width: 100,
             padding: const EdgeInsets.all(15),
             child:  Lottie.asset('assets/json_animation/delete_account.json'),
           ),
+
           BoldText("Delete Account?", 16, AppColor.whiteColor, TextAlign.center),
+
           const SizedBox(height: 5,),
+
           MediumText("Your account data will be\npermanently deleted", 13, AppColor.whiteColor, TextAlign.center),
 
           const SizedBox(height: 20,),

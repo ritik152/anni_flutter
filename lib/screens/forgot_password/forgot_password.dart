@@ -16,6 +16,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   var vm = ForgotPasswordVm();
+
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -67,7 +68,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   child: TextFormField(
                     controller: vm.email,
                     cursorColor: Colors.white,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.visiblePassword,
                     style: TextStyle(color: AppColor.whiteColor),
                     decoration: InputDecoration(
                         suffixIcon: Padding(
@@ -89,20 +90,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 //--------------------------------------Resend--------------------------
 
                 const SizedBox(height: 10,),
-                RichText(text: TextSpan(
-                    text: "Didn't receive an email? ",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontFamily: "Reg",
-                        color: AppColor.greenColor),
-                    children: [
-                      TextSpan(
-                        text: 'Resend',
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: "Bold",
-                            color: AppColor.greenColor),),
-                    ])),
+                if(vm.hideButton == true)GestureDetector(
+                  onTap: () async {
+                    Map<String,String> map = {
+                      "email":vm.email.text.toString().trim(),
+                    };
+                    var data = await vm.forgotPasswordApi(map,context);
+                  },
+                  child: RichText(text: TextSpan(
+                      text: "Didn't receive an email? ",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: "Reg",
+                          color: AppColor.greenColor),
+                      children: [
+                        TextSpan(
+                          text: 'Resend',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: "Bold",
+                              color: AppColor.greenColor),),
+                      ])),
+                ),
               ],
             ),
           ),
@@ -113,12 +122,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
+            if(vm.hideButton == false)Container(
               width: double.infinity,
               height: 50,
               margin: const EdgeInsets.symmetric(horizontal: 35),
               child: RoundedButton(text: "Send Link", color: AppColor.black, buttonColor: AppColor.textGreenColor, radios: 50,
-                  onTap: (){
+                  onTap: () async {
 
                     if(vm.validation()){
 
@@ -126,7 +135,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         "email":vm.email.text.toString().trim(),
                       };
 
-                      vm.forgotPasswordApi(map,context);
+                      var data = await vm.forgotPasswordApi(map,context);
+
+                      if(data == true){
+                        setState(() {
+                          vm.hideButton = true;
+                        });
+                      }
                     }
 
                   }),

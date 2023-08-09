@@ -56,7 +56,7 @@ class _SaveChatsState extends State<SaveChats> {
                   itemCount: savedChatModel.body!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {
+                      onTap: () async {
 
                         List<Map<String, String>> messageList = [];
 
@@ -71,10 +71,16 @@ class _SaveChatsState extends State<SaveChats> {
                           mapRate['id'] = savedChatModel.body![index].jsonData![i].id.toString();
                           messageList.add(mapRate);
                         }
-                        Navigator.push(
+                        var data = await Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>  SavedChatDetail(messageList: messageList,chatId : savedChatModel.body![index].id,title : savedChatModel.body![index].title.toString())));
+
+                        if(data == true){
+                          setState(() {
+
+                          });
+                        }
                       },
                       child: Container(
                         width: double.infinity,

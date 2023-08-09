@@ -113,7 +113,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            MediumText("User Name", 12, AppColor.whiteColor, TextAlign.start),
+                            MediumText("Basic Information", 12, AppColor.whiteColor, TextAlign.start),
                             (vm.click == 0)?
                             Image.asset("assets/icons/up_arrow.png",height: 12,width: 12,color: AppColor.greenColor,):
                             Image.asset("assets/icons/down_arrow.png",height: 12,width: 12,color: AppColor.greenColor,)
