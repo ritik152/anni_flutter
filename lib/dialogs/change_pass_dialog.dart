@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:anni_ai/screens/profile/profile_screen.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -19,17 +17,18 @@ class _ChangePassSuccess extends State<ChangePassSuccess> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Timer(const Duration(seconds: 3), () {
       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const ProfileScreen()), (route) => false);
       Navigator.pop(context,true);
     });
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -38,6 +37,7 @@ class _ChangePassSuccess extends State<ChangePassSuccess> {
       backgroundColor: Colors.transparent,
       child: dialogContent(context),
     );
+
   }
 
   dialogContent(BuildContext context) {

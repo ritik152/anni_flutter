@@ -106,7 +106,7 @@ class _ChatState extends State<Chat> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child:  GestureDetector(
-                                  onTap: (){
+                                  onTap: () async {
                                     vm.mute = !vm.mute;
                                     setState(() {
 

@@ -92,6 +92,7 @@ class _SignUpState extends State<SignUp> {
                     cursorColor: Colors.white,
                     keyboardType: TextInputType.text,
                     style: TextStyle(color: AppColor.whiteColor),
+                    textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
                         suffixIcon: Padding(
                           padding: const EdgeInsets.all(14),

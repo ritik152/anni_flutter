@@ -45,6 +45,7 @@ dependencies:
   video_player: ^2.7.0
   image_picker: ^0.8.6
   loading_animation_widget: ^1.2.0+4
+
 flutter_native_splash:
   color: "#000000"
   image: assets/images/ball.png

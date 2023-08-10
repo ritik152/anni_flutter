@@ -127,7 +127,9 @@ class _AccountSettingsState extends State<AccountSettings> {
                     if(vm.click == 0)Column(
                       children: [
                         const SizedBox(height: 30,),
+
                         //--------------------------------------User Name--------------------------------
+
                         Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -135,6 +137,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                               borderRadius: BorderRadius.circular(30)),
                           margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
                           child: TextFormField(
+                            textCapitalization: TextCapitalization.words,
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.text,
                             controller: vm.userName,
@@ -176,7 +179,6 @@ class _AccountSettingsState extends State<AccountSettings> {
                                 }
                               }),
                         )
-
                       ],
                     ),
 

@@ -96,6 +96,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       "email":vm.email.text.toString().trim(),
                     };
                     var data = await vm.forgotPasswordApi(map,context);
+                    if(data == true){
+                      setState(() {
+                        vm.hideButton = true;
+                        showDialog(context: context, builder: (context)=> const ForgotPassSuccess());
+                      });
+                    }
                   },
                   child: RichText(text: TextSpan(
                       text: "Didn't receive an email? ",
@@ -140,6 +146,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       if(data == true){
                         setState(() {
                           vm.hideButton = true;
+                          showDialog(context: context, builder: (context)=> const ForgotPassSuccess());
                         });
                       }
                     }
