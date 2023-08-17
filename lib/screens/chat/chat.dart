@@ -12,11 +12,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
-
-import '../../dialogs/swipe_left_dialog.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
-import '../line_chart.dart';
 import 'chat_loader.dart';
 import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
@@ -195,7 +192,6 @@ class _ChatState extends State<Chat> {
                               child:  GestureDetector(
                                   onTap: () async {
 
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> LineChartSample6()));
                                     vm.mute = !vm.mute;
                                     setState(() {
 
