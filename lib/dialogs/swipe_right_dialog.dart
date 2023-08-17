@@ -63,7 +63,9 @@ class _SwipeRightDialog extends State<SwipeRightDialog> {
             height: 100,
             width: 100,
             padding: const EdgeInsets.all(10),
-            child:  Lottie.asset('assets/json_animation/swipe_left.json'),
+            child:  RotatedBox(
+                quarterTurns: 3,
+                child: Lottie.asset('assets/json_animation/swipe_left.json')),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -33,67 +33,65 @@ class _LeftDrawerState extends State<LeftDrawer> {
       ),
       child: Column(
         children: [
-          Expanded(
-            flex: 15,
-            child: GestureDetector(
-              onTap: () async {
-                var data = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()));
-                setState(() {
+          GestureDetector(
+            onTap: () async {
+              var data = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()));
+              setState(() {
 
-                });
-              },
+              });
+            },
+            child: Container(
+              color: AppColor.backColor,
               child: Container(
-                color: AppColor.backColor,
-                child: Container(
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(
-                      top: 30, bottom: 20, right: 10, left: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: AppColor.hintColor)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                          flex: 70,
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(30),
-                                child: (registerModel.body!.image.toString() == "null")
-                                    ? Image.asset(
-                                        "assets/images/user.png",
-                                        height: 38,
-                                        width: 38,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.network(
-                                        AllKeys.imageUrl + registerModel.body!.image.toString(),
-                                        height: 38,
-                                        width: 38,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              BoldText(registerModel.body!.name.toString(), 14,
-                                  AppColor.whiteColor, TextAlign.start)
-                            ],
-                          )),
-                      Expanded(
-                          flex: 20,
-                          child: Image.asset(
-                            "assets/images/ball.png",
-                            height: 30,
-                          ))
-                    ],
-                  ),
+                height: 50,
+                width: double.infinity,
+                margin: const EdgeInsets.only(
+                    top: 50, bottom: 20, right: 10, left: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: AppColor.hintColor)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                        flex: 70,
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: (registerModel.body!.image.toString() == "null")
+                                  ? Image.asset(
+                                      "assets/images/user.png",
+                                      height: 38,
+                                      width: 38,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      AllKeys.imageUrl + registerModel.body!.image.toString(),
+                                      height: 38,
+                                      width: 38,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            BoldText(registerModel.body!.name.toString(), 14,
+                                AppColor.whiteColor, TextAlign.start)
+                          ],
+                        )),
+                    Expanded(
+                        flex: 20,
+                        child: Image.asset(
+                          "assets/images/ball.png",
+                          height: 30,
+                        ))
+                  ],
                 ),
               ),
             ),

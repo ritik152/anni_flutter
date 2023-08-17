@@ -130,6 +130,7 @@ class ChangePasswordVM with ChangeNotifier{
     CommonModel commonModel = CommonModel.fromJson(response);
 
     hideLoader(context);
+    hideKeyboard();
     if(commonModel.code == 200){
       showToast(commonModel.message.toString());
       getProfile(context);

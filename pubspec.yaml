@@ -39,12 +39,14 @@ dependencies:
   flutter_native_splash: ^2.3.1
   shared_preferences: ^2.2.0
   http: ^0.13.6
-  syncfusion_flutter_charts: ^22.2.7
+  syncfusion_flutter_charts: ^22.2.9
   top_modal_sheet: ^2.0.1
   lottie: ^2.3.2
   video_player: ^2.7.0
   image_picker: ^0.8.6
   loading_animation_widget: ^1.2.0+4
+  flutter_tts: ^3.7.0
+  fl_chart: ^0.63.0
 
 flutter_native_splash:
   color: "#000000"

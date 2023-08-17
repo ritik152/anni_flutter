@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:anni_ai/dialogs/start_chat_dialog.dart';
+import 'package:anni_ai/dialogs/swipe_right_dialog.dart';
 import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/chat/receiver_text_view.dart';
 import 'package:anni_ai/screens/chat/sender_text_view.dart';
@@ -9,13 +10,17 @@ import 'package:anni_ai/utils/buttons.dart';
 import 'package:anni_ai/utils/color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
 
+import '../../dialogs/swipe_left_dialog.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
+import '../line_chart.dart';
 import 'chat_loader.dart';
 import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
+
 
 class Chat extends StatefulWidget {
   String? from;
@@ -27,6 +32,11 @@ class Chat extends StatefulWidget {
 
 class _ChatState extends State<Chat> {
 
+  late FlutterTts flutterTts;
+  double volume = 0.5;
+  double pitch = 1.0;
+  double rate = 0.5;
+  String? _newVoiceText;
 
   var vm = ChatVm();
   List<Map<String, dynamic>> map = [];
@@ -34,6 +44,8 @@ class _ChatState extends State<Chat> {
   @override
   void initState() {
     super.initState();
+
+    // initTts();
 
     if(widget.from == "signup"){
       WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -45,6 +57,81 @@ class _ChatState extends State<Chat> {
     }
 
     getData();
+  }
+
+
+ /* initTts() {
+    flutterTts = FlutterTts();
+
+    _setAwaitOptions();
+
+    if (isAndroid) {
+      _getDefaultEngine();
+      _getDefaultVoice();
+    }
+
+    flutterTts.setStartHandler(() {
+      setState(() {
+        print("Playing");
+        ttsState = TtsState.playing;
+      });
+    });
+
+    if (isAndroid) {
+      flutterTts.setInitHandler(() {
+        setState(() {
+          print("TTS Initialized");
+        });
+      });
+    }
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        print("Complete");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setCancelHandler(() {
+      setState(() {
+        print("Cancel");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setPauseHandler(() {
+      setState(() {
+        print("Paused");
+        ttsState = TtsState.paused;
+      });
+    });
+
+    flutterTts.setContinueHandler(() {
+      setState(() {
+        print("Continued");
+        ttsState = TtsState.continued;
+      });
+    });
+
+    flutterTts.setErrorHandler((msg) {
+      setState(() {
+        print("error: $msg");
+        ttsState = TtsState.stopped;
+      });
+    });
+  }*/
+
+
+  Future _speak(String? newVoiceText) async {
+    await flutterTts.setVolume(volume);
+    await flutterTts.setSpeechRate(rate);
+    await flutterTts.setPitch(pitch);
+
+    if (newVoiceText != null) {
+      if (newVoiceText!.isNotEmpty) {
+        await flutterTts.speak(newVoiceText!);
+      }
+    }
   }
 
   @override
@@ -107,6 +194,8 @@ class _ChatState extends State<Chat> {
                               padding: const EdgeInsets.all(8.0),
                               child:  GestureDetector(
                                   onTap: () async {
+
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> LineChartSample6()));
                                     vm.mute = !vm.mute;
                                     setState(() {
 
@@ -395,6 +484,8 @@ class _ChatState extends State<Chat> {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeOut);
             vm.timer.cancel();
+            _newVoiceText = model.body?.choices?.first.message.content.toString();
+            _speak(_newVoiceText);
           });
 
         });

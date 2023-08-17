@@ -218,7 +218,7 @@ class _PlayerDataState extends State<PlayerData> {
               const SizedBox(
                 height: 10,
               ),
-              const Expanded(
+              Expanded(
                 child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     children: [

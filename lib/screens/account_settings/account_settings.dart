@@ -175,6 +175,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                           child: RoundedButton(text: "Change Name", color: AppColor.black, buttonColor: AppColor.textGreenColor, radios: 50,
                               onTap: (){
                                 if(vm.nameValidation()){
+                                  hideKeyboard();
                                   vm.changeName(context);
                                 }
                               }),

@@ -17,6 +17,7 @@ var token = "qwe";
 
 RegisterModel registerModel = RegisterModel();
 SavedChatModel savedChatModel = SavedChatModel();
+
 //---------------------------------Post Method----------------------------------
 
 Future<String> thirdPartyMethod(String method, String url, Map<String, String>? fieldsParams, Map<String, String>? imageParams, BuildContext context) async {
@@ -128,7 +129,6 @@ Future<String> getMethodWithQuery(String method, String endUrl,
   print("${'${AllKeys.baseUrl}/$endUrl'}   $response");
   return response;
 }
-
 
 //---------------------------------Get profile----------------------------------
 
