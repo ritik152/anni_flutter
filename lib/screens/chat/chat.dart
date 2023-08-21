@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:anni_ai/dialogs/start_chat_dialog.dart';
-import 'package:anni_ai/dialogs/swipe_right_dialog.dart';
 import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/chat/receiver_text_view.dart';
 import 'package:anni_ai/screens/chat/sender_text_view.dart';
@@ -55,7 +53,6 @@ class _ChatState extends State<Chat> {
 
     getData();
   }
-
 
  /* initTts() {
     flutterTts = FlutterTts();
@@ -118,7 +115,6 @@ class _ChatState extends State<Chat> {
     });
   }*/
 
-
   Future _speak(String? newVoiceText) async {
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
@@ -129,6 +125,7 @@ class _ChatState extends State<Chat> {
         await flutterTts.speak(newVoiceText!);
       }
     }
+
   }
 
   @override
