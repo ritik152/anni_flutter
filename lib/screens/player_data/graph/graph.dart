@@ -95,7 +95,7 @@ class _GraphTabState extends State<GraphTab> {
 
               },
               child: Container(
-                color: AppColor.hintColor,
+                // color: AppColor.hintColor,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
                 child: Container(
@@ -137,6 +137,7 @@ class _GraphTabState extends State<GraphTab> {
                 lineBarsData: [
                   LineChartBarData(
                       color: AppColor.greenColor,
+                      isCurved: false,
                       dotData: const FlDotData(
                         show: false,
                       ),
@@ -152,7 +153,8 @@ class _GraphTabState extends State<GraphTab> {
                         const FlSpot(8, 20)
                       ]),
                 ],
-                titlesData: FlTitlesData(rightTitles: AxisTitles(), topTitles: AxisTitles(),
+                gridData: const FlGridData(drawVerticalLine: false),
+                titlesData: FlTitlesData(rightTitles: const AxisTitles(), topTitles: const AxisTitles(),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,

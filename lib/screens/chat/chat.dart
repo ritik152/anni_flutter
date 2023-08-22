@@ -136,9 +136,8 @@ class _ChatState extends State<Chat> {
         endDrawer: const RightDrawer(),
         drawerEdgeDragWidth: MediaQuery.of(context).size.width*0.50,
         endDrawerEnableOpenDragGesture: true,
-        body: Container(
+        body: SizedBox(
           height: double.infinity,
-          padding: const EdgeInsets.only(top: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -154,22 +153,10 @@ class _ChatState extends State<Chat> {
                     alignment: Alignment.centerRight,
                     height: MediaQuery.of(context).size.height * 0.30,
                     margin: const EdgeInsets.only(right: 10),
+                    padding: const EdgeInsets.only(top: 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () async {
-                            var value = await showTopModalSheet<String>(
-                                context, NewChat());
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            width: double.infinity,
-                            alignment: Alignment.centerRight,
-                            child: Image.asset("assets/icons/add_icon.png",
-                                height: 35, width: 35),
-                          ),
-                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -184,19 +171,33 @@ class _ChatState extends State<Chat> {
                                     height: 35, width: 35),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:  GestureDetector(
-                                  onTap: () async {
-
-                                    vm.mute = !vm.mute;
-                                    setState(() {
-
-                                    });
-                                  },
-                                  child: Image.asset((vm.mute == true)?"assets/icons/mute_icon.png":"assets/icons/volume.png",height: 35,width: 35)),
+                            GestureDetector(
+                              onTap: () async {
+                                var value = await showTopModalSheet<String>(
+                                    context, NewChat());
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(8.0),
+                                alignment: Alignment.centerRight,
+                                child: Image.asset("assets/icons/add_icon.png",
+                                    height: 35, width: 35),
+                              ),
                             ),
                           ],
+                        ),
+                        Container(
+                          width: double.infinity,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.all(8.0),
+                          child:  GestureDetector(
+                              onTap: () async {
+
+                                vm.mute = !vm.mute;
+                                setState(() {
+
+                                });
+                              },
+                              child: Image.asset((vm.mute == true)?"assets/icons/mute_icon.png":"assets/icons/volume.png",height: 35,width: 35)),
                         ),
                       ],
                     ),
@@ -272,7 +273,7 @@ class _ChatState extends State<Chat> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                     decoration: BoxDecoration(
-                        color: AppColor.backColor,
+                        color: AppColor.black,
                         borderRadius: BorderRadius.circular(30)
                     ),
                     padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 10, top: 10),
@@ -287,6 +288,7 @@ class _ChatState extends State<Chat> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
                                   color: AppColor.fieldBack,
+                                  border: Border.all(color: AppColor.backColor)
                                   /*boxShadow: [
                                       BoxShadow(
                                           spreadRadius: 2,

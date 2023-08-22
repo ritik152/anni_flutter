@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: AppColor.backColor,
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
             ),
-            padding: const EdgeInsets.only(top: 35,bottom: 20,right: 20,left: 20),
+            padding: const EdgeInsets.only(top: 50,bottom: 20,right: 20,left: 20),
             child: Stack(
               children: [
 
@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(top: 70),
+                    margin: const EdgeInsets.only(top: 40),
                     height: 120,
                     width: 120,
                     child: Stack(
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 15,),
+                  const SizedBox(height: 10,),
                   BoldText(registerModel.body!.name.toString(), 17, AppColor.whiteColor, TextAlign.center),
 
                   const SizedBox(height: 20,),
@@ -112,9 +112,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                       child: Row(
                         children: [
                           Image.asset("assets/icons/settings.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -137,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       margin:
                       const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                       child: Row(
                         children: [
                           Image.asset("assets/icons/subscription.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -160,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       margin:
                       const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                       child: Row(
                         children: [
                           Image.asset("assets/icons/help.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -179,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     margin:
                     const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                     child: Row(
                       children: [
                         Image.asset("assets/icons/legal.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -203,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       margin:
                       const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                       child: Row(
                         children: [
                           Image.asset("assets/icons/logout_icon.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -230,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       margin:
                       const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 17,horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
                       child: Row(
                         children: [
                           Image.asset("assets/icons/delete.png",height: 20,width: 20,color: AppColor.greenColor,),
@@ -242,7 +241,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   ),
 
-                  const SizedBox(height: 80,),
+                  const SizedBox(height: 50,),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -252,7 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset("assets/images/ball.png",height: 50,),
+                            Image.asset("assets/images/aifg.png",height: 50,),
                             const SizedBox(height: 10,),
                             CommonText("2023 AI Fantasy Guys", 11, AppColor.whiteColor, TextAlign.start),
                             CommonText("All Rights Reserved", 11, AppColor.whiteColor, TextAlign.start),

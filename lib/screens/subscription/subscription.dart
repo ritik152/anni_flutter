@@ -1,10 +1,8 @@
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/buttons.dart';
 import '../../utils/color.dart';
 import '../chat/chat.dart';
-import '../signup/signup.dart';
 
 class Subscription extends StatefulWidget {
   const Subscription({Key? key}) : super(key: key);
@@ -38,7 +36,7 @@ class _SubscriptionState extends State<Subscription> {
               BoldText("\$9.99", 55, AppColor.whiteColor, TextAlign.center),
               BoldText("/month", 15, AppColor.hintColor, TextAlign.center),
               const SizedBox(height: 50,),
-              BoldText("What can you do with premium?", 18, AppColor.whiteColor, TextAlign.center),
+              BoldText("What can premium do?", 18, AppColor.whiteColor, TextAlign.center),
               const SizedBox(height: 30,),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -59,7 +57,7 @@ class _SubscriptionState extends State<Subscription> {
                           const SizedBox(height: 5,),
                           SizedBox(
                             width: 150,
-                              child: MediumText("Unlimited message with Anni", 13, AppColor.whiteColor, TextAlign.start))
+                              child: MediumText("Unlimited messages & statistics from Anni", 13, AppColor.whiteColor, TextAlign.start))
                         ],
                       ),
                     ),
@@ -77,7 +75,25 @@ class _SubscriptionState extends State<Subscription> {
                           const SizedBox(height: 5,),
                           SizedBox(
                             width: 150,
-                              child: MediumText("Unlimited tabs,charts and graphs from Anni", 13, AppColor.whiteColor, TextAlign.start))
+                              child: MediumText("Unlimited tables & graphs from Anni", 13, AppColor.whiteColor, TextAlign.start))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppColor.backColor
+                      ),
+                      margin: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset("assets/icons/article.png",height: 30,width: 30),
+                          const SizedBox(height: 5,),
+                          SizedBox(
+                            width: 150,
+                              child: MediumText("Unlimited Article generations from Anni ", 13, AppColor.whiteColor, TextAlign.start))
                         ],
                       ),
                     ),

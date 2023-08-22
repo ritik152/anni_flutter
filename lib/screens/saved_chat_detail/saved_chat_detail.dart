@@ -108,7 +108,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(30),
                               bottomRight: Radius.circular(30))),
-                      padding: const EdgeInsets.only(top: 35, bottom: 20, right: 20, left: 20),
+                      padding: const EdgeInsets.only(top: 45, bottom: 20, right: 20, left: 20),
                       child: Stack(
                         children: [
                           SizedBox(
@@ -146,7 +146,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                   alignment: Alignment.bottomCenter,
                   child: Container(
                       decoration: BoxDecoration(
-                          color: AppColor.backColor,
+                          color: AppColor.black,
                           borderRadius: BorderRadius.circular(30)
                       ),
                       padding: const EdgeInsets.only(left: 25.0, right: 25.0, bottom: 10, top: 10),
@@ -161,6 +161,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(25),
                                     color: AppColor.fieldBack,
+                                      border: Border.all(color: AppColor.backColor)
                                     /*boxShadow: [
                                       BoxShadow(
                                           spreadRadius: 2,

@@ -14,7 +14,6 @@ import '../../utils/common.dart';
 class LogoutVM{
 
 
-
   Future<void> logout(BuildContext context) async {
     showLoader(context);
     SharedPreferences srf = await SharedPreferences.getInstance();

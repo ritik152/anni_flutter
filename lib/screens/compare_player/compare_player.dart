@@ -22,7 +22,7 @@ class _ComparePlayerState extends State<ComparePlayer> {
                 color: AppColor.backColor,
                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
             ),
-            padding: const EdgeInsets.only(top: 35,bottom: 20,right: 20,left: 20),
+            padding: const EdgeInsets.only(top: 50,bottom: 20,right: 20,left: 20),
             child: Column(
               children: [
                 Stack(
