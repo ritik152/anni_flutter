@@ -84,7 +84,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(top: 60),
-                        child: Image.asset("assets/images/ai_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),),
+                        child: Image.asset("assets/images/anni_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),),
                     Container(
                       alignment: Alignment.bottomRight,
                       margin: const EdgeInsets.only(top: 55),

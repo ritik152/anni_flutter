@@ -15,24 +15,33 @@ class LogoutVM{
 
 
   Future<void> logout(BuildContext context) async {
+
     showLoader(context);
+
     SharedPreferences srf = await SharedPreferences.getInstance();
 
     String response = await methodWithHeader("PUT", AllKeys.logout, null, null, context);
+
     var res = jsonDecode(response);
+
     CommonModel commonModel = CommonModel.fromJson(res);
 
     hideLoader(context);
+
     if(commonModel.code == 200){
+
       srf.clear();
+
       showToast(commonModel.message.toString());
+
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Login()), (route) => false);
 
-    }else{
-      showError(commonModel.message.toString());
     }
+    else{
 
+      showError(commonModel.message.toString());
 
+    }
 
   }
 

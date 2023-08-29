@@ -55,7 +55,8 @@ class _SplashScreenState extends State<SplashScreen> {
           aspectRatio: controller.value.aspectRatio,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 70,vertical: 50),
-            child: VideoPlayer(controller),
+            child: Image.asset("assets/images/ball.png"),
+            // child: VideoPlayer(controller),
           ),
         ),
       ),

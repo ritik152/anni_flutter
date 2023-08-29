@@ -17,6 +17,7 @@ var urlPattern = r"(https?|http)://([-A-Z0-9.]+)(/[-A-Z0-9+&@#/%=~_|!:,.;]*)?(\?
 const platform = MethodChannel('com.auria/custom');
 
 void showToast(String msg) {
+
   Fluttertoast.showToast(
       msg: msg, // message
       backgroundColor: AppColor.greenColor,
@@ -24,9 +25,11 @@ void showToast(String msg) {
       gravity: ToastGravity.BOTTOM, // location
       timeInSecForIosWeb: 3 // duration
   );
+
 }
 
 void showError(String msg) {
+
   Fluttertoast.showToast(
       msg: msg, // message
       backgroundColor: AppColor.redColor,
@@ -34,6 +37,7 @@ void showError(String msg) {
       gravity: ToastGravity.BOTTOM, // location
       timeInSecForIosWeb: 3 // duration
   );
+
 }
 
 void showLoader(BuildContext context){

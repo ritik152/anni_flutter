@@ -144,7 +144,7 @@ class _ChatState extends State<Chat> {
               Stack(
                 children: [
                   Image.asset(
-                    "assets/images/ai_image.png",
+                    "assets/images/anni_image.png",
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.30,
                     fit: BoxFit.cover,

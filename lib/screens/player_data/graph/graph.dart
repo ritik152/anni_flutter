@@ -60,27 +60,30 @@ class _GraphTabState extends State<GraphTab> {
                     builder: (context) => const FilterGraphDialog());
               },
               child: Container(
-                color: AppColor.backColor,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BoldText(
-                            "Yards", 13, AppColor.whiteColor, TextAlign.start),
-                        BoldText(
-                            "per game", 13, AppColor.hintColor, TextAlign.start)
-                      ],
-                    ),
-                    Image.asset(
-                      "assets/icons/filter.png",
-                      height: 20,
-                      width: 20,
-                    )
-                  ],
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                child: Container(
+                  decoration: BoxDecoration(color: AppColor.backColor, borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BoldText(
+                              "Yards", 13, AppColor.whiteColor, TextAlign.start),
+                          BoldText(
+                              "per game", 13, AppColor.hintColor, TextAlign.start)
+                        ],
+                      ),
+                      Image.asset(
+                        "assets/icons/filter.png",
+                        height: 20,
+                        width: 20,
+                      )
+                    ],
+                  ),
                 ),
               ),
             )),
@@ -99,11 +102,8 @@ class _GraphTabState extends State<GraphTab> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColor.backColor,
-                      borderRadius: BorderRadius.circular(30)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  decoration: BoxDecoration(color: AppColor.backColor, borderRadius: BorderRadius.circular(30)),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
