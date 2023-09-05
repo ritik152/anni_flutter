@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:anni_ai/dialogs/start_chat_dialog.dart';
 import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/chat/receiver_text_view.dart';
@@ -10,12 +11,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
+import 'package:video_player/video_player.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
 import 'chat_loader.dart';
 import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
-
 
 class Chat extends StatefulWidget {
   String? from;
@@ -25,22 +26,43 @@ class Chat extends StatefulWidget {
   State<Chat> createState() => _ChatState();
 }
 
+enum TtsState { playing, stopped, paused, continued }
+
 class _ChatState extends State<Chat> {
-
-  late FlutterTts flutterTts;
-  double volume = 0.5;
-  double pitch = 1.0;
-  double rate = 0.5;
-  String? _newVoiceText;
-
   var vm = ChatVm();
   List<Map<String, dynamic>> map = [];
+
+
+  late FlutterTts flutterTts;
+  String? language;
+  String? engine;
+  double volume = 0.5;
+  double pitch = 1.1;
+  double rate = 0.5;
+  bool isCurrentLanguageInstalled = false;
+
+  TtsState ttsState = TtsState.stopped;
+
+  get isPlaying => ttsState == TtsState.playing;
+  get isStopped => ttsState == TtsState.stopped;
+  get isPaused => ttsState == TtsState.paused;
+  get isContinued => ttsState == TtsState.continued;
+
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isWindows => !kIsWeb && Platform.isWindows;
+  bool get isWeb => kIsWeb;
+
 
   @override
   void initState() {
     super.initState();
 
-    // initTts();
+    initTts();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      // initLanguages();
+    });
 
     if(widget.from == "signup"){
       WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -51,10 +73,20 @@ class _ChatState extends State<Chat> {
       });
     }
 
+    vm.controller = VideoPlayerController.asset('assets/video/test.mp4');
+    vm.controller.setLooping(true);
+    vm.controller.setVolume(0.0);
+    vm.controller.initialize().then((value){
+      setState(() {
+
+      });
+
+    });
+
     getData();
   }
 
- /* initTts() {
+  initTts() {
     flutterTts = FlutterTts();
 
     _setAwaitOptions();
@@ -82,6 +114,8 @@ class _ChatState extends State<Chat> {
     flutterTts.setCompletionHandler(() {
       setState(() {
         print("Complete");
+        vm.controller.pause();
+        vm.controller.seekTo(const Duration(seconds: 0));
         ttsState = TtsState.stopped;
       });
     });
@@ -113,7 +147,21 @@ class _ChatState extends State<Chat> {
         ttsState = TtsState.stopped;
       });
     });
-  }*/
+  }
+
+  Future _getDefaultEngine() async {
+    var engine = await flutterTts.getDefaultEngine;
+    if (engine != null) {
+      print(engine);
+    }
+  }
+
+  Future _getDefaultVoice() async {
+    var voice = await flutterTts.getDefaultVoice;
+    if (voice != null) {
+      print(voice);
+    }
+  }
 
   Future _speak(String? newVoiceText) async {
     await flutterTts.setVolume(volume);
@@ -121,19 +169,46 @@ class _ChatState extends State<Chat> {
     await flutterTts.setPitch(pitch);
 
     if (newVoiceText != null) {
-      if (newVoiceText!.isNotEmpty) {
-        await flutterTts.speak(newVoiceText!);
+      if (newVoiceText.isNotEmpty) {
+        await flutterTts.speak(newVoiceText);
       }
     }
-
   }
+
+  Future _setAwaitOptions() async {
+    await flutterTts.awaitSpeakCompletion(true);
+  }
+
+  Future _stop() async {
+    var result = await flutterTts.stop();
+    if (result == 1) setState(() => ttsState = TtsState.stopped);
+  }
+
+  @override
+  void dispose() {
+    vm.controller.dispose();
+    flutterTts.stop();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.black,
-        drawer: const LeftDrawer(),
-        endDrawer: const RightDrawer(),
+        drawer: LeftDrawer(vm),
+        endDrawer: RightDrawer(vm),
+        onDrawerChanged: (isOpened) {
+         if(isOpened){
+
+         }else{
+           setState(() {
+
+           });
+         }
+        },
+        onEndDrawerChanged: (isOpened) {
+
+        },
         drawerEdgeDragWidth: MediaQuery.of(context).size.width*0.50,
         endDrawerEnableOpenDragGesture: true,
         body: SizedBox(
@@ -143,15 +218,19 @@ class _ChatState extends State<Chat> {
             children: [
               Stack(
                 children: [
-                  Image.asset(
-                    "assets/images/anni_image.png",
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.30,
-                    fit: BoxFit.cover,
-                  ),
+                  SizedBox(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      child: VideoPlayer(vm.controller)),
+                  // if(vm.mute)Image.asset(
+                  //   "assets/images/anni_image.png",
+                  //   width: double.infinity,
+                  //   height: MediaQuery.of(context).size.height * 0.30,
+                  //   fit: BoxFit.cover,
+                  // ),
                   Container(
                     alignment: Alignment.centerRight,
-                    height: MediaQuery.of(context).size.height * 0.30,
+                    height: MediaQuery.of(context).size.height * 0.29,
                     margin: const EdgeInsets.only(right: 10),
                     padding: const EdgeInsets.only(top: 30),
                     child: Column(
@@ -194,7 +273,11 @@ class _ChatState extends State<Chat> {
 
                                 vm.mute = !vm.mute;
                                 setState(() {
-
+                                  if(vm.mute == true){
+                                    vm.controller.pause();
+                                    vm.controller.seekTo(const Duration(seconds: 0));
+                                    _stop();
+                                  }
                                 });
                               },
                               child: Image.asset((vm.mute == true)?"assets/icons/mute_icon.png":"assets/icons/volume.png",height: 35,width: 35)),
@@ -474,13 +557,14 @@ class _ChatState extends State<Chat> {
       setState(() {
         vm.timer = Timer(const Duration(milliseconds: 200), () {
           setState(() {
-            vm.scrollController.animateTo(
-                vm.scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut);
+            vm.scrollController.animateTo(vm.scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
             vm.timer.cancel();
-            _newVoiceText = model.body?.choices?.first.message.content.toString();
-            _speak(_newVoiceText);
+            var _newVoiceText = model.body?.choices?.first.message.content.toString();
+            if(vm.mute != true){
+              _speak(_newVoiceText);
+              // speak(_newVoiceText);
+              vm.controller.play();
+            }
           });
 
         });
@@ -681,6 +765,7 @@ class _ChatState extends State<Chat> {
 
   Future<void> getData() async {
     vm.getSavedChat(context);
+    vm.getAlerts(context);
     var data = await vm.getProfile(context);
 
     if(data){

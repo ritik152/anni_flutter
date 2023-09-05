@@ -4,6 +4,7 @@ import 'package:anni_ai/screens/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../screens/alerts/alerts_model.dart';
 import '../screens/save_chat_list/SavedChatModel.dart';
 import '../utils/all_keys.dart';
 import '../utils/common.dart';
@@ -17,6 +18,7 @@ var token = "qwe";
 
 RegisterModel registerModel = RegisterModel();
 SavedChatModel savedChatModel = SavedChatModel();
+AlertsModel alertsModel = AlertsModel();
 
 //---------------------------------Post Method----------------------------------
 
@@ -41,8 +43,7 @@ Future<String> postMethod(String method, String url, Map<String, String>? fields
   }
   if (imageParams != null) {
     imageParams.forEach((key, value) async {
-      request.files.add(
-          await http.MultipartFile.fromPath(key.split(key_splite)[0], value));
+      request.files.add(await http.MultipartFile.fromPath(key.split(key_splite)[0], value));
     });
   }
 

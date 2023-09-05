@@ -1,3 +1,4 @@
+import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../utils/color.dart';
@@ -5,7 +6,8 @@ import '../../../../utils/common_widget.dart';
 import '../../../player_data/player_data.dart';
 
 class RightDrawer extends StatefulWidget {
-  const RightDrawer({Key? key}) : super(key: key);
+  ChatVm vm;
+  RightDrawer(this.vm, {Key? key}) : super(key: key);
 
   @override
   State<RightDrawer> createState() => _RightDrawerState();

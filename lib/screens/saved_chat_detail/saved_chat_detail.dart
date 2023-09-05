@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../dialogs/delete_save_chat/delete_save_chat.dart';
 import '../../utils/color.dart';
@@ -21,18 +25,53 @@ class SavedChatDetail extends StatefulWidget {
   State<SavedChatDetail> createState() => _SavedChatDetailState();
 }
 
+enum TtsState { playing, stopped, paused, continued }
+
 class _SavedChatDetailState extends State<SavedChatDetail> {
 
   var mute = false;
   var vm = ChatVm();
+  late VideoPlayerController controllerSaved;
   List<Map<String, dynamic>> map = [];
+
+  late FlutterTts flutterTts;
+  String? language;
+  String? engine;
+  double volume = 0.5;
+  double pitch = 1.1;
+  double rate = 0.5;
+  bool isCurrentLanguageInstalled = false;
+
+  TtsState ttsState = TtsState.stopped;
+
+  get isPlaying => ttsState == TtsState.playing;
+  get isStopped => ttsState == TtsState.stopped;
+  get isPaused => ttsState == TtsState.paused;
+  get isContinued => ttsState == TtsState.continued;
+
+  bool get isIOS => !kIsWeb && Platform.isIOS;
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
+  bool get isWindows => !kIsWeb && Platform.isWindows;
+  bool get isWeb => kIsWeb;
+
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
+    initTts();
+
+    controllerSaved = VideoPlayerController.asset('assets/video/video_anni.mp4');
+    controllerSaved.setLooping(true);
+    controllerSaved.setVolume(0.0);
+    controllerSaved.initialize().then((value){
+      setState(() {
+
+      });
+    });
+
     if (widget.messageList.isNotEmpty) {
+
       for (var i = 0; i < widget.messageList.length; i++) {
         LocalChatData aiData = LocalChatData(
             isFrom: widget.messageList[i]["isFrom"].toString(),
@@ -67,8 +106,116 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
           });
         });
       });
+
+    }
+
+  }
+
+
+  initTts() {
+    flutterTts = FlutterTts();
+
+    _setAwaitOptions();
+
+    if (isAndroid) {
+      _getDefaultEngine();
+      _getDefaultVoice();
+    }
+
+    flutterTts.setStartHandler(() {
+      setState(() {
+        print("Playing");
+        ttsState = TtsState.playing;
+      });
+    });
+
+    if (isAndroid) {
+      flutterTts.setInitHandler(() {
+        setState(() {
+          print("TTS Initialized");
+        });
+      });
+    }
+
+    flutterTts.setCompletionHandler(() {
+      setState(() {
+        print("Complete");
+        controllerSaved.pause();
+        controllerSaved.seekTo(const Duration(seconds: 0));
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setCancelHandler(() {
+      setState(() {
+        print("Cancel");
+        ttsState = TtsState.stopped;
+      });
+    });
+
+    flutterTts.setPauseHandler(() {
+      setState(() {
+        print("Paused");
+        ttsState = TtsState.paused;
+      });
+    });
+
+    flutterTts.setContinueHandler(() {
+      setState(() {
+        print("Continued");
+        ttsState = TtsState.continued;
+      });
+    });
+
+    flutterTts.setErrorHandler((msg) {
+      setState(() {
+        print("error: $msg");
+        ttsState = TtsState.stopped;
+      });
+    });
+  }
+
+  Future _getDefaultEngine() async {
+    var engine = await flutterTts.getDefaultEngine;
+    if (engine != null) {
+      print(engine);
     }
   }
+
+  Future _getDefaultVoice() async {
+    var voice = await flutterTts.getDefaultVoice;
+    if (voice != null) {
+      print(voice);
+    }
+  }
+
+  Future _speak(String? newVoiceText) async {
+    await flutterTts.setVolume(volume);
+    await flutterTts.setSpeechRate(rate);
+    await flutterTts.setPitch(pitch);
+
+    if (newVoiceText != null) {
+      if (newVoiceText.isNotEmpty) {
+        await flutterTts.speak(newVoiceText);
+      }
+    }
+  }
+
+  Future _setAwaitOptions() async {
+    await flutterTts.awaitSpeakCompletion(true);
+  }
+
+  Future _stop() async {
+    var result = await flutterTts.stop();
+    if (result == 1) setState(() => ttsState = TtsState.stopped);
+  }
+
+  @override
+  void dispose() {
+    vm.controller.dispose();
+    flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +231,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                   children: [
                     Container(
                       margin: const EdgeInsets.only(top: 60),
-                        child: Image.asset("assets/images/anni_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),),
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.30,
+                      child: VideoPlayer(controllerSaved),
+                        // Image.asset("assets/images/anni_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),
+                    ),
                     Container(
                       alignment: Alignment.bottomRight,
                       margin: const EdgeInsets.only(top: 55),
@@ -96,6 +247,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                           onTap: (){
                             mute = !mute;
                             setState(() {
+                              if(mute == true){
+                                controllerSaved.pause();
+                                controllerSaved.seekTo(const Duration(seconds: 0));
+                                _stop();
+                              }
 
                             });
                           },
@@ -117,7 +273,8 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                           ),
                           GestureDetector(
                               onTap: (){
-                                Navigator.pop(context);
+                                controllerSaved.dispose();
+                                Navigator.pop(context,true);
                               },
                               child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)),
                           Align(
@@ -336,11 +493,13 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
       setState(() {
         vm.timer = Timer(const Duration(milliseconds: 200), () {
           setState(() {
-            vm.scrollController.animateTo(
-                vm.scrollController.position.maxScrollExtent,
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeOut);
+            vm.scrollController.animateTo(vm.scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
             vm.timer.cancel();
+            var _newVoiceText = model.body?.choices?.first.message.content.toString();
+            if(mute != true){
+              _speak(_newVoiceText);
+              controllerSaved.play();
+            }
           });
 
         });

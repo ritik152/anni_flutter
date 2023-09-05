@@ -71,7 +71,7 @@ Widget MediumText(String s, double size,Color color, TextAlign align) {
 
 Widget Progress() {
   return Center(child: Platform.isAndroid?CircularProgressIndicator(
-    color: AppColor.yellowColor,
+    color: AppColor.greenColor,
   ):const CupertinoActivityIndicator());
 }
 

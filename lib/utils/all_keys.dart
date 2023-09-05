@@ -19,6 +19,7 @@ class AllKeys {
   static var getSavedChat = "getSavedChat";
   static var deleteSavedChat = "deleteSavedChat";
   static var deleteAccount = "delete-account";
+  static var getNews = "getNews";
 
   //--------------------------------------------SharedPreferences Keys-------------------
   static String first = "first";

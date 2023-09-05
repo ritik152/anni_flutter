@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 import '../../apis/RegisterModel.dart';
 import '../../apis/api_controller.dart';
 import '../../apis/common_model.dart';
 import '../../utils/all_keys.dart';
 import '../../utils/common.dart';
+import '../alerts/alerts_model.dart';
 import '../save_chat_list/SavedChatModel.dart';
 import 'chat_model.dart';
 
@@ -16,6 +18,7 @@ class ChatVm{
   TextEditingController saveChatController = TextEditingController();
   List<LocalChatData> chatArray = [];
   ScrollController scrollController = ScrollController();
+  late VideoPlayerController controller;
   String lastQuestion = '';
   String lastWords = '';
   var errorMesasge = '';
@@ -88,6 +91,22 @@ class ChatVm{
     savedChatModel = SavedChatModel.fromJson(response);
 
     if(savedChatModel.code == 200){
+
+    }else{
+
+    }
+
+    return true;
+  }
+
+  getAlerts(BuildContext context) async {
+    String res = await getMethodWithQuery("GET", "${AllKeys.getNews}?page=1&limit=10", null, context);
+
+    var response = jsonDecode(res);
+
+    alertsModel = AlertsModel.fromJson(response);
+
+    if(alertsModel.code == 200){
 
     }else{
 

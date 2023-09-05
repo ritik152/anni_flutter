@@ -1,10 +1,12 @@
 import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/alert_detail/alert_detail.dart';
+import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/save_chat_list/save_chats.dart';
 import 'package:anni_ai/utils/color.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:video_player/video_player.dart';
 import '../../../../utils/all_keys.dart';
 import '../../../alerts/alerts.dart';
 import '../../../betting_data/betting_data.dart';
@@ -12,8 +14,8 @@ import '../../../profile/profile_screen.dart';
 import '../../../saved_chat_detail/saved_chat_detail.dart';
 
 class LeftDrawer extends StatefulWidget {
-
-  const LeftDrawer({Key? key}) : super(key: key);
+  ChatVm vm;
+  LeftDrawer(this.vm, {Key? key}) : super(key: key);
 
   @override
   State<LeftDrawer> createState() => _LeftDrawerState();
@@ -210,20 +212,18 @@ class _LeftDrawerState extends State<LeftDrawer> {
                         const SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
+                        if(alertsModel.body != null)SizedBox(
                             height: 280,
                             child: ListView.builder(
-                                itemCount: 3,
+                                itemCount: (alertsModel.body!.length <= 3)?alertsModel.body!.length:3,
                                 padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const AlertDetail()));
+                                      Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) => AlertDetail(
+                                                  detailData : alertsModel.body![index])));
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -235,18 +235,22 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                               color: AppColor.hintColor)),
                                       padding: const EdgeInsets.all(10),
                                       child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               BoldText(
-                                                  "Anni Alerts",
+                                                  (alertsModel.body![index].type == 1)
+                                                      ?"Injury Report":(alertsModel.body![index].type == 2)
+                                                      ?"Depth Chart Change!"
+                                                      :"Anni Alerts",
                                                   13,
                                                   AppColor.whiteColor,
                                                   TextAlign.start),
                                               MediumText(
-                                                  "Nov 3,2023",
+                                                  dateFormatAlert( alertsModel.body![index].jsonData!.updated.toString()),
                                                   10,
                                                   AppColor.whiteColor,
                                                   TextAlign.start),
@@ -255,11 +259,11 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          CommonText(
-                                              "Lorem ipsum dolor sit amet, consecrate sadipscing slitr,sed diam no",
-                                              10,
-                                              AppColor.whiteColor,
-                                              TextAlign.start),
+                                          CommonText((alertsModel.body![index].type == 1)
+                                              ?"${alertsModel.body![index].jsonData!.name} (${alertsModel.body![index].jsonData!.position.toString()})"
+                                              :(alertsModel.body![index].type == 2)
+                                              ?"${alertsModel.body![index].jsonData!.name.toString()} (${alertsModel.body![index].jsonData!.position.toString()})"
+                                              :alertsModel.body![index].jsonData!.title.toString(), 10, AppColor.whiteColor, TextAlign.start),
                                           SizedBox(
                                             width: double.infinity,
                                             child: BoldText(
@@ -283,6 +287,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                       children: [
                         GestureDetector(
                           onTap: () async {
+                            widget.vm.controller.dispose();
                             var data = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -306,9 +311,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                         const SizedBox(
                           height: 10,
                         ),
-                        if(savedChatModel.body != null)SizedBox(
-                            height: 150,
-                            child: ListView.builder(
+                        if(savedChatModel.body != null)SizedBox(height: 150, child: ListView.builder(
                                 itemCount: (savedChatModel.body!.length <= 3)?savedChatModel.body!.length:3,
                                 padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -329,12 +332,21 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                         mapRate['id'] = savedChatModel.body![index].jsonData![i].id.toString();
                                         messageList.add(mapRate);
                                       }
+                                      widget.vm.controller.dispose();
                                       var data = await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>  SavedChatDetail(messageList: messageList,
                                                   chatId : savedChatModel.body![index].id,
                                                   title : savedChatModel.body![index].title.toString())));
+                                      widget.vm.controller = VideoPlayerController.asset('assets/video/test.mp4');
+                                      widget.vm.controller.setLooping(true);
+                                      widget.vm.controller.setVolume(0.0);
+                                      widget.vm.controller.initialize().then((value){
+                                        setState(() {
+
+                                        });
+                                      });
                                       setState(() {
 
                                       });
@@ -366,8 +378,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                     ),
                                   );
                                 }
-                                )
-                        ),
+                                )),
                       ],
                     ),
                   ),
@@ -383,8 +394,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
   String dateFormat(String eventDate) {
     var createTime = "";
     String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
-    print(
-        formattedDate2); //formatted date output using intl package =>  2021-03-16
+    print(formattedDate2); //formatted date output using intl package =>  2021-03-16
+    createTime = formattedDate2.toString();
+    return createTime;
+  }
+  String dateFormatAlert(String eventDate) {
+    var createTime = "";
+    String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+    print(formattedDate2); //formatted date output using intl package =>  2021-03-16
     createTime = formattedDate2.toString();
     return createTime;
   }

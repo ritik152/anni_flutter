@@ -1,5 +1,7 @@
+import 'package:anni_ai/screens/alerts/alerts_vm.dart';
 import 'package:flutter/material.dart';
 
+import '../../apis/api_controller.dart';
 import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 import '../alert_detail/alert_detail.dart';
@@ -12,6 +14,18 @@ class Alerts extends StatefulWidget {
 }
 
 class _AlertsState extends State<Alerts> {
+
+  var vm = AlertsVm();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+   getData();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +53,16 @@ class _AlertsState extends State<Alerts> {
             ),
           ),
 
-          Expanded(child: ListView.builder(
+          Expanded(child: (vm.isLoading)?Progress()
+              :(alertsModel.body == null)
+              ?NoData("No Data", "assets/images/no_data.png", context)
+              :ListView.builder(
             padding: EdgeInsets.zero,
+              itemCount: alertsModel.body!.length,
               itemBuilder: (context,index){
             return GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const AlertDetail()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AlertDetail(detailData : alertsModel.body![index])));
               },
               child: Container(
                 width: double.infinity,
@@ -55,16 +73,25 @@ class _AlertsState extends State<Alerts> {
                 ),
                 padding: const EdgeInsets.all(10),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MediumText("Anni Alerts", 13, AppColor.whiteColor, TextAlign.start),
-                        MediumText("Nov 3,2023", 10, AppColor.whiteColor, TextAlign.start),
+                        MediumText((alertsModel.body![index].type == 1)
+                            ?"Injury Report":(alertsModel.body![index].type == 2)
+                            ?"Depth Chart Change!"
+                            :"Anni Alerts", 13, AppColor.whiteColor, TextAlign.start),
+                        MediumText(vm.changeFormat(alertsModel.body![index].jsonData!.updated.toString()), 10, AppColor.whiteColor, TextAlign.start),
                       ],
                     ),
                     const SizedBox(height: 10,),
-                    CommonText("Lorem ipsum dolor sit amet, consecrate sadipscing slitr,sed diam no", 10, AppColor.whiteColor, TextAlign.start),
+                    CommonText((alertsModel.body![index].type == 1)
+                        ?alertsModel.body![index].jsonData!.name.toString()+ " (${alertsModel.body![index].jsonData!.position.toString()})"
+                        :(alertsModel.body![index].type == 2)
+                        ?"${alertsModel.body![index].jsonData!.name.toString()} (${alertsModel.body![index].jsonData!.position.toString()})"
+                        :alertsModel.body![index].jsonData!.title.toString(), 10, AppColor.whiteColor, TextAlign.start),
+                    const SizedBox(height: 10,),
                     SizedBox(
                       width: double.infinity,
                       child: BoldText("Read More", 12, AppColor.textGreenColor, TextAlign.end),
@@ -77,5 +104,13 @@ class _AlertsState extends State<Alerts> {
         ],
       ),
     );
+  }
+
+  Future<void> getData() async {
+    var data = await vm.getAlerts(context);
+
+    setState(() {
+
+    });
   }
 }

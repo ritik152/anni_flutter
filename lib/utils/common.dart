@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'color.dart';
 
 
@@ -75,4 +76,25 @@ void hideKeyboard() {
   FocusManager.instance.primaryFocus?.unfocus();
 }
 
+
+String dateFormat(String eventDate) {
+  var createTime = "";
+  String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+  print(formattedDate2); //formatted date output using intl package =>  2021-03-16
+  createTime = formattedDate2.toString();
+  return createTime;
+}
+
+
+String getOrdinal(int number) {
+  if (number % 10 == 1 && number % 100 != 11) {
+    return '$number${number == 11 ? "th" : "st"}';
+  } else if (number % 10 == 2 && number % 100 != 12) {
+    return '$number${number == 12 ? "th" : "nd"}';
+  } else if (number % 10 == 3 && number % 100 != 13) {
+    return '$number${number == 13 ? "th" : "rd"}';
+  } else {
+    return '$number' + 'th';
+  }
+}
 
