@@ -85,6 +85,14 @@ String dateFormat(String eventDate) {
   return createTime;
 }
 
+String dateTimeFormat(String eventDate) {
+  var createTime = "";
+  String formattedDate2 = DateFormat('hh:mm a MMM dd').format(DateTime.parse(eventDate).toUtc());
+  print(formattedDate2); //formatted date output using intl package =>  2021-03-16
+  createTime = formattedDate2.toString();
+  return createTime;
+}
+
 
 String getOrdinal(int number) {
   if (number % 10 == 1 && number % 100 != 11) {

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:anni_ai/apis/api_controller.dart';
+import 'package:anni_ai/screens/betting_data/betting_data_vm.dart';
+import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,10 +21,7 @@ class BeatingData extends StatefulWidget {
 
 class _BeatingDataState extends State<BeatingData> {
 
-  List<BettingDataModel> bettingData = [];
-  List<AllTeamsModel> allTeams = [];
-
-  var isLoading = true;
+  var vm = BettingDataVm();
 
   @override
   void initState() {
@@ -94,88 +93,88 @@ class _BeatingDataState extends State<BeatingData> {
                       child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: DropdownButton(
-                            value: "Week 1",
+                            value: vm.value,
                             items: const [ //add items in the dropdown
                               DropdownMenuItem(
-                                value: "Week 1",
+                                value: "1",
                                 child: Text("Week 1"),
                               ),
                               DropdownMenuItem(
-                                  value: "Week 2",
+                                  value: "2",
                                   child: Text("Week 2")
                               ),
                               DropdownMenuItem(
-                                value: "Week 3",
+                                value: "3",
                                 child: Text("Week 3"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 4",
+                                value: "4",
                                 child: Text("Week 4"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 5",
+                                value: "5",
                                 child: Text("Week 5"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 6",
+                                value: "6",
                                 child: Text("Week 6"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 7",
+                                value: "7",
                                 child: Text("Week 7"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 8",
+                                value: "8",
                                 child: Text("Week 8"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 9",
+                                value: "9",
                                 child: Text("Week 9"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 10",
+                                value: "10",
                                 child: Text("Week 10"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 11",
+                                value: "11",
                                 child: Text("Week 11"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 12",
+                                value: "12",
                                 child: Text("Week 12"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 13",
+                                value: "13",
                                 child: Text("Week 13"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 14",
+                                value: "14",
                                 child: Text("Week 14"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 15",
+                                value: "15",
                                 child: Text("Week 15"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 16",
+                                value: "16",
                                 child: Text("Week 16"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 17",
+                                value: "17",
                                 child: Text("Week 17"),
                               ),
                               DropdownMenuItem(
-                                value: "Week 18",
+                                value: "18",
                                 child: Text("Week 18"),
                               ),
-                              DropdownMenuItem(
-                                value: "Week 19",
-                                child: Text("Week 19"),
-                              ),
-
                             ],
                             onChanged: (value) { //get value when changed
                               print("You have selected $value");
+                              setState(() {
+                                vm.value = value.toString();
+                                vm.isLoading = true;
+                                getData();
+                              });
                             },
                             icon: Icon(Icons.keyboard_arrow_down,
                               color: AppColor.greenColor,),
@@ -213,7 +212,7 @@ class _BeatingDataState extends State<BeatingData> {
           const SizedBox(height: 20,),
           Expanded(
               child: ListView.builder(
-                  itemCount: bettingData.length,
+                  itemCount: vm.bettingData.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     return Column(
@@ -226,14 +225,14 @@ class _BeatingDataState extends State<BeatingData> {
                                 alignment: Alignment.center,
                                 color: AppColor.dialogBackgroundColor,
                                 child: RichText(text: TextSpan(
-                                    text: '8:21 PM Sep 7 ',
+                                    text: dateTimeFormat(vm.bettingData[index].dateTime.toString()),
                                     style: TextStyle(
                                         fontSize: 11,
                                         fontFamily: "Reg",
                                         color: AppColor.whiteColor),
                                     children: [
                                       TextSpan(
-                                        text: '@KC',
+                                        text: ' @KC',
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontFamily: "Bold",
@@ -273,12 +272,14 @@ class _BeatingDataState extends State<BeatingData> {
                                 child: Row(
                                   children: [
                                     const SizedBox(width: 20,),
-                                    (bettingData[index].homeTeamImg.toString() == "null")
+                                    (vm.bettingData[index].homeTeamImg.toString() == "null")
                                         ?Image.asset("assets/images/instagram.png",height: 25,width: 25,)
-                                        :SvgPicture.network(bettingData[index].homeTeamImg.toString(), height: 25, width: 25,),
+                                        :SizedBox(
+                                        height: 30, width: 30,
+                                        child: SvgPicture.network(vm.bettingData[index].homeTeamImg.toString(),)),
                                     // Image.asset("assets/images/instagram.png",height: 25,width: 25,),
                                     const SizedBox(width: 10,),
-                                    MediumText(bettingData[index].homeTeamName
+                                    MediumText(vm.bettingData[index].homeTeamName
                                         .toString(), 25, AppColor.whiteColor,
                                         TextAlign.start)
                                   ],
@@ -305,23 +306,23 @@ class _BeatingDataState extends State<BeatingData> {
                                             .center,
                                         children: [
                                           MediumText(
-                                              (bettingData[index].liveOdds![0]
+                                              (vm.bettingData[index].pregameOdds![0]
                                                   .homePointSpread.toString() ==
                                                   "null")
                                                   ? '0'
-                                                  : bettingData[index]
-                                                  .liveOdds![0].homePointSpread
+                                                  : vm.bettingData[index]
+                                                  .pregameOdds![0].homePointSpread
                                                   .toString(), 12,
                                               AppColor.whiteColor,
                                               TextAlign.start),
                                           const SizedBox(height: 2,),
                                           MediumText(
-                                              (bettingData[index].liveOdds![0]
+                                              (vm.bettingData[index].pregameOdds![0]
                                                   .homePointSpreadPayout
                                                   .toString() == "null")
                                                   ? '0'
-                                                  : bettingData[index]
-                                                  .liveOdds![0]
+                                                  : vm.bettingData[index]
+                                                  .pregameOdds![0]
                                                   .homePointSpreadPayout
                                                   .toString(), 12,
                                               AppColor.textGreenColor,
@@ -345,7 +346,7 @@ class _BeatingDataState extends State<BeatingData> {
                                             .center,
                                         children: [
                                           MediumText(
-                                              bettingData[index].liveOdds![0]
+                                              vm.bettingData[index].pregameOdds![0]
                                                   .homeMoneyLine.toString(), 12,
                                               AppColor.textGreenColor,
                                               TextAlign.center),
@@ -364,16 +365,12 @@ class _BeatingDataState extends State<BeatingData> {
                                       ),
                                       padding: const EdgeInsets.all(2),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           // MediumText("O 53.5", 12, AppColor.whiteColor, TextAlign.start),
                                           // const SizedBox(height: 2,),
-                                          MediumText(
-                                              bettingData[index].homeTeamScore
-                                                  .toString(), 12,
-                                              AppColor.textGreenColor,
-                                              TextAlign.start),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"O ${vm.bettingData[index].pregameOdds![1].overUnder}":"O ${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
+
                                         ],
                                       ),
                                     ),
@@ -391,11 +388,13 @@ class _BeatingDataState extends State<BeatingData> {
                                 child: Row(
                                   children: [
                                     const SizedBox(width: 20,),
-                                    (bettingData[index].awayTeamImg.toString() == "null")
+                                    (vm.bettingData[index].awayTeamImg.toString() == "null")
                                         ?Image.asset("assets/images/instagram.png",height: 25,width: 25,)
-                                        : SvgPicture.network(bettingData[index].awayTeamImg.toString(), height: 25, width: 25,),
+                                        : SizedBox(
+                    height: 30, width: 30,
+                                        child: SvgPicture.network(vm.bettingData[index].awayTeamImg.toString())),
                                     const SizedBox(width: 10,),
-                                    MediumText(bettingData[index].awayTeamName
+                                    MediumText(vm.bettingData[index].awayTeamName
                                         .toString(), 25, AppColor.whiteColor,
                                         TextAlign.start)
                                   ],
@@ -422,23 +421,23 @@ class _BeatingDataState extends State<BeatingData> {
                                             .center,
                                         children: [
                                           MediumText(
-                                              (bettingData[index].liveOdds![0]
+                                              (vm.bettingData[index].pregameOdds![0]
                                                   .awayPointSpread.toString() ==
                                                   "null")
                                                   ? '0'
-                                                  : bettingData[index]
-                                                  .liveOdds![0].awayPointSpread
+                                                  : vm.bettingData[index]
+                                                  .pregameOdds![0].awayPointSpread
                                                   .toString(), 12,
                                               AppColor.whiteColor,
                                               TextAlign.start),
                                           const SizedBox(height: 2,),
                                           MediumText(
-                                              (bettingData[index].liveOdds![0]
+                                              (vm.bettingData[index].pregameOdds![0]
                                                   .awayPointSpreadPayout
                                                   .toString() == "null")
                                                   ? '0'
-                                                  : bettingData[index]
-                                                  .liveOdds![0]
+                                                  : vm.bettingData[index]
+                                                  .pregameOdds![0]
                                                   .awayPointSpreadPayout
                                                   .toString(), 12,
                                               AppColor.textGreenColor,
@@ -462,7 +461,7 @@ class _BeatingDataState extends State<BeatingData> {
                                             .center,
                                         children: [
                                           MediumText(
-                                              bettingData[index].liveOdds![0]
+                                              vm.bettingData[index].pregameOdds![0]
                                                   .awayMoneyLine.toString(), 12,
                                               AppColor.textGreenColor,
                                               TextAlign.center),
@@ -486,11 +485,7 @@ class _BeatingDataState extends State<BeatingData> {
                                         children: [
                                           // MediumText("U 53.5", 12, AppColor.whiteColor, TextAlign.start),
                                           // const SizedBox(height: 2,),
-                                          MediumText(
-                                              bettingData[index].awayTeamScore
-                                                  .toString(), 12,
-                                              AppColor.textGreenColor,
-                                              TextAlign.start),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"U ${vm.bettingData[index].pregameOdds![1].overUnder}":"U ${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
                                         ],
                                       ),
                                     ),
@@ -523,8 +518,10 @@ class _BeatingDataState extends State<BeatingData> {
   }
 
   Future<void> getData() async {
+    vm.bettingData.clear();
+    vm.allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/LiveGameOddsByWeek/2022/1?key=c2e1bbfa3c8247f5b754ad3e33ee6b08",
+        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=c2e1bbfa3c8247f5b754ad3e33ee6b08",
         null, null, context);
 
     var response = jsonDecode(res);
@@ -534,14 +531,14 @@ class _BeatingDataState extends State<BeatingData> {
 
     for (var i = 0; i < list.length; i++) {
       BettingDataModel bettingDataNew = BettingDataModel.fromJson(list[i]);
-      bettingData.add(bettingDataNew);
+      vm.bettingData.add(bettingDataNew);
     }
 
     // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
 
     getTeams();
     setState(() {
-      isLoading = false;
+      vm.isLoading = false;
     });
   }
 
@@ -557,26 +554,33 @@ class _BeatingDataState extends State<BeatingData> {
 
     for (var i = 0; i < list.length; i++) {
       AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
-      allTeams.add(allTeamsData);
+      vm.allTeams.add(allTeamsData);
     }
     // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
 
-    for (var k = 0; k < bettingData.length; k++) {
-      for (var j = 0; j < allTeams.length; j++) {
-        if (bettingData[k].awayTeamId.toString() == allTeams[j].teamID.toString()) {
-          bettingData[k].awayTeamImg = allTeams[j].wikipediaLogoUrl.toString();
-          bettingData[k].name = allTeams[j].name.toString();
+    for (var k = 0; k < vm.bettingData.length; k++) {
+
+      for (var j = 0; j < vm.allTeams.length; j++) {
+
+        if (vm.bettingData[k].awayTeamId.toString() == vm.allTeams[j].teamID.toString()) {
+          vm.bettingData[k].awayTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
+          vm.bettingData[k].name = vm.allTeams[j].name.toString();
         }
 
-        if (bettingData[k].homeTeamId.toString() == allTeams[j].teamID.toString()) {
-          bettingData[k].homeTeamImg = allTeams[j].wikipediaLogoUrl.toString();
-          bettingData[k].name = allTeams[j].name.toString();
+        if (vm.bettingData[k].homeTeamId.toString() == vm.allTeams[j].teamID.toString()) {
+          vm.bettingData[k].homeTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
+          vm.bettingData[k].name = vm.allTeams[j].name.toString();
         }
+
       }
+
     }
 
     setState(() {
-      isLoading = false;
+
+      vm.isLoading = false;
+
     });
+
   }
 }

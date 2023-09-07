@@ -1,3 +1,4 @@
+import 'package:anni_ai/screens/subscription/subscription_vm.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../../utils/buttons.dart';
@@ -12,6 +13,24 @@ class Subscription extends StatefulWidget {
 }
 
 class _SubscriptionState extends State<Subscription> {
+
+  var vm = SubscriptionVM();
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  fetchProducts() async{
+    var products = await SubscriptionVM.instance.fetchSubscriptions();
+    vm.productList = products;
+    setState(() {
+
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

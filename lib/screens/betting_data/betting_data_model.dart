@@ -6,9 +6,6 @@ class BettingDataModel {
   String? day;
   String? dateTime;
   String? status;
-  String? homeTeamImg;
-  String? awayTeamImg;
-  String? name;
   int? awayTeamId;
   int? homeTeamId;
   String? awayTeamName;
@@ -16,34 +13,38 @@ class BettingDataModel {
   int? globalGameId;
   int? globalAwayTeamId;
   int? globalHomeTeamId;
-  int? homeTeamScore;
-  int? awayTeamScore;
+  var homeTeamScore;
+  var awayTeamScore;
   int? totalScore;
-  int? homeRotationNumber;
-  int? awayRotationNumber;
-  List<LiveOdds>? liveOdds;
+  var homeRotationNumber;
+  var awayRotationNumber;
+  String? homeTeamImg;
+  String? awayTeamImg;
+  String? name;
+  List<PregameOdds>? pregameOdds;
 
-  BettingDataModel(
-      {this.scoreId,
-        this.season,
-        this.seasonType,
-        this.week,
-        this.day,
-        this.dateTime,
-        this.status,
-        this.awayTeamId,
-        this.homeTeamId,
-        this.awayTeamName,
-        this.homeTeamName,
-        this.globalGameId,
-        this.globalAwayTeamId,
-        this.globalHomeTeamId,
-        this.homeTeamScore,
-        this.awayTeamScore,
-        this.totalScore,
-        this.homeRotationNumber,
-        this.awayRotationNumber,
-        this.liveOdds});
+  BettingDataModel({
+    this.scoreId,
+    this.season,
+    this.seasonType,
+    this.week,
+    this.day,
+    this.dateTime,
+    this.status,
+    this.awayTeamId,
+    this.homeTeamId,
+    this.awayTeamName,
+    this.homeTeamName,
+    this.globalGameId,
+    this.globalAwayTeamId,
+    this.globalHomeTeamId,
+    this.homeTeamScore,
+    this.awayTeamScore,
+    this.totalScore,
+    this.homeRotationNumber,
+    this.awayRotationNumber,
+    this.pregameOdds,
+  });
 
   BettingDataModel.fromJson(Map<String, dynamic> json) {
     scoreId = json['ScoreId'];
@@ -65,10 +66,10 @@ class BettingDataModel {
     totalScore = json['TotalScore'];
     homeRotationNumber = json['HomeRotationNumber'];
     awayRotationNumber = json['AwayRotationNumber'];
-    if (json['LiveOdds'] != null) {
-      liveOdds = <LiveOdds>[];
-      json['LiveOdds'].forEach((v) {
-        liveOdds!.add(new LiveOdds.fromJson(v));
+    if (json['PregameOdds'] != null) {
+      pregameOdds = <PregameOdds>[];
+      json['PregameOdds'].forEach((v) {
+        pregameOdds!.add(new PregameOdds.fromJson(v));
       });
     }
   }
@@ -94,15 +95,14 @@ class BettingDataModel {
     data['TotalScore'] = this.totalScore;
     data['HomeRotationNumber'] = this.homeRotationNumber;
     data['AwayRotationNumber'] = this.awayRotationNumber;
-
-    if (this.liveOdds != null) {
-      data['LiveOdds'] = this.liveOdds!.map((v) => v.toJson()).toList();
+    if (this.pregameOdds != null) {
+      data['PregameOdds'] = this.pregameOdds!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class LiveOdds {
+class PregameOdds {
   int? gameOddId;
   String? sportsbook;
   int? scoreId;
@@ -120,29 +120,29 @@ class LiveOdds {
   int? underPayout;
   int? sportsbookId;
   String? oddType;
-  Null? sportsbookUrl;
+  String? sportsbookUrl;
 
-  LiveOdds(
+  PregameOdds(
       {this.gameOddId,
-        this.sportsbook,
-        this.scoreId,
-        this.created,
-        this.updated,
-        this.homeMoneyLine,
-        this.awayMoneyLine,
-        this.drawMoneyLine,
-        this.homePointSpread,
-        this.awayPointSpread,
-        this.homePointSpreadPayout,
-        this.awayPointSpreadPayout,
-        this.overUnder,
-        this.overPayout,
-        this.underPayout,
-        this.sportsbookId,
-        this.oddType,
-        this.sportsbookUrl});
+      this.sportsbook,
+      this.scoreId,
+      this.created,
+      this.updated,
+      this.homeMoneyLine,
+      this.awayMoneyLine,
+      this.drawMoneyLine,
+      this.homePointSpread,
+      this.awayPointSpread,
+      this.homePointSpreadPayout,
+      this.awayPointSpreadPayout,
+      this.overUnder,
+      this.overPayout,
+      this.underPayout,
+      this.sportsbookId,
+      this.oddType,
+      this.sportsbookUrl});
 
-  LiveOdds.fromJson(Map<String, dynamic> json) {
+  PregameOdds.fromJson(Map<String, dynamic> json) {
     gameOddId = json['GameOddId'];
     sportsbook = json['Sportsbook'];
     scoreId = json['ScoreId'];
