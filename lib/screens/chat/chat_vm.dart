@@ -9,8 +9,11 @@ import '../../apis/common_model.dart';
 import '../../utils/all_keys.dart';
 import '../../utils/common.dart';
 import '../alerts/alerts_model.dart';
+import '../betting_data/all_teams_model.dart';
+import '../betting_detail/players_model.dart';
 import '../save_chat_list/SavedChatModel.dart';
 import 'chat_model.dart';
+import 'drawers/right_drawer/trending_up_model.dart';
 
 class ChatVm{
 
@@ -115,6 +118,113 @@ class ChatVm{
     return true;
   }
 
+  Future<void> getPlayerGameStatsByWeek(BuildContext context) async {
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/2022/1?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        null, null, context);
+
+    var response = jsonDecode(res);
+
+    List<dynamic> list = [];
+    List<double> points = [];
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+      TrendingData allPlayersData = TrendingData.fromJson(list[i]);
+      trendingUpData.add(allPlayersData);
+      duplicateItems.add(allPlayersData);
+    }
+
+    for (var i = 0; i < trendingUpData.length; i++) {
+      points.add(trendingUpData[i].fantasyPoints!);
+    }
+    await getTeams(context);
+    getPlayers(context);
+    // points.sort((a, b) => a.compareTo(b));
+
+    print("WERTYUIOP{         "+points.toString());
+
+    // for (var k = 0; k < playersPropsData.length; k++) {
+    //
+    //   for (var j = 0; j < allPlayers.length; j++) {
+    //     if (playersPropsData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
+    //       playersPropsData[k].playerImg = allPlayers[j].photoUrl.toString();
+    //     }
+    //   }
+    // }
+
+  }
+
+  Future<void> currentSeason(BuildContext context) async {
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentSeason?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        null, null, context);
+    var response = jsonDecode(res);
+
+    print("Season--------"+response.toString());
+    season = response.toString();
+
+  }
+  Future<void> currentWeek(BuildContext context) async {
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        null, null, context);
+    var response = jsonDecode(res);
+
+    print("Week--------"+response.toString());
+    week = response.toString();
+
+  }
+
+  Future<void> getTeams(BuildContext context) async {
+    String res = await thirdPartyMethod("GET",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        null, null, context);
+
+    var response = await jsonDecode(res);
+
+    List<dynamic> list = [];
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+      AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
+      allTeams.add(allTeamsData);
+    }
+    // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
+
+    for (var k = 0; k < trendingUpData.length; k++) {
+
+      for (var j = 0; j < allTeams.length; j++) {
+        if (trendingUpData[k].team.toString() == allTeams[j].key.toString()) {
+          trendingUpData[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
+        }
+      }
+    }
+  }
+
+  Future<void> getPlayers(BuildContext context) async {
+
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=cfa3031cc89a4ea8a9ee358c43f3ca39", null, null, context);
+
+    var response = await jsonDecode(res);
+    List<dynamic> list = [];
+    hideLoader(context);
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+      PlayersModel allPlayersData = PlayersModel.fromJson(list[i]);
+      allPlayers.add(allPlayersData);
+    }
+
+    for (var k = 0; k < trendingUpData.length; k++) {
+
+      for (var j = 0; j < allPlayers.length; j++) {
+        if (trendingUpData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
+          trendingUpData[k].playerImg = allPlayers[j].photoUrl.toString();
+        }
+      }
+
+    }
+
+
+  }
 
 }
 

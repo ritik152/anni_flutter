@@ -80,7 +80,25 @@ void hideKeyboard() {
 String dateFormat(String eventDate) {
   var createTime = "";
   String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
-  print(formattedDate2); //formatted date output using intl package =>  2021-03-16
+  print(formattedDate2);
+  createTime = formattedDate2.toString();
+  return createTime;
+}
+
+String dateFormatBetting(String eventDate) {
+  var createTime = "";
+  DateTime date = DateTime.parse(eventDate);
+  var newDate = DateTime(date.year, date.month, date.day + 6);
+  String formattedDate2 = DateFormat('MMM dd').format(newDate);
+  print(formattedDate2);
+  createTime = formattedDate2.toString();
+  return createTime;
+}
+String dateFormatBetting2(String eventDate) {
+  var createTime = "";
+  DateTime date = DateTime.parse(eventDate);
+  String formattedDate2 = DateFormat('MMM dd').format(date);
+  print(formattedDate2);
   createTime = formattedDate2.toString();
   return createTime;
 }
@@ -88,7 +106,7 @@ String dateFormat(String eventDate) {
 String dateTimeFormat(String eventDate) {
   var createTime = "";
   String formattedDate2 = DateFormat('hh:mm a MMM dd').format(DateTime.parse(eventDate).toUtc());
-  print(formattedDate2); //formatted date output using intl package =>  2021-03-16
+  print(formattedDate2);
   createTime = formattedDate2.toString();
   return createTime;
 }

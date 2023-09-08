@@ -13,7 +13,7 @@ Widget NoData(String text,String image, BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image,height: 200,width: 200,),
+          Image.asset("assets/images/no_data.png",height: 200,width: 200,),
           const SizedBox(height: 10,),
           BoldText(text, 17, AppColor.whiteColor, TextAlign.center),
         ],

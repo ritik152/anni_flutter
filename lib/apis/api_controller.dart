@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/alerts/alerts_model.dart';
+import '../screens/betting_data/all_teams_model.dart';
+import '../screens/betting_detail/players_model.dart';
+import '../screens/chat/drawers/right_drawer/trending_up_model.dart';
 import '../screens/save_chat_list/SavedChatModel.dart';
 import '../utils/all_keys.dart';
 import '../utils/common.dart';
@@ -19,7 +22,12 @@ var token = "qwe";
 RegisterModel registerModel = RegisterModel();
 SavedChatModel savedChatModel = SavedChatModel();
 AlertsModel alertsModel = AlertsModel();
-
+List<TrendingData> trendingUpData = [];
+List<TrendingData> duplicateItems = [];
+List<PlayersModel> allPlayers = [];
+List<AllTeamsModel> allTeams = [];
+String season = "2022";
+String week = "1";
 //---------------------------------Post Method----------------------------------
 
 Future<String> thirdPartyMethod(String method, String url, Map<String, String>? fieldsParams, Map<String, String>? imageParams, BuildContext context) async {

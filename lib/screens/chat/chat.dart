@@ -59,7 +59,13 @@ class _ChatState extends State<Chat> {
     super.initState();
 
     initTts();
+    vm.currentSeason(context);
+    vm.currentWeek(context);
+    new Future.delayed(Duration.zero, () {
+      showLoader(context);
+    });
 
+    vm.getPlayerGameStatsByWeek(context);
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       // initLanguages();
     });

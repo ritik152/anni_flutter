@@ -1,6 +1,10 @@
 import 'package:anni_ai/screens/chat/chat_vm.dart';
+import 'package:anni_ai/screens/chat/drawers/right_drawer/trending_up_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../apis/api_controller.dart';
 import '../../../../utils/color.dart';
 import '../../../../utils/common_widget.dart';
 import '../../../player_data/player_data.dart';
@@ -16,6 +20,32 @@ class RightDrawer extends StatefulWidget {
 class _RightDrawerState extends State<RightDrawer> {
   @override
   Widget build(BuildContext context) {
+
+
+    void filterSearch(String query) {
+      List<TrendingData> dummySearchList = [];
+      dummySearchList.addAll(duplicateItems);
+      if(query.isNotEmpty) {
+        List<TrendingData> dummyListData = [];
+        dummySearchList.forEach((item) {
+          if(item.name!.contains(query) || item.name!.toLowerCase().contains(query)) {
+            dummyListData.add(item);
+          }
+        });
+        setState(() {
+          trendingUpData.clear();
+          trendingUpData.addAll(dummyListData);
+        });
+        return;
+      } else {
+        setState(() {
+          trendingUpData.clear();
+          trendingUpData.addAll(duplicateItems);
+        });
+      }
+    }
+
+
     return Container(
       alignment: Alignment.topLeft,
       width: MediaQuery.of(context).size.width / 1.2,
@@ -42,6 +72,9 @@ class _RightDrawerState extends State<RightDrawer> {
                   child: TextFormField(
                     cursorColor: Colors.white,
                     keyboardType: TextInputType.text,
+                    onChanged: (text){
+                      filterSearch(text);
+                    },
                     style: TextStyle(color: AppColor.whiteColor),
                     decoration: InputDecoration(
                         suffixIcon: Icon(Icons.search,color: AppColor.greenColor,),
@@ -73,7 +106,7 @@ class _RightDrawerState extends State<RightDrawer> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               BoldText("Trending Up", 14, AppColor.whiteColor, TextAlign.start),
-                              BoldText("View All +", 14, AppColor.textGreenColor, TextAlign.start),
+                              BoldText("", 14, AppColor.textGreenColor, TextAlign.start),
                             ],
                           ),
                         );
@@ -86,7 +119,7 @@ class _RightDrawerState extends State<RightDrawer> {
                           (BuildContext context, int indexList) {
                         return GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const PlayerData()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(playerId : trendingUpData[indexList].playerID.toString(),fantasyPoints : trendingUpData[indexList].fantasyPoints.toString())));
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
@@ -94,7 +127,7 @@ class _RightDrawerState extends State<RightDrawer> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Expanded(
-                                  flex: 5,
+                                  flex: 10,
                                     child: Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: MediumText("${indexList+1}", 15, AppColor.whiteColor, TextAlign.start),
@@ -102,7 +135,7 @@ class _RightDrawerState extends State<RightDrawer> {
                                 Expanded(
                                   flex: 90,
                                   child: Container(
-                                    margin: const EdgeInsets.only(right: 10,left: 10),
+                                    margin: const EdgeInsets.only(right: 10,left: 5),
                                     decoration: BoxDecoration(
                                         color: AppColor.backTrendingColor,
                                         borderRadius: BorderRadius.circular(22),
@@ -121,8 +154,8 @@ class _RightDrawerState extends State<RightDrawer> {
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius: BorderRadius.circular(30),
-                                                      child: Image.asset(
-                                                        "assets/images/doctor_img.jpg",
+                                                      child: Image.network(
+                                                        trendingUpData[indexList].playerImg.toString(),
                                                         height: 35,
                                                         width: 35,
                                                         fit: BoxFit.cover,
@@ -130,28 +163,29 @@ class _RightDrawerState extends State<RightDrawer> {
                                                     ),
                                                     Container(
                                                         margin: const EdgeInsets.only(top: 30, left: 7),
-                                                        child: Image.asset(
-                                                          "assets/images/star.png",
-                                                          height: 25,
-                                                          width: 25,
-                                                        )),
+                                                        child:  SvgPicture.network(
+                                                          trendingUpData[indexList].teamImg
+                                                              .toString(),
+                                                          height: 15,
+                                                          width: 15,
+                                                        ),),
                                                   ],
                                                 ),
                                               const SizedBox(width: 10,),
                                               Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  BoldText("Malik Davis", 14, AppColor.whiteColor, TextAlign.start),
+                                                  SizedBox(width: MediaQuery.of(context).size.width*0.25,child: BoldText(trendingUpData[indexList].name.toString(), 14, AppColor.whiteColor, TextAlign.start)),
                                                   const SizedBox(height: 3,),
-                                                  MediumText("PR - DAL", 11, AppColor.hintColor, TextAlign.start),
+                                                  MediumText("${trendingUpData[indexList].position.toString()} - ${trendingUpData[indexList].team.toString()}", 11, AppColor.hintColor, TextAlign.start),
                                                   const SizedBox(height: 3,),
-                                                  MediumText("Sun 1:00 PM @ NYG", 11, AppColor.hintColor, TextAlign.start),
+                                                  // SizedBox(width: MediaQuery.of(context).size.width*0.25,child: MediumText("${dateTimeFormat(trendingUpData[indexList].gameDate.toString())} @ NYG", 11, AppColor.hintColor, TextAlign.start)),
                                                 ],
                                               )
                                             ],)),
                                         Expanded(
-                                            flex: 20,
-                                            child: BoldText("+10.2k", 13, AppColor.textGreenColor, TextAlign.start),)
+                                            flex: 30,
+                                            child: BoldText(trendingUpData[indexList].fantasyPoints.toString()+" Pts.", 13, AppColor.textGreenColor, TextAlign.start),)
                                       ],
                                     ),
                                   ),
@@ -161,7 +195,7 @@ class _RightDrawerState extends State<RightDrawer> {
                           ),
                         );
                       },
-                      childCount: 5,
+                      childCount: (trendingUpData.length > 25)?25:trendingUpData.length,
                     ),
                   ),
 
@@ -173,7 +207,7 @@ class _RightDrawerState extends State<RightDrawer> {
                       childCount: 1,
                     ),
                   ),
-                  SliverList(
+                 /* SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
                         return Container(
@@ -250,7 +284,7 @@ class _RightDrawerState extends State<RightDrawer> {
                       },
                       childCount: 5,
                     ),
-                  ),
+                  ),*/
 
                 ]
             ),
@@ -259,4 +293,14 @@ class _RightDrawerState extends State<RightDrawer> {
       ),
     );
   }
+
+  String dateTimeFormat(String eventDate) 
+  {
+    var createTime = "";
+    String formattedDate2 = DateFormat('E hh:mm a ').format(DateTime.parse(eventDate).toUtc());
+    print(formattedDate2);
+    createTime = formattedDate2.toString();
+    return createTime;
+  }
+
 }

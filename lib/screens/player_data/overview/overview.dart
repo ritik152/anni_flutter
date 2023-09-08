@@ -1,10 +1,14 @@
+import 'package:anni_ai/screens/player_data/player_data_vm.dart';
+import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
 class Overview extends StatelessWidget {
-  const Overview({Key? key}) : super(key: key);
+  PlayerDataVm vm;
+  String fantasyPoints;
+  Overview(this.vm, this.fantasyPoints, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class Overview extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText("24%", 14, AppColor.whiteColor,
+                              BoldText("${vm.allTeamsData.rosted}%", 14, AppColor.whiteColor,
                                   TextAlign.start),
                               CommonText("Roster", 10, AppColor.whiteColor,
                                   TextAlign.start),
@@ -87,7 +91,7 @@ class Overview extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText("1%", 14, AppColor.whiteColor,
+                              BoldText("${vm.allTeamsData.start}%", 14, AppColor.whiteColor,
                                   TextAlign.start),
                               CommonText("Start", 10, AppColor.whiteColor,
                                   TextAlign.start),
@@ -101,7 +105,7 @@ class Overview extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CommonText("FPTS/Game", 10, AppColor.whiteColor,
                           TextAlign.start),
@@ -111,15 +115,15 @@ class Overview extends StatelessWidget {
                       Row(
                         children: [
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              BoldText("2.87", 14, AppColor.whiteColor,
+                              BoldText(fantasyPoints, 14, AppColor.whiteColor,
                                   TextAlign.start),
                               CommonText("PPR", 10, AppColor.whiteColor,
                                   TextAlign.start),
                             ],
                           ),
-                          const SizedBox(
+                         /* const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -130,7 +134,7 @@ class Overview extends StatelessWidget {
                               CommonText("STD", 10, AppColor.whiteColor,
                                   TextAlign.start),
                             ],
-                          ),
+                          ),*/
                         ],
                       ),
                     ],
@@ -149,13 +153,16 @@ class Overview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BoldText("2023 Season Outlook", 13, AppColor.whiteColor,
-                    TextAlign.start),
+                BoldText("2023 Season Outlook", 13, AppColor.whiteColor, TextAlign.start),
+                const SizedBox(
+                  height: 5,
+                ),
+                if(vm.playerNewsModel.isNotEmpty) CommonText(dateFormat(vm.playerNewsModel[0].updated.toString()), 10,AppColor.whiteColor, TextAlign.start),
                 const SizedBox(
                   height: 10,
                 ),
-                CommonText(
-                    "Lorem ipsum dolor sit amet, consecrate sadipscing slitr,sed diam no",
+               if(vm.playerNewsModel.isNotEmpty) CommonText(
+                    vm.playerNewsModel[0].content.toString(),
                     10,
                     AppColor.whiteColor,
                     TextAlign.start),

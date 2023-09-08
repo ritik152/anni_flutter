@@ -70,7 +70,6 @@ class _BeatingDataState extends State<BeatingData> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 SizedBox(
                   width: 100,
                   height: 50,
@@ -195,10 +194,10 @@ class _BeatingDataState extends State<BeatingData> {
                       )
                   ),
                 ),
+
                 Row(
                   children: [
-                    CommonText("Sep 7 - Sep 13", 12, AppColor.whiteColor,
-                        TextAlign.end),
+                    if(vm.bettingData.isNotEmpty)CommonText("${dateFormatBetting2(vm.bettingData[0].dateTime.toString())} - ${dateFormatBetting(vm.bettingData[0].dateTime.toString())}", 12, AppColor.whiteColor, TextAlign.end),
                     const SizedBox(width: 5,),
                     Icon(
                       Icons.calendar_month_outlined, color: AppColor.greenColor,
@@ -210,8 +209,11 @@ class _BeatingDataState extends State<BeatingData> {
             ),
           ),
           const SizedBox(height: 20,),
-          Expanded(
-              child: ListView.builder(
+          Expanded(child: (vm.isLoading == true)
+              ?Progress()
+              :(vm.bettingData.isEmpty)
+              ?NoData("No Betting Data", "assets/images/no_data.png", context)
+              :ListView.builder(
                   itemCount: vm.bettingData.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
@@ -369,7 +371,8 @@ class _BeatingDataState extends State<BeatingData> {
                                         children: [
                                           // MediumText("O 53.5", 12, AppColor.whiteColor, TextAlign.start),
                                           // const SizedBox(height: 2,),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"O ${vm.bettingData[index].pregameOdds![1].overUnder}":"O ${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"O${vm.bettingData[index].pregameOdds![1].overUnder}":"O${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overPayout == null)?"${vm.bettingData[index].pregameOdds![1].overPayout}":"${vm.bettingData[index].pregameOdds![0].overPayout}", 12, AppColor.whiteColor, TextAlign.center),
 
                                         ],
                                       ),
@@ -485,7 +488,8 @@ class _BeatingDataState extends State<BeatingData> {
                                         children: [
                                           // MediumText("U 53.5", 12, AppColor.whiteColor, TextAlign.start),
                                           // const SizedBox(height: 2,),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"U ${vm.bettingData[index].pregameOdds![1].overUnder}":"U ${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"U${vm.bettingData[index].pregameOdds![1].overUnder}":"U${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].underPayout == null)?"${vm.bettingData[index].pregameOdds![1].underPayout}":"${vm.bettingData[index].pregameOdds![0].underPayout}", 12, AppColor.whiteColor, TextAlign.center),
                                         ],
                                       ),
                                     ),
@@ -498,7 +502,7 @@ class _BeatingDataState extends State<BeatingData> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (
-                                context) => const BettingDetail()));
+                                context) => BettingDetail(week : vm.value,date : dateTimeFormat(vm.bettingData[index].dateTime.toString()))));
                           },
                           child: Container(
                             width: double.infinity,
@@ -521,7 +525,7 @@ class _BeatingDataState extends State<BeatingData> {
     vm.bettingData.clear();
     vm.allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=c2e1bbfa3c8247f5b754ad3e33ee6b08",
+        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
         null, null, context);
 
     var response = jsonDecode(res);
@@ -537,14 +541,11 @@ class _BeatingDataState extends State<BeatingData> {
     // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
 
     getTeams();
-    setState(() {
-      vm.isLoading = false;
-    });
   }
 
   Future<void> getTeams() async {
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=c2e1bbfa3c8247f5b754ad3e33ee6b08",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
         null, null, context);
 
     var response = jsonDecode(res);

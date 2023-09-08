@@ -3,13 +3,17 @@ import 'package:anni_ai/screens/player_data/roster/roster.dart';
 import 'package:anni_ai/screens/player_data/table_list/table_list.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../utils/color.dart';
+import '../../utils/common.dart';
 import 'career/career.dart';
 import 'graph/graph.dart';
 import 'overview/overview.dart';
 
 class PlayerData extends StatefulWidget {
-  const PlayerData({Key? key}) : super(key: key);
+  String playerId,fantasyPoints;
+
+  PlayerData({Key? key, required this.playerId, required this.fantasyPoints}) : super(key: key);
 
   @override
   State<PlayerData> createState() => _PlayerDataState();
@@ -17,6 +21,16 @@ class PlayerData extends StatefulWidget {
 
 class _PlayerDataState extends State<PlayerData> {
   var vm = PlayerDataVm();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    new Future.delayed(Duration.zero, () {
+      showLoader(context);
+    });
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +79,15 @@ class _PlayerDataState extends State<PlayerData> {
                             margin: const EdgeInsets.only(top: 5),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: Image.asset(
-                                "assets/images/doctor_img.jpg",
+                              child: (vm.allTeamsData.photoUrl.toString() != "null")
+                                  ?Image.network(
+                                  vm.allTeamsData.photoUrl.toString(),
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              )
+                                  :Image.asset(
+                                "assets/images/user.png",
                                 height: 100,
                                 width: 100,
                                 fit: BoxFit.cover,
@@ -88,27 +109,27 @@ class _PlayerDataState extends State<PlayerData> {
                                 children: [
                                   CommonText("Free Agent", 10,
                                       AppColor.whiteColor, TextAlign.start),
-                                  BoldText("#34", 10, AppColor.whiteColor,
+                                  BoldText("#${vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor,
                                       TextAlign.start),
                                   Container(
                                     height: 20,
                                     width: 1.2,
                                     color: AppColor.black,
                                   ),
-                                  BoldText("RB", 10, AppColor.whiteColor,
+                                  BoldText((vm.allTeamsData.position.toString() == "null")?"":vm.allTeamsData.position.toString(), 10, AppColor.whiteColor,
                                       TextAlign.start),
                                   Container(
                                     height: 20,
                                     width: 1.2,
                                     color: AppColor.black,
                                   ),
-                                  BoldText("DAL", 10, AppColor.whiteColor,
+                                  BoldText((vm.allTeamsData.team.toString() == "null")?"":vm.allTeamsData.team.toString(), 10, AppColor.whiteColor,
                                       TextAlign.start),
                                 ],
                               ),
-                              BoldText("Malik", 15, AppColor.whiteColor,
+                              BoldText((vm.allTeamsData.firstName.toString() == "null")?"":vm.allTeamsData.firstName.toString(), 15, AppColor.whiteColor,
                                   TextAlign.start),
-                              BoldText("Davis", 19, AppColor.whiteColor,
+                              BoldText((vm.allTeamsData.lastName.toString() == "null")?"":vm.allTeamsData.lastName.toString(), 19, AppColor.whiteColor,
                                   TextAlign.start),
                               const SizedBox(
                                 height: 10,
@@ -121,7 +142,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     children: [
                                       CommonText("Age", 12, AppColor.whiteColor,
                                           TextAlign.start),
-                                      BoldText("24", 19, AppColor.whiteColor,
+                                      BoldText((vm.allTeamsData.age.toString() == "null")?"":vm.allTeamsData.age.toString(), 19, AppColor.whiteColor,
                                           TextAlign.start)
                                     ],
                                   ),
@@ -129,7 +150,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     children: [
                                       CommonText("Height", 12,
                                           AppColor.whiteColor, TextAlign.start),
-                                      BoldText("5'11'", 19, AppColor.whiteColor,
+                                      BoldText((vm.allTeamsData.height.toString() == "null")?"":vm.allTeamsData.height.toString(), 19, AppColor.whiteColor,
                                           TextAlign.start)
                                     ],
                                   ),
@@ -140,7 +161,7 @@ class _PlayerDataState extends State<PlayerData> {
                                       Row(
                                         children: [
                                           BoldText(
-                                              "202",
+                                              (vm.allTeamsData.weight.toString() == "null")?"":vm.allTeamsData.weight.toString(),
                                               19,
                                               AppColor.whiteColor,
                                               TextAlign.start),
@@ -161,19 +182,19 @@ class _PlayerDataState extends State<PlayerData> {
                       ],
                     ),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Row(
                       children: [
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 30,
-                          width: 30,
+                        SvgPicture.network(
+                          vm.allTeamsData.teamImg.toString(),
+                          height: 20,
+                          width: 20,
                         ),
                         const SizedBox(
                           width: 5,
                         ),
-                        BoldText("Cowboys", 14, AppColor.whiteColor,
+                        BoldText(vm.allTeamsData.teamName.toString(), 14, AppColor.whiteColor,
                             TextAlign.start),
                       ],
                     ),
@@ -222,7 +243,7 @@ class _PlayerDataState extends State<PlayerData> {
                 child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     children: [
-                      Overview(),
+                      Overview(vm,widget.fantasyPoints),
                       TableList(),
                       GraphTab(),
                       Roster(),
@@ -234,6 +255,16 @@ class _PlayerDataState extends State<PlayerData> {
         ),
       ),
     );
+  }
+
+  Future<void> getData() async {
+
+    await vm.playerDetail(context,widget.playerId);
+    await vm.playerNews(context,widget.playerId);
+    await vm.ownershipDetail(context);
+    setState(() {
+
+    });
   }
 
 
