@@ -1,4 +1,4 @@
-class TrendingData {
+class TableModel {
   String? gameKey;
   var playerID;
   var seasonType;
@@ -6,13 +6,11 @@ class TrendingData {
   String? gameDate;
   var week;
   String? team;
-  String? teamImg;
   String? opponent;
   String? homeOrAway;
   var number;
   String? name;
   String? position;
-  String? playerImg;
   String? positionCategory;
   var activated;
   var played;
@@ -52,19 +50,19 @@ class TrendingData {
   var kickReturnYardsPerAttempt;
   var kickReturnTouchdowns;
   var kickReturnLong;
-  var soloTackles;
-  var assistedTackles;
-  var tacklesForLoss;
-  var sacks;
-  var sackYards;
-  var quarterbackHits;
-  var passesDefended;
+  double? soloTackles;
+  double? assistedTackles;
+  double? tacklesForLoss;
+  double? sacks;
+  double? sackYards;
+  double? quarterbackHits;
+  double? passesDefended;
   var fumblesForced;
   var fumblesRecovered;
-  var fumbleReturnYards;
+  double? fumbleReturnYards;
   var fumbleReturnTouchdowns;
   var interceptions;
-  var interceptionReturnYards;
+  double? interceptionReturnYards;
   var interceptionReturnTouchdowns;
   var blockedKicks;
   var specialTeamsSoloTackles;
@@ -81,11 +79,11 @@ class TrendingData {
   var twoPointConversionPasses;
   var twoPointConversionRuns;
   var twoPointConversionReceptions;
-  var fantasyPoints;
-  var fantasyPointsPPR;
+  double? fantasyPoints;
+  double? fantasyPointsPPR;
   var receptionPercentage;
   var receivingYardsPerTarget;
-  var tackles;
+  double? tackles;
   var offensiveTouchdowns;
   var defensiveTouchdowns;
   var specialTeamsTouchdowns;
@@ -119,7 +117,7 @@ class TrendingData {
   String? playingSurface;
   bool? isGameOver;
   var safetiesAllowed;
-  String? stadium;
+  var stadium;
   var temperature;
   var humidity;
   var windSpeed;
@@ -167,10 +165,9 @@ class TrendingData {
   var scoreID;
   var fantasyPointsFantasyDraft;
   var offensiveFumbleRecoveryTouchdowns;
-  bool? snapCountsConfirmed;
-  List<ScoringDetails>? scoringDetails;
+  var snapCountsConfirmed;
 
-  TrendingData(
+  TableModel(
       {this.gameKey,
         this.playerID,
         this.seasonType,
@@ -337,10 +334,9 @@ class TrendingData {
         this.scoreID,
         this.fantasyPointsFantasyDraft,
         this.offensiveFumbleRecoveryTouchdowns,
-        this.snapCountsConfirmed,
-        this.scoringDetails});
+        this.snapCountsConfirmed});
 
-  TrendingData.fromJson(Map<String, dynamic> json) {
+  TableModel.fromJson(Map<String, dynamic> json) {
     gameKey = json['GameKey'];
     playerID = json['PlayerID'];
     seasonType = json['SeasonType'];
@@ -509,12 +505,6 @@ class TrendingData {
     offensiveFumbleRecoveryTouchdowns =
     json['OffensiveFumbleRecoveryTouchdowns'];
     snapCountsConfirmed = json['SnapCountsConfirmed'];
-    if (json['ScoringDetails'] != null) {
-      scoringDetails = <ScoringDetails>[];
-      json['ScoringDetails'].forEach((v) {
-        scoringDetails!.add(new ScoringDetails.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -687,67 +677,6 @@ class TrendingData {
     data['OffensiveFumbleRecoveryTouchdowns'] =
         this.offensiveFumbleRecoveryTouchdowns;
     data['SnapCountsConfirmed'] = this.snapCountsConfirmed;
-    if (this.scoringDetails != null) {
-      data['ScoringDetails'] =
-          this.scoringDetails!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class ScoringDetails {
-  String? gameKey;
-  var seasonType;
-  var playerID;
-  String? team;
-  var season;
-  var week;
-  String? scoringType;
-  var length;
-  var scoringDetailID;
-  var playerGameID;
-  var scoringPlayID;
-
-  ScoringDetails(
-      {this.gameKey,
-        this.seasonType,
-        this.playerID,
-        this.team,
-        this.season,
-        this.week,
-        this.scoringType,
-        this.length,
-        this.scoringDetailID,
-        this.playerGameID,
-        this.scoringPlayID});
-
-  ScoringDetails.fromJson(Map<String, dynamic> json) {
-    gameKey = json['GameKey'];
-    seasonType = json['SeasonType'];
-    playerID = json['PlayerID'];
-    team = json['Team'];
-    season = json['Season'];
-    week = json['Week'];
-    scoringType = json['ScoringType'];
-    length = json['Length'];
-    scoringDetailID = json['ScoringDetailID'];
-    playerGameID = json['PlayerGameID'];
-    scoringPlayID = json['ScoringPlayID'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GameKey'] = this.gameKey;
-    data['SeasonType'] = this.seasonType;
-    data['PlayerID'] = this.playerID;
-    data['Team'] = this.team;
-    data['Season'] = this.season;
-    data['Week'] = this.week;
-    data['ScoringType'] = this.scoringType;
-    data['Length'] = this.length;
-    data['ScoringDetailID'] = this.scoringDetailID;
-    data['PlayerGameID'] = this.playerGameID;
-    data['ScoringPlayID'] = this.scoringPlayID;
     return data;
   }
 }

@@ -126,6 +126,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
       setState(() {
         print("Playing");
         ttsState = TtsState.playing;
+        controllerSaved.play();
       });
     });
 
@@ -498,7 +499,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(mute != true){
               _speak(_newVoiceText);
-              controllerSaved.play();
+
             }
           });
 

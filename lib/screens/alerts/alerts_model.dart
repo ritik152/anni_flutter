@@ -2,7 +2,7 @@ class AlertsModel {
   int? success;
   int? code;
   String? message;
-  List<Body>? body;
+  List<AlartData>? body;
 
   AlertsModel({this.success, this.code, this.message, this.body});
 
@@ -11,9 +11,9 @@ class AlertsModel {
     code = json['code'];
     message = json['message'];
     if (json['body'] != null) {
-      body = <Body>[];
+      body = <AlartData>[];
       json['body'].forEach((v) {
-        body!.add(new Body.fromJson(v));
+        body!.add(new AlartData.fromJson(v));
       });
     }
   }
@@ -30,7 +30,7 @@ class AlertsModel {
   }
 }
 
-class Body {
+class AlartData {
   int? id;
   int? type;
   JsonData? jsonData;
@@ -39,7 +39,7 @@ class Body {
   String? createdAt;
   String? updatedAt;
 
-  Body(
+  AlartData(
       {this.id,
         this.type,
         this.jsonData,
@@ -48,7 +48,7 @@ class Body {
         this.createdAt,
         this.updatedAt});
 
-  Body.fromJson(Map<String, dynamic> json) {
+  AlartData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     type = json['type'];
     jsonData = json['json_data'] != null

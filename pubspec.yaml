@@ -83,6 +83,7 @@ flutter:
     - assets/icons/
     - assets/json_animation/
     - assets/video/
+    - assets/teams_theme/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

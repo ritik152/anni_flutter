@@ -21,10 +21,31 @@ class _AlertsState extends State<Alerts> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    vm.scrollController.addListener(pagination);
    getData();
   }
 
+  void pagination() {
+
+    if (vm.scrollController.offset >= vm.scrollController.position.maxScrollExtent && !vm.scrollController.position.outOfRange) {
+
+      if(allAlerts.isNotEmpty){
+
+        setState(() {
+
+          vm.page += 1;
+          print("Page-- "+vm.page.toString());
+          getData();
+
+        });
+
+      }
+    }
+    else{
+      print("Not Scrolled");
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +75,16 @@ class _AlertsState extends State<Alerts> {
           ),
 
           Expanded(child: (vm.isLoading)?Progress()
-              :(alertsModel.body == null)
+              :(allAlerts == null)
               ?NoData("No Data", "assets/images/no_data.png", context)
               :ListView.builder(
             padding: EdgeInsets.zero,
-              itemCount: alertsModel.body!.length,
+              itemCount: allAlerts.length,
+              controller: vm.scrollController,
               itemBuilder: (context,index){
             return GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AlertDetail(detailData : alertsModel.body![index])));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AlertDetail(detailData : allAlerts[index])));
               },
               child: Container(
                 width: double.infinity,
@@ -78,19 +100,19 @@ class _AlertsState extends State<Alerts> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MediumText((alertsModel.body![index].type == 1)
-                            ?"Injury Report":(alertsModel.body![index].type == 2)
+                        MediumText((allAlerts[index].type == 1)
+                            ?"Injury Report":(allAlerts[index].type == 2)
                             ?"Depth Chart Change!"
                             :"Anni Alerts", 13, AppColor.whiteColor, TextAlign.start),
-                        MediumText(vm.changeFormat(alertsModel.body![index].jsonData!.updated.toString()), 10, AppColor.whiteColor, TextAlign.start),
+                        MediumText(vm.changeFormat(allAlerts[index].jsonData!.updated.toString()), 10, AppColor.whiteColor, TextAlign.start),
                       ],
                     ),
                     const SizedBox(height: 10,),
-                    CommonText((alertsModel.body![index].type == 1)
-                        ?alertsModel.body![index].jsonData!.name.toString()+ " (${alertsModel.body![index].jsonData!.position.toString()})"
-                        :(alertsModel.body![index].type == 2)
-                        ?"${alertsModel.body![index].jsonData!.name.toString()} (${alertsModel.body![index].jsonData!.position.toString()})"
-                        :alertsModel.body![index].jsonData!.title.toString(), 10, AppColor.whiteColor, TextAlign.start),
+                    CommonText((allAlerts[index].type == 1)
+                        ?allAlerts[index].jsonData!.name.toString()+ " (${allAlerts[index].jsonData!.position.toString()})"
+                        :(allAlerts[index].type == 2)
+                        ?"${allAlerts[index].jsonData!.name.toString()} (${allAlerts[index].jsonData!.position.toString()})"
+                        :allAlerts[index].jsonData!.title.toString(), 10, AppColor.whiteColor, TextAlign.start),
                     const SizedBox(height: 10,),
                     SizedBox(
                       width: double.infinity,

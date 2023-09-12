@@ -11,9 +11,9 @@ import 'graph/graph.dart';
 import 'overview/overview.dart';
 
 class PlayerData extends StatefulWidget {
-  String playerId,fantasyPoints;
+  String playerId,fantasyPoints,keys;
 
-  PlayerData({Key? key, required this.playerId, required this.fantasyPoints}) : super(key: key);
+  PlayerData({Key? key, required this.playerId, required this.fantasyPoints, required this.keys}) : super(key: key);
 
   @override
   State<PlayerData> createState() => _PlayerDataState();
@@ -45,7 +45,7 @@ class _PlayerDataState extends State<PlayerData> {
               Container(
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: 40, right: 10, left: 10),
-                decoration: BoxDecoration(
+               /* decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   gradient: const LinearGradient(
                     begin: Alignment.topCenter,
@@ -56,7 +56,13 @@ class _PlayerDataState extends State<PlayerData> {
                     ],
                     tileMode: TileMode.mirror,
                   ),
-                ),
+                ),*/
+              decoration:  BoxDecoration(
+                  image:  DecorationImage(
+                    image:  AssetImage(vm.teamCard),
+                    fit: BoxFit.fill,
+                  )
+              ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
@@ -244,9 +250,9 @@ class _PlayerDataState extends State<PlayerData> {
                     physics: NeverScrollableScrollPhysics(),
                     children: [
                       Overview(vm,widget.fantasyPoints),
-                      TableList(),
+                      TableList(playerId : vm.allTeamsData.playerID.toString()),
                       GraphTab(),
-                      Roster(),
+                      Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
                       Career()
                     ]),
               ),
@@ -259,7 +265,7 @@ class _PlayerDataState extends State<PlayerData> {
 
   Future<void> getData() async {
 
-    await vm.playerDetail(context,widget.playerId);
+    await vm.playerDetail(context,widget.playerId,widget.keys);
     await vm.playerNews(context,widget.playerId);
     await vm.ownershipDetail(context);
     setState(() {

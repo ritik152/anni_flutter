@@ -6,7 +6,7 @@ import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 
 class AlertDetail extends StatefulWidget {
-  Body detailData;
+  AlartData detailData;
 
   AlertDetail({Key? key, required this.detailData,}) : super(key: key);
 

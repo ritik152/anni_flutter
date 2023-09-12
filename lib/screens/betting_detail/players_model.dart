@@ -60,6 +60,7 @@ class PlayersModel {
   var fantasyPositionDepthOrder;
   String? injuryPractice;
   String? injuryPracticeDescription;
+  String? teamImg;
   bool? declaredInactive;
   var upcomingFanDuelSalary;
   var upcomingDraftKingsSalary;

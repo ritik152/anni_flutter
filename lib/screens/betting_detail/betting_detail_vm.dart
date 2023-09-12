@@ -5,6 +5,7 @@ import 'package:anni_ai/screens/betting_detail/players_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../apis/api_controller.dart';
+import '../../utils/all_keys.dart';
 import '../betting_data/all_teams_model.dart';
 
 class BettingDetailVm {
@@ -17,7 +18,7 @@ class BettingDetailVm {
     playersPropsData.clear();
     allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/PlayerPropsByWeek/2023/$week?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        "https://api.sportsdata.io/v3/nfl/odds/json/PlayerPropsByWeek/2023/$week?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
@@ -34,7 +35,7 @@ class BettingDetailVm {
 
   Future<void> getTeams(BuildContext context) async {
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
@@ -59,7 +60,7 @@ class BettingDetailVm {
   }
 
   Future<void> getPlayers(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
@@ -73,7 +74,6 @@ class BettingDetailVm {
     }
 
     for (var k = 0; k < playersPropsData.length; k++) {
-
       for (var j = 0; j < allPlayers.length; j++) {
         if (playersPropsData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
           playersPropsData[k].playerImg = allPlayers[j].photoUrl.toString();

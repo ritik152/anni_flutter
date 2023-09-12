@@ -1,125 +1,123 @@
-class TrendingData {
+class TableData {
   String? gameKey;
-  var playerID;
-  var seasonType;
-  var season;
+  int? playerID;
+  int? seasonType;
+  int? season;
   String? gameDate;
-  var week;
+  int? week;
   String? team;
-  String? teamImg;
   String? opponent;
   String? homeOrAway;
-  var number;
+  int? number;
   String? name;
   String? position;
-  String? playerImg;
   String? positionCategory;
-  var activated;
-  var played;
-  var started;
-  var passingAttempts;
-  var passingCompletions;
-  var passingYards;
-  var passingCompletionPercentage;
-  var passingYardsPerAttempt;
-  var passingYardsPerCompletion;
-  var passingTouchdowns;
-  var passingInterceptions;
-  var passingRating;
-  var passingLong;
-  var passingSacks;
-  var passingSackYards;
-  var rushingAttempts;
-  var rushingYards;
-  var rushingYardsPerAttempt;
-  var rushingTouchdowns;
-  var rushingLong;
-  var receivingTargets;
-  var receptions;
-  var receivingYards;
-  var receivingYardsPerReception;
-  var receivingTouchdowns;
-  var receivingLong;
-  var fumbles;
-  var fumblesLost;
-  var puntReturns;
-  var puntReturnYards;
-  var puntReturnYardsPerAttempt;
-  var puntReturnTouchdowns;
-  var puntReturnLong;
-  var kickReturns;
-  var kickReturnYards;
-  var kickReturnYardsPerAttempt;
-  var kickReturnTouchdowns;
-  var kickReturnLong;
-  var soloTackles;
-  var assistedTackles;
-  var tacklesForLoss;
-  var sacks;
-  var sackYards;
-  var quarterbackHits;
-  var passesDefended;
-  var fumblesForced;
-  var fumblesRecovered;
-  var fumbleReturnYards;
-  var fumbleReturnTouchdowns;
-  var interceptions;
-  var interceptionReturnYards;
-  var interceptionReturnTouchdowns;
-  var blockedKicks;
-  var specialTeamsSoloTackles;
-  var specialTeamsAssistedTackles;
-  var miscSoloTackles;
-  var miscAssistedTackles;
-  var punts;
-  var puntYards;
-  var puntAverage;
-  var fieldGoalsAttempted;
-  var fieldGoalsMade;
-  var fieldGoalsLongestMade;
-  var extraPointsMade;
-  var twoPointConversionPasses;
-  var twoPointConversionRuns;
-  var twoPointConversionReceptions;
-  var fantasyPoints;
-  var fantasyPointsPPR;
-  var receptionPercentage;
-  var receivingYardsPerTarget;
-  var tackles;
-  var offensiveTouchdowns;
-  var defensiveTouchdowns;
-  var specialTeamsTouchdowns;
-  var touchdowns;
+  int? activated;
+  int? played;
+  int? started;
+  int? passingAttempts;
+  int? passingCompletions;
+  int? passingYards;
+  int? passingCompletionPercentage;
+  int? passingYardsPerAttempt;
+  int? passingYardsPerCompletion;
+  int? passingTouchdowns;
+  int? passingInterceptions;
+  int? passingRating;
+  int? passingLong;
+  int? passingSacks;
+  int? passingSackYards;
+  int? rushingAttempts;
+  int? rushingYards;
+  int? rushingYardsPerAttempt;
+  int? rushingTouchdowns;
+  int? rushingLong;
+  int? receivingTargets;
+  int? receptions;
+  int? receivingYards;
+  int? receivingYardsPerReception;
+  int? receivingTouchdowns;
+  int? receivingLong;
+  int? fumbles;
+  int? fumblesLost;
+  int? puntReturns;
+  int? puntReturnYards;
+  int? puntReturnYardsPerAttempt;
+  int? puntReturnTouchdowns;
+  int? puntReturnLong;
+  int? kickReturns;
+  int? kickReturnYards;
+  int? kickReturnYardsPerAttempt;
+  int? kickReturnTouchdowns;
+  int? kickReturnLong;
+  double? soloTackles;
+  double? assistedTackles;
+  double? tacklesForLoss;
+  double? sacks;
+  double? sackYards;
+  double? quarterbackHits;
+  double? passesDefended;
+  int? fumblesForced;
+  int? fumblesRecovered;
+  double? fumbleReturnYards;
+  int? fumbleReturnTouchdowns;
+  int? interceptions;
+  double? interceptionReturnYards;
+  int? interceptionReturnTouchdowns;
+  int? blockedKicks;
+  int? specialTeamsSoloTackles;
+  int? specialTeamsAssistedTackles;
+  int? miscSoloTackles;
+  int? miscAssistedTackles;
+  int? punts;
+  int? puntYards;
+  int? puntAverage;
+  int? fieldGoalsAttempted;
+  int? fieldGoalsMade;
+  int? fieldGoalsLongestMade;
+  int? extraPointsMade;
+  int? twoPointConversionPasses;
+  int? twoPointConversionRuns;
+  int? twoPointConversionReceptions;
+  double? fantasyPoints;
+  double? fantasyPointsPPR;
+  int? receptionPercentage;
+  int? receivingYardsPerTarget;
+  double? tackles;
+  int? offensiveTouchdowns;
+  int? defensiveTouchdowns;
+  int? specialTeamsTouchdowns;
+  int? touchdowns;
   String? fantasyPosition;
-  var fieldGoalPercentage;
-  var playerGameID;
-  var fumblesOwnRecoveries;
-  var fumblesOutOfBounds;
-  var kickReturnFairCatches;
-  var puntReturnFairCatches;
-  var puntTouchbacks;
-  var puntInside20;
-  var puntNetAverage;
-  var extraPointsAttempted;
-  var blockedKickReturnTouchdowns;
-  var fieldGoalReturnTouchdowns;
-  var safeties;
-  var fieldGoalsHadBlocked;
-  var puntsHadBlocked;
-  var extraPointsHadBlocked;
-  var puntLong;
-  var blockedKickReturnYards;
-  var fieldGoalReturnYards;
-  var puntNetYards;
-  var specialTeamsFumblesForced;
-  var specialTeamsFumblesRecovered;
-  var miscFumblesForced;
-  var miscFumblesRecovered;
+  int? fieldGoalPercentage;
+  int? playerGameID;
+  int? fumblesOwnRecoveries;
+  int? fumblesOutOfBounds;
+  int? kickReturnFairCatches;
+  int? puntReturnFairCatches;
+  int? puntTouchbacks;
+  int? puntInside20;
+  int? puntNetAverage;
+  int? extraPointsAttempted;
+  int? blockedKickReturnTouchdowns;
+  int? fieldGoalReturnTouchdowns;
+  int? safeties;
+  int? fieldGoalsHadBlocked;
+  int? puntsHadBlocked;
+  int? extraPointsHadBlocked;
+  int? puntLong;
+  int? blockedKickReturnYards;
+  int? fieldGoalReturnYards;
+  int? puntNetYards;
+  int? specialTeamsFumblesForced;
+  int? specialTeamsFumblesRecovered;
+  int? miscFumblesForced;
+  int? miscFumblesRecovered;
   String? shortName;
   String? playingSurface;
   bool? isGameOver;
-  var safetiesAllowed;
-  String? stadium;
+  int? safetiesAllowed;
+  var stadium;
   var temperature;
   var humidity;
   var windSpeed;
@@ -127,22 +125,22 @@ class TrendingData {
   var draftKingsSalary;
   var fantasyDataSalary;
   var offensiveSnapsPlayed;
-  var defensiveSnapsPlayed;
+  int? defensiveSnapsPlayed;
   var specialTeamsSnapsPlayed;
   var offensiveTeamSnaps;
   var defensiveTeamSnaps;
   var specialTeamsTeamSnaps;
   var victivSalary;
-  var twoPointConversionReturns;
-  var fantasyPointsFanDuel;
-  var fieldGoalsMade0to19;
-  var fieldGoalsMade20to29;
-  var fieldGoalsMade30to39;
-  var fieldGoalsMade40to49;
-  var fieldGoalsMade50Plus;
-  var fantasyPointsDraftKings;
+  int? twoPointConversionReturns;
+  int? fantasyPointsFanDuel;
+  int? fieldGoalsMade0to19;
+  int? fieldGoalsMade20to29;
+  int? fieldGoalsMade30to39;
+  int? fieldGoalsMade40to49;
+  int? fieldGoalsMade50Plus;
+  int? fantasyPointsDraftKings;
   var yahooSalary;
-  var fantasyPointsYahoo;
+  int? fantasyPointsYahoo;
   String? injuryStatus;
   String? injuryBodyPart;
   var injuryStartDate;
@@ -150,27 +148,26 @@ class TrendingData {
   String? fanDuelPosition;
   String? draftKingsPosition;
   String? yahooPosition;
-  var opponentRank;
+  int? opponentRank;
   var opponentPositionRank;
   String? injuryPractice;
   String? injuryPracticeDescription;
   bool? declaredInactive;
   var fantasyDraftSalary;
   var fantasyDraftPosition;
-  var teamID;
-  var opponentID;
+  int? teamID;
+  int? opponentID;
   String? day;
   String? dateTime;
-  var globalGameID;
-  var globalTeamID;
-  var globalOpponentID;
-  var scoreID;
-  var fantasyPointsFantasyDraft;
+  int? globalGameID;
+  int? globalTeamID;
+  int? globalOpponentID;
+  int? scoreID;
+  int? fantasyPointsFantasyDraft;
   var offensiveFumbleRecoveryTouchdowns;
-  bool? snapCountsConfirmed;
-  List<ScoringDetails>? scoringDetails;
+  var snapCountsConfirmed;
 
-  TrendingData(
+  TableData(
       {this.gameKey,
         this.playerID,
         this.seasonType,
@@ -337,10 +334,9 @@ class TrendingData {
         this.scoreID,
         this.fantasyPointsFantasyDraft,
         this.offensiveFumbleRecoveryTouchdowns,
-        this.snapCountsConfirmed,
-        this.scoringDetails});
+        this.snapCountsConfirmed});
 
-  TrendingData.fromJson(Map<String, dynamic> json) {
+  TableData.fromJson(Map<String, dynamic> json) {
     gameKey = json['GameKey'];
     playerID = json['PlayerID'];
     seasonType = json['SeasonType'];
@@ -509,12 +505,6 @@ class TrendingData {
     offensiveFumbleRecoveryTouchdowns =
     json['OffensiveFumbleRecoveryTouchdowns'];
     snapCountsConfirmed = json['SnapCountsConfirmed'];
-    if (json['ScoringDetails'] != null) {
-      scoringDetails = <ScoringDetails>[];
-      json['ScoringDetails'].forEach((v) {
-        scoringDetails!.add(new ScoringDetails.fromJson(v));
-      });
-    }
   }
 
   Map<String, dynamic> toJson() {
@@ -687,67 +677,6 @@ class TrendingData {
     data['OffensiveFumbleRecoveryTouchdowns'] =
         this.offensiveFumbleRecoveryTouchdowns;
     data['SnapCountsConfirmed'] = this.snapCountsConfirmed;
-    if (this.scoringDetails != null) {
-      data['ScoringDetails'] =
-          this.scoringDetails!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class ScoringDetails {
-  String? gameKey;
-  var seasonType;
-  var playerID;
-  String? team;
-  var season;
-  var week;
-  String? scoringType;
-  var length;
-  var scoringDetailID;
-  var playerGameID;
-  var scoringPlayID;
-
-  ScoringDetails(
-      {this.gameKey,
-        this.seasonType,
-        this.playerID,
-        this.team,
-        this.season,
-        this.week,
-        this.scoringType,
-        this.length,
-        this.scoringDetailID,
-        this.playerGameID,
-        this.scoringPlayID});
-
-  ScoringDetails.fromJson(Map<String, dynamic> json) {
-    gameKey = json['GameKey'];
-    seasonType = json['SeasonType'];
-    playerID = json['PlayerID'];
-    team = json['Team'];
-    season = json['Season'];
-    week = json['Week'];
-    scoringType = json['ScoringType'];
-    length = json['Length'];
-    scoringDetailID = json['ScoringDetailID'];
-    playerGameID = json['PlayerGameID'];
-    scoringPlayID = json['ScoringPlayID'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GameKey'] = this.gameKey;
-    data['SeasonType'] = this.seasonType;
-    data['PlayerID'] = this.playerID;
-    data['Team'] = this.team;
-    data['Season'] = this.season;
-    data['Week'] = this.week;
-    data['ScoringType'] = this.scoringType;
-    data['Length'] = this.length;
-    data['ScoringDetailID'] = this.scoringDetailID;
-    data['PlayerGameID'] = this.playerGameID;
-    data['ScoringPlayID'] = this.scoringPlayID;
     return data;
   }
 }

@@ -114,13 +114,13 @@ String dateTimeFormat(String eventDate) {
 
 String getOrdinal(int number) {
   if (number % 10 == 1 && number % 100 != 11) {
-    return '$number${number == 11 ? "th" : "st"}';
+    return '$number${number == 11 ? "TH" : "ST"}';
   } else if (number % 10 == 2 && number % 100 != 12) {
-    return '$number${number == 12 ? "th" : "nd"}';
+    return '$number${number == 12 ? "TH" : "ND"}';
   } else if (number % 10 == 3 && number % 100 != 13) {
-    return '$number${number == 13 ? "th" : "rd"}';
+    return '$number${number == 13 ? "TH" : "RD"}';
   } else {
-    return '$number' + 'th';
+    return '$number' + 'TH';
   }
 }
 

@@ -59,13 +59,12 @@ class _ChatState extends State<Chat> {
     super.initState();
 
     initTts();
-    vm.currentSeason(context);
-    vm.currentWeek(context);
+
     new Future.delayed(Duration.zero, () {
       showLoader(context);
     });
 
-    vm.getPlayerGameStatsByWeek(context);
+
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       // initLanguages();
     });
@@ -92,9 +91,13 @@ class _ChatState extends State<Chat> {
     getData();
   }
 
-  initTts() {
+  initTts() async {
     flutterTts = FlutterTts();
 
+
+    await vm.currentSeason(context);
+    await vm.currentWeek(context);
+    await vm.getPlayerGameStatsByWeek(context);
     _setAwaitOptions();
 
     if (isAndroid) {
@@ -106,6 +109,7 @@ class _ChatState extends State<Chat> {
       setState(() {
         print("Playing");
         ttsState = TtsState.playing;
+        vm.controller.play();
       });
     });
 
@@ -568,8 +572,7 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               _speak(_newVoiceText);
-              // speak(_newVoiceText);
-              vm.controller.play();
+
             }
           });
 

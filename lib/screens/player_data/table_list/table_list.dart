@@ -1,18 +1,29 @@
+import 'package:anni_ai/screens/player_data/table_list/table_list_vm.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
 class TableList extends StatefulWidget {
-  const TableList({Key? key}) : super(key: key);
+  String playerId;
+
+  TableList({Key? key, required this.playerId}) : super(key: key);
 
   @override
   State<TableList> createState() => _TableListState();
 }
 
 class _TableListState extends State<TableList> {
-  var click = -1;
 
+  var vm = TableListVm();
+
+  @override
+  void initState() {
+    super.initState();
+
+    getData();
+
+  }
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -24,13 +35,13 @@ class _TableListState extends State<TableList> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      if (click == index) {
+                      if (vm.click == index) {
                         setState(() {
-                          click = -1;
+                          vm.click = -1;
                         });
                       } else {
                         setState(() {
-                          click = index;
+                          vm.click = index;
                         });
                       }
                     },
@@ -46,7 +57,7 @@ class _TableListState extends State<TableList> {
                           BoldText("2022 Playoffs", 12, AppColor.textGreenColor,
                               TextAlign.start),
                           Icon(
-                            (click == index)
+                            (vm.click == index)
                                 ? Icons.keyboard_arrow_up
                                 : Icons.keyboard_arrow_down,
                             color: AppColor.greenColor,
@@ -55,7 +66,7 @@ class _TableListState extends State<TableList> {
                       ),
                     ),
                   ),
-                  if (click == index)
+                  if (vm.click == index)
                     Row(
                       children: [
                         const Expanded(child: SizedBox()),
@@ -69,11 +80,11 @@ class _TableListState extends State<TableList> {
                         ),
                       ],
                     ),
-                  if (click == index)
+                  if (vm.click == index)
                     const SizedBox(
                       height: 10,
                     ),
-                  if (click == index)
+                  if (vm.click == index)
                     Container(
                       child: Row(
                         mainAxisAlignment:
@@ -196,7 +207,7 @@ class _TableListState extends State<TableList> {
                         ],
                       ),
                     ),
-                  if (click == index)
+                  if (vm.click == index)
                     SizedBox(
                         height: 200,
                         child: ListView.builder(
@@ -359,5 +370,11 @@ class _TableListState extends State<TableList> {
         ),
       ],
     );
+  }
+
+  Future<void> getData() async {
+
+    await vm.getTableListData(context,widget.playerId);
+
   }
 }

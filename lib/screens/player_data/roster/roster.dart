@@ -1,14 +1,42 @@
+import 'dart:convert';
+
+import 'package:anni_ai/apis/api_controller.dart';
+import 'package:anni_ai/screens/player_data/roster/roster_model.dart';
+import 'package:anni_ai/utils/all_keys.dart';
+import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
-class Roster extends StatelessWidget {
-  const Roster({Key? key}) : super(key: key);
+class Roster extends StatefulWidget {
+  String teamId, position;
+
+  Roster({Key? key, required this.teamId, required this.position})
+      : super(key: key);
+
+  @override
+  State<Roster> createState() => _RosterState();
+}
+
+class _RosterState extends State<Roster> {
+
+  RostedData rostedData = RostedData();
+  var isLoading = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return (isLoading == true)
+        ? Progress()
+        :(rostedData.body!.isEmpty)?NoData("No Data", "", context):CustomScrollView(
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -30,20 +58,20 @@ class Roster extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(30),
-                          child: Image.asset(
-                            "assets/images/doctor_img.jpg",
+                          child: Image.network(
+                            rostedData.body![index].playerImg.toString(),
                             height: 40,
                             width: 40,
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
-                            margin: const EdgeInsets.only(top: 30, left: 10),
-                            child: Image.asset(
-                              "assets/images/star.png",
-                              height: 25,
-                              width: 25,
-                            )),
+                          margin: const EdgeInsets.only(top: 30, left: 10),
+                          child: SizedBox(
+                              height: 30, width: 30,
+                              child: SvgPicture.network(
+                                rostedData.body![index].teamImg.toString(),)),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -53,12 +81,15 @@ class Roster extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 5,),
-                        BoldText("Malik Davis", 16, AppColor.whiteColor,
+                        BoldText(rostedData.body![index].name.toString(), 16,
+                            AppColor.whiteColor,
                             TextAlign.start),
                         const SizedBox(
                           height: 3,
                         ),
-                        CommonText("STARTER", 16, AppColor.textGreenColor,
+                        CommonText((rostedData.body![index].depthOrder.toString() == "1")?"STARTER":getOrdinal(int.parse(
+                            rostedData.body![index].depthOrder.toString())), 16,
+                            AppColor.textGreenColor,
                             TextAlign.start),
                       ],
                     )
@@ -66,10 +97,54 @@ class Roster extends StatelessWidget {
                 ),
               );
             },
-            childCount: 20,
+            childCount: rostedData.body!.length,
           ),
         ),
       ],
     );
   }
+
+  Future<bool> getData() async {
+    String res = await getMethodWithQuery("GET",
+        "${AllKeys.depthChart}?teamID=${widget.teamId}&position=${widget
+            .position}", null, context);
+
+    var response = jsonDecode(res);
+
+    rostedData = RostedData.fromJson(response);
+
+    if (rostedData.code == 200) {
+      for (var i = 0; i < rostedData.body!.length; i++) {
+        for (var j = 0; j < allTeams.length; j++) {
+          if (rostedData.body![i].teamID.toString() ==
+              allTeams[j].teamID.toString()) {
+            rostedData.body![i].teamImg =
+                allTeams[j].wikipediaLogoUrl.toString();
+          }
+        }
+
+        for (var j = 0; j < allPlayers.length; j++) {
+          if (rostedData.body![i].playerID.toString() ==
+              allPlayers[j].playerID.toString()) {
+            rostedData.body![i].playerImg = allPlayers[j].photoUrl.toString();
+          }
+        }
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+
+      return true;
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      return true;
+    }
+  }
 }
+
+
+
+

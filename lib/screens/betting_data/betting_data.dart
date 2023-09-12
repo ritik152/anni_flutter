@@ -6,6 +6,7 @@ import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../utils/all_keys.dart';
 import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 import '../betting_detail/betting_detail.dart';
@@ -525,7 +526,7 @@ class _BeatingDataState extends State<BeatingData> {
     vm.bettingData.clear();
     vm.allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = jsonDecode(res);
@@ -545,7 +546,7 @@ class _BeatingDataState extends State<BeatingData> {
 
   Future<void> getTeams() async {
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = jsonDecode(res);

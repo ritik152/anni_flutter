@@ -63,7 +63,6 @@ class ChatVm{
     return ChatModel.fromJson(res);
   }
 
-
   Future<void> saveChatThread(Map<String, String> map, BuildContext context) async {
 
     if (chatArray.isNotEmpty) {
@@ -119,7 +118,7 @@ class ChatVm{
   }
 
   Future<void> getPlayerGameStatsByWeek(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/2022/1?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/$season/$week?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = jsonDecode(res);
@@ -155,7 +154,7 @@ class ChatVm{
   }
 
   Future<void> currentSeason(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentSeason?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentSeason?key=${AllKeys.sportsKey}",
         null, null, context);
     var response = jsonDecode(res);
 
@@ -164,7 +163,7 @@ class ChatVm{
 
   }
   Future<void> currentWeek(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek?key=${AllKeys.sportsKey}",
         null, null, context);
     var response = jsonDecode(res);
 
@@ -175,7 +174,7 @@ class ChatVm{
 
   Future<void> getTeams(BuildContext context) async {
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=cfa3031cc89a4ea8a9ee358c43f3ca39",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
@@ -201,7 +200,7 @@ class ChatVm{
 
   Future<void> getPlayers(BuildContext context) async {
 
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=cfa3031cc89a4ea8a9ee358c43f3ca39", null, null, context);
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
 
     var response = await jsonDecode(res);
     List<dynamic> list = [];

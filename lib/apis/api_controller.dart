@@ -22,6 +22,7 @@ var token = "qwe";
 RegisterModel registerModel = RegisterModel();
 SavedChatModel savedChatModel = SavedChatModel();
 AlertsModel alertsModel = AlertsModel();
+List<AlartData> allAlerts = [];
 List<TrendingData> trendingUpData = [];
 List<TrendingData> duplicateItems = [];
 List<PlayersModel> allPlayers = [];
@@ -38,7 +39,7 @@ Future<String> thirdPartyMethod(String method, String url, Map<String, String>? 
   }
   http.StreamedResponse streamedRequest = await request.send();
   String response = await streamedRequest.stream.bytesToString();
-  print("${'${AllKeys.baseUrl}/$url'}  $response");
+  print("$url'  $response");
   return response;
 }
 
