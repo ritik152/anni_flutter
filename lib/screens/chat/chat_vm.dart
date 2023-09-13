@@ -84,7 +84,6 @@ class ChatVm{
     }
   }
 
-
   getSavedChat(BuildContext context) async {
     String res = await getMethodWithQuery("GET", AllKeys.getSavedChat, null, context);
 
@@ -162,6 +161,7 @@ class ChatVm{
     season = response.toString();
 
   }
+
   Future<void> currentWeek(BuildContext context) async {
     String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/CurrentWeek?key=${AllKeys.sportsKey}",
         null, null, context);
@@ -186,7 +186,6 @@ class ChatVm{
       AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
       allTeams.add(allTeamsData);
     }
-    // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
 
     for (var k = 0; k < trendingUpData.length; k++) {
 

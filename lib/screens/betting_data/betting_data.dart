@@ -526,7 +526,7 @@ class _BeatingDataState extends State<BeatingData> {
     vm.bettingData.clear();
     vm.allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/2023/${vm.value.toString()}?key=${AllKeys.sportsKey}",
+        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/$season/${vm.value.toString()}?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = jsonDecode(res);

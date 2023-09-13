@@ -105,7 +105,7 @@ class _RightDrawerState extends State<RightDrawer> {
                           child:  Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              BoldText("Trending Up", 14, AppColor.whiteColor, TextAlign.start),
+                              BoldText("Top Players", 14, AppColor.whiteColor, TextAlign.start),
                               BoldText("", 14, AppColor.textGreenColor, TextAlign.start),
                             ],
                           ),
@@ -114,7 +114,7 @@ class _RightDrawerState extends State<RightDrawer> {
                       childCount: 1,
                     ),
                   ),
-                  SliverList(
+                  if(trendingUpData.isNotEmpty)SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int indexList) {
                         return GestureDetector(
@@ -200,7 +200,14 @@ class _RightDrawerState extends State<RightDrawer> {
                       childCount: (trendingUpData.length > 25)?25:trendingUpData.length,
                     ),
                   ),
-
+                  if(trendingUpData.isEmpty)SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int indexList) {
+                        return NoData("No Players", "", context);
+                      },
+                      childCount: 1,
+                    ),
+                  ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {

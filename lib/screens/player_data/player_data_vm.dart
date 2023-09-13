@@ -108,6 +108,40 @@ class PlayerDataVm {
         else if (allTeams[j].name.toString() == "Falcons") {
           teamCard = "assets/teams_theme/falcons.png";
         }
+
+        else if (allTeams[j].name.toString() == "Saints") {
+          teamCard = "assets/teams_theme/saints.png";
+        }
+        else if (allTeams[j].name.toString() == "Raiders") {
+          teamCard = "assets/teams_theme/raiders.png";
+        }
+        else if (allTeams[j].name.toString() == "Chargers") {
+          teamCard = "assets/teams_theme/chargers.png";
+        }
+        else if (allTeams[j].name.toString() == "Steelers") {
+          teamCard = "assets/teams_theme/steelers.png";
+        }
+        else if (allTeams[j].name.toString() == "Jets") {
+          teamCard = "assets/teams_theme/jets.png";
+        }
+        else if (allTeams[j].name.toString() == "Titans") {
+          teamCard = "assets/teams_theme/titans.png";
+        }
+        else if (allTeams[j].name.toString() == "Buccaneers") {
+          teamCard = "assets/teams_theme/bucaneers.png";
+        }
+        else if (allTeams[j].name.toString() == "Commanders") {
+          teamCard = "assets/teams_theme/commanders.png";
+        }
+        else if (allTeams[j].name.toString() == "49ers") {
+          teamCard = "assets/teams_theme/49ers.png";
+        }
+        else if (allTeams[j].name.toString() == "Seahawks") {
+          teamCard = "assets/teams_theme/seahawks.png";
+        }
+        else if (allTeams[j].name.toString() == "Eagles") {
+          teamCard = "assets/teams_theme/eagles.png";
+        }
         else {
           print("No Image -------  ${allTeams[j].name}");
         }

@@ -18,7 +18,7 @@ class BettingDetailVm {
     playersPropsData.clear();
     allTeams.clear();
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/PlayerPropsByWeek/2023/$week?key=${AllKeys.sportsKey}",
+        "https://api.sportsdata.io/v3/nfl/odds/json/PlayerPropsByWeek/$season/$week?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
