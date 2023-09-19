@@ -60,7 +60,13 @@ class _ChatState extends State<Chat> {
 
     initTts();
 
-    new Future.delayed(Duration.zero, () {
+    List<int> originalList = [2, 4, 1, 3, 7, 5, 0];
+
+    originalList.sort((a, b) => b.compareTo(a));
+
+    print(originalList);
+
+    Future.delayed(Duration.zero, () {
       showLoader(context);
     });
 

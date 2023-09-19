@@ -56,8 +56,7 @@ class ChatVm{
     }
   }
 
-  Future<ChatModel> chatWithAI(Map<String, String> params,
-      BuildContext context) async {
+  Future<ChatModel> chatWithAI(Map<String, String> params, BuildContext context) async {
     var response = await methodWithHeader("POST", AllKeys.aiChat, params, null, context);
     var res = jsonDecode(response);
     return ChatModel.fromJson(res);
@@ -117,13 +116,12 @@ class ChatVm{
   }
 
   Future<void> getPlayerGameStatsByWeek(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/stats/json/PlayerGameStatsByWeek/$season/$week?key=${AllKeys.sportsKey}",
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/stats/json/PlayerSeasonStats/$season?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = jsonDecode(res);
 
     List<dynamic> list = [];
-    List<double> points = [];
     list.addAll(response);
 
     for (var i = 0; i < list.length; i++) {
@@ -132,23 +130,14 @@ class ChatVm{
       duplicateItems.add(allPlayersData);
     }
 
-    for (var i = 0; i < trendingUpData.length; i++) {
-      points.add(trendingUpData[i].fantasyPoints!);
-    }
+    trendingUpData.sort((a, b) {
+      final aValue = a.fantasyPoints;
+      final bValue = b.fantasyPoints;
+      return bValue.compareTo(aValue);
+    });
+
     await getTeams(context);
-    getPlayers(context);
-    // points.sort((a, b) => a.compareTo(b));
-
-    print("WERTYUIOP{         "+points.toString());
-
-    // for (var k = 0; k < playersPropsData.length; k++) {
-    //
-    //   for (var j = 0; j < allPlayers.length; j++) {
-    //     if (playersPropsData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
-    //       playersPropsData[k].playerImg = allPlayers[j].photoUrl.toString();
-    //     }
-    //   }
-    // }
+    await getPlayers(context);
 
   }
 
@@ -218,14 +207,9 @@ class ChatVm{
           trendingUpData[k].playerImg = allPlayers[j].photoUrl.toString();
         }
       }
-
     }
-
-
   }
-
 }
-
 
 class LocalChatData {
   String isFrom = '';

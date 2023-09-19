@@ -21,6 +21,7 @@ class PlayerDataVm {
 
   List<OwnershipDataModel> ownershipModelList = [];
   List<PlayerNewsModel> playerNewsModel = [];
+  PlayerNewsModel playerNewsData = PlayerNewsModel();
 
   Future<void> playerDetail(
       BuildContext context, String playerId, String keys) async {
@@ -151,28 +152,23 @@ class PlayerDataVm {
   }
 
   Future<void> playerNews(BuildContext context, String playerId) async {
-    String res = await thirdPartyMethod(
+    String res = await getMethodWithQuery(
         "GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/NewsByPlayerID/$playerId?key=${AllKeys.sportsKey}",
-        null,
+        "getRotoworldPlayerNews?PlayerID=$playerId",
         null,
         context);
 
     var response = await jsonDecode(res);
 
-    List<dynamic> list = [];
-    list.addAll(response);
+    playerNewsData = PlayerNewsModel.fromJson(response);
 
-    for (var i = 0; i < list.length; i++) {
-      PlayerNewsModel player = PlayerNewsModel.fromJson(list[i]);
-      playerNewsModel.add(player);
-    }
+
   }
 
   Future<void> ownershipDetail(BuildContext context) async {
     String res = await thirdPartyMethod(
         "GET",
-        "https://api.sportsdata.io/v3/nfl/stats/json/PlayerOwnership/2023/1?key=${AllKeys.sportsKey}",
+        "https://api.sportsdata.io/v3/nfl/stats/json/PlayerOwnership/$season/$week?key=${AllKeys.sportsKey}",
         null,
         null,
         context);

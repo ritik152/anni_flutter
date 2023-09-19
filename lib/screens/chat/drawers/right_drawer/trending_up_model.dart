@@ -1,18 +1,13 @@
 class TrendingData {
-  String? gameKey;
   var playerID;
   var seasonType;
   var season;
-  String? gameDate;
-  var week;
   String? team;
   String? teamImg;
-  String? opponent;
-  String? homeOrAway;
+  String? playerImg;
   var number;
   String? name;
   String? position;
-  String? playerImg;
   String? positionCategory;
   var activated;
   var played;
@@ -92,7 +87,7 @@ class TrendingData {
   var touchdowns;
   String? fantasyPosition;
   var fieldGoalPercentage;
-  var playerGameID;
+  var playerSeasonID;
   var fumblesOwnRecoveries;
   var fumblesOutOfBounds;
   var kickReturnFairCatches;
@@ -116,23 +111,18 @@ class TrendingData {
   var miscFumblesForced;
   var miscFumblesRecovered;
   String? shortName;
-  String? playingSurface;
-  bool? isGameOver;
   var safetiesAllowed;
-  String? stadium;
   var temperature;
   var humidity;
   var windSpeed;
-  var fanDuelSalary;
-  var draftKingsSalary;
-  var fantasyDataSalary;
   var offensiveSnapsPlayed;
   var defensiveSnapsPlayed;
   var specialTeamsSnapsPlayed;
   var offensiveTeamSnaps;
   var defensiveTeamSnaps;
   var specialTeamsTeamSnaps;
-  var victivSalary;
+  var auctionValue;
+  var auctionValuePPR;
   var twoPointConversionReturns;
   var fantasyPointsFanDuel;
   var fieldGoalsMade0to19;
@@ -141,45 +131,23 @@ class TrendingData {
   var fieldGoalsMade40to49;
   var fieldGoalsMade50Plus;
   var fantasyPointsDraftKings;
-  var yahooSalary;
   var fantasyPointsYahoo;
-  String? injuryStatus;
-  String? injuryBodyPart;
-  var injuryStartDate;
-  String? injuryNotes;
-  String? fanDuelPosition;
-  String? draftKingsPosition;
-  String? yahooPosition;
-  var opponentRank;
-  var opponentPositionRank;
-  String? injuryPractice;
-  String? injuryPracticeDescription;
-  bool? declaredInactive;
-  var fantasyDraftSalary;
-  var fantasyDraftPosition;
+  var averageDraftPosition;
+  var averageDraftPositionPPR;
   var teamID;
-  var opponentID;
-  String? day;
-  String? dateTime;
-  var globalGameID;
   var globalTeamID;
-  var globalOpponentID;
-  var scoreID;
   var fantasyPointsFantasyDraft;
+  var averageDraftPositionRookie;
+  var averageDraftPositionDynasty;
+  var averageDraftPosition2QB;
   var offensiveFumbleRecoveryTouchdowns;
-  bool? snapCountsConfirmed;
   List<ScoringDetails>? scoringDetails;
 
   TrendingData(
-      {this.gameKey,
-        this.playerID,
+      {this.playerID,
         this.seasonType,
         this.season,
-        this.gameDate,
-        this.week,
         this.team,
-        this.opponent,
-        this.homeOrAway,
         this.number,
         this.name,
         this.position,
@@ -262,7 +230,7 @@ class TrendingData {
         this.touchdowns,
         this.fantasyPosition,
         this.fieldGoalPercentage,
-        this.playerGameID,
+        this.playerSeasonID,
         this.fumblesOwnRecoveries,
         this.fumblesOutOfBounds,
         this.kickReturnFairCatches,
@@ -286,23 +254,18 @@ class TrendingData {
         this.miscFumblesForced,
         this.miscFumblesRecovered,
         this.shortName,
-        this.playingSurface,
-        this.isGameOver,
         this.safetiesAllowed,
-        this.stadium,
         this.temperature,
         this.humidity,
         this.windSpeed,
-        this.fanDuelSalary,
-        this.draftKingsSalary,
-        this.fantasyDataSalary,
         this.offensiveSnapsPlayed,
         this.defensiveSnapsPlayed,
         this.specialTeamsSnapsPlayed,
         this.offensiveTeamSnaps,
         this.defensiveTeamSnaps,
         this.specialTeamsTeamSnaps,
-        this.victivSalary,
+        this.auctionValue,
+        this.auctionValuePPR,
         this.twoPointConversionReturns,
         this.fantasyPointsFanDuel,
         this.fieldGoalsMade0to19,
@@ -311,45 +274,23 @@ class TrendingData {
         this.fieldGoalsMade40to49,
         this.fieldGoalsMade50Plus,
         this.fantasyPointsDraftKings,
-        this.yahooSalary,
         this.fantasyPointsYahoo,
-        this.injuryStatus,
-        this.injuryBodyPart,
-        this.injuryStartDate,
-        this.injuryNotes,
-        this.fanDuelPosition,
-        this.draftKingsPosition,
-        this.yahooPosition,
-        this.opponentRank,
-        this.opponentPositionRank,
-        this.injuryPractice,
-        this.injuryPracticeDescription,
-        this.declaredInactive,
-        this.fantasyDraftSalary,
-        this.fantasyDraftPosition,
+        this.averageDraftPosition,
+        this.averageDraftPositionPPR,
         this.teamID,
-        this.opponentID,
-        this.day,
-        this.dateTime,
-        this.globalGameID,
         this.globalTeamID,
-        this.globalOpponentID,
-        this.scoreID,
         this.fantasyPointsFantasyDraft,
+        this.averageDraftPositionRookie,
+        this.averageDraftPositionDynasty,
+        this.averageDraftPosition2QB,
         this.offensiveFumbleRecoveryTouchdowns,
-        this.snapCountsConfirmed,
         this.scoringDetails});
 
   TrendingData.fromJson(Map<String, dynamic> json) {
-    gameKey = json['GameKey'];
     playerID = json['PlayerID'];
     seasonType = json['SeasonType'];
     season = json['Season'];
-    gameDate = json['GameDate'];
-    week = json['Week'];
     team = json['Team'];
-    opponent = json['Opponent'];
-    homeOrAway = json['HomeOrAway'];
     number = json['Number'];
     name = json['Name'];
     position = json['Position'];
@@ -432,7 +373,7 @@ class TrendingData {
     touchdowns = json['Touchdowns'];
     fantasyPosition = json['FantasyPosition'];
     fieldGoalPercentage = json['FieldGoalPercentage'];
-    playerGameID = json['PlayerGameID'];
+    playerSeasonID = json['PlayerSeasonID'];
     fumblesOwnRecoveries = json['FumblesOwnRecoveries'];
     fumblesOutOfBounds = json['FumblesOutOfBounds'];
     kickReturnFairCatches = json['KickReturnFairCatches'];
@@ -456,23 +397,18 @@ class TrendingData {
     miscFumblesForced = json['MiscFumblesForced'];
     miscFumblesRecovered = json['MiscFumblesRecovered'];
     shortName = json['ShortName'];
-    playingSurface = json['PlayingSurface'];
-    isGameOver = json['IsGameOver'];
     safetiesAllowed = json['SafetiesAllowed'];
-    stadium = json['Stadium'];
     temperature = json['Temperature'];
     humidity = json['Humidity'];
     windSpeed = json['WindSpeed'];
-    fanDuelSalary = json['FanDuelSalary'];
-    draftKingsSalary = json['DraftKingsSalary'];
-    fantasyDataSalary = json['FantasyDataSalary'];
     offensiveSnapsPlayed = json['OffensiveSnapsPlayed'];
     defensiveSnapsPlayed = json['DefensiveSnapsPlayed'];
     specialTeamsSnapsPlayed = json['SpecialTeamsSnapsPlayed'];
     offensiveTeamSnaps = json['OffensiveTeamSnaps'];
     defensiveTeamSnaps = json['DefensiveTeamSnaps'];
     specialTeamsTeamSnaps = json['SpecialTeamsTeamSnaps'];
-    victivSalary = json['VictivSalary'];
+    auctionValue = json['AuctionValue'];
+    auctionValuePPR = json['AuctionValuePPR'];
     twoPointConversionReturns = json['TwoPointConversionReturns'];
     fantasyPointsFanDuel = json['FantasyPointsFanDuel'];
     fieldGoalsMade0to19 = json['FieldGoalsMade0to19'];
@@ -481,34 +417,17 @@ class TrendingData {
     fieldGoalsMade40to49 = json['FieldGoalsMade40to49'];
     fieldGoalsMade50Plus = json['FieldGoalsMade50Plus'];
     fantasyPointsDraftKings = json['FantasyPointsDraftKings'];
-    yahooSalary = json['YahooSalary'];
     fantasyPointsYahoo = json['FantasyPointsYahoo'];
-    injuryStatus = json['InjuryStatus'];
-    injuryBodyPart = json['InjuryBodyPart'];
-    injuryStartDate = json['InjuryStartDate'];
-    injuryNotes = json['InjuryNotes'];
-    fanDuelPosition = json['FanDuelPosition'];
-    draftKingsPosition = json['DraftKingsPosition'];
-    yahooPosition = json['YahooPosition'];
-    opponentRank = json['OpponentRank'];
-    opponentPositionRank = json['OpponentPositionRank'];
-    injuryPractice = json['InjuryPractice'];
-    injuryPracticeDescription = json['InjuryPracticeDescription'];
-    declaredInactive = json['DeclaredInactive'];
-    fantasyDraftSalary = json['FantasyDraftSalary'];
-    fantasyDraftPosition = json['FantasyDraftPosition'];
+    averageDraftPosition = json['AverageDraftPosition'];
+    averageDraftPositionPPR = json['AverageDraftPositionPPR'];
     teamID = json['TeamID'];
-    opponentID = json['OpponentID'];
-    day = json['Day'];
-    dateTime = json['DateTime'];
-    globalGameID = json['GlobalGameID'];
     globalTeamID = json['GlobalTeamID'];
-    globalOpponentID = json['GlobalOpponentID'];
-    scoreID = json['ScoreID'];
     fantasyPointsFantasyDraft = json['FantasyPointsFantasyDraft'];
+    averageDraftPositionRookie = json['AverageDraftPositionRookie'];
+    averageDraftPositionDynasty = json['AverageDraftPositionDynasty'];
+    averageDraftPosition2QB = json['AverageDraftPosition2QB'];
     offensiveFumbleRecoveryTouchdowns =
     json['OffensiveFumbleRecoveryTouchdowns'];
-    snapCountsConfirmed = json['SnapCountsConfirmed'];
     if (json['ScoringDetails'] != null) {
       scoringDetails = <ScoringDetails>[];
       json['ScoringDetails'].forEach((v) {
@@ -519,15 +438,10 @@ class TrendingData {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GameKey'] = this.gameKey;
     data['PlayerID'] = this.playerID;
     data['SeasonType'] = this.seasonType;
     data['Season'] = this.season;
-    data['GameDate'] = this.gameDate;
-    data['Week'] = this.week;
     data['Team'] = this.team;
-    data['Opponent'] = this.opponent;
-    data['HomeOrAway'] = this.homeOrAway;
     data['Number'] = this.number;
     data['Name'] = this.name;
     data['Position'] = this.position;
@@ -610,7 +524,7 @@ class TrendingData {
     data['Touchdowns'] = this.touchdowns;
     data['FantasyPosition'] = this.fantasyPosition;
     data['FieldGoalPercentage'] = this.fieldGoalPercentage;
-    data['PlayerGameID'] = this.playerGameID;
+    data['PlayerSeasonID'] = this.playerSeasonID;
     data['FumblesOwnRecoveries'] = this.fumblesOwnRecoveries;
     data['FumblesOutOfBounds'] = this.fumblesOutOfBounds;
     data['KickReturnFairCatches'] = this.kickReturnFairCatches;
@@ -634,23 +548,18 @@ class TrendingData {
     data['MiscFumblesForced'] = this.miscFumblesForced;
     data['MiscFumblesRecovered'] = this.miscFumblesRecovered;
     data['ShortName'] = this.shortName;
-    data['PlayingSurface'] = this.playingSurface;
-    data['IsGameOver'] = this.isGameOver;
     data['SafetiesAllowed'] = this.safetiesAllowed;
-    data['Stadium'] = this.stadium;
     data['Temperature'] = this.temperature;
     data['Humidity'] = this.humidity;
     data['WindSpeed'] = this.windSpeed;
-    data['FanDuelSalary'] = this.fanDuelSalary;
-    data['DraftKingsSalary'] = this.draftKingsSalary;
-    data['FantasyDataSalary'] = this.fantasyDataSalary;
     data['OffensiveSnapsPlayed'] = this.offensiveSnapsPlayed;
     data['DefensiveSnapsPlayed'] = this.defensiveSnapsPlayed;
     data['SpecialTeamsSnapsPlayed'] = this.specialTeamsSnapsPlayed;
     data['OffensiveTeamSnaps'] = this.offensiveTeamSnaps;
     data['DefensiveTeamSnaps'] = this.defensiveTeamSnaps;
     data['SpecialTeamsTeamSnaps'] = this.specialTeamsTeamSnaps;
-    data['VictivSalary'] = this.victivSalary;
+    data['AuctionValue'] = this.auctionValue;
+    data['AuctionValuePPR'] = this.auctionValuePPR;
     data['TwoPointConversionReturns'] = this.twoPointConversionReturns;
     data['FantasyPointsFanDuel'] = this.fantasyPointsFanDuel;
     data['FieldGoalsMade0to19'] = this.fieldGoalsMade0to19;
@@ -659,34 +568,17 @@ class TrendingData {
     data['FieldGoalsMade40to49'] = this.fieldGoalsMade40to49;
     data['FieldGoalsMade50Plus'] = this.fieldGoalsMade50Plus;
     data['FantasyPointsDraftKings'] = this.fantasyPointsDraftKings;
-    data['YahooSalary'] = this.yahooSalary;
     data['FantasyPointsYahoo'] = this.fantasyPointsYahoo;
-    data['InjuryStatus'] = this.injuryStatus;
-    data['InjuryBodyPart'] = this.injuryBodyPart;
-    data['InjuryStartDate'] = this.injuryStartDate;
-    data['InjuryNotes'] = this.injuryNotes;
-    data['FanDuelPosition'] = this.fanDuelPosition;
-    data['DraftKingsPosition'] = this.draftKingsPosition;
-    data['YahooPosition'] = this.yahooPosition;
-    data['OpponentRank'] = this.opponentRank;
-    data['OpponentPositionRank'] = this.opponentPositionRank;
-    data['InjuryPractice'] = this.injuryPractice;
-    data['InjuryPracticeDescription'] = this.injuryPracticeDescription;
-    data['DeclaredInactive'] = this.declaredInactive;
-    data['FantasyDraftSalary'] = this.fantasyDraftSalary;
-    data['FantasyDraftPosition'] = this.fantasyDraftPosition;
+    data['AverageDraftPosition'] = this.averageDraftPosition;
+    data['AverageDraftPositionPPR'] = this.averageDraftPositionPPR;
     data['TeamID'] = this.teamID;
-    data['OpponentID'] = this.opponentID;
-    data['Day'] = this.day;
-    data['DateTime'] = this.dateTime;
-    data['GlobalGameID'] = this.globalGameID;
     data['GlobalTeamID'] = this.globalTeamID;
-    data['GlobalOpponentID'] = this.globalOpponentID;
-    data['ScoreID'] = this.scoreID;
     data['FantasyPointsFantasyDraft'] = this.fantasyPointsFantasyDraft;
+    data['AverageDraftPositionRookie'] = this.averageDraftPositionRookie;
+    data['AverageDraftPositionDynasty'] = this.averageDraftPositionDynasty;
+    data['AverageDraftPosition2QB'] = this.averageDraftPosition2QB;
     data['OffensiveFumbleRecoveryTouchdowns'] =
         this.offensiveFumbleRecoveryTouchdowns;
-    data['SnapCountsConfirmed'] = this.snapCountsConfirmed;
     if (this.scoringDetails != null) {
       data['ScoringDetails'] =
           this.scoringDetails!.map((v) => v.toJson()).toList();

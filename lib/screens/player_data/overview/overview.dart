@@ -157,12 +157,12 @@ class Overview extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                if(vm.playerNewsModel.isNotEmpty) CommonText(dateFormat(vm.playerNewsModel[0].updated.toString()), 10,AppColor.whiteColor, TextAlign.start),
+                if(vm.playerNewsData.body != null && vm.playerNewsData.body!.isNotEmpty) CommonText(dateFormat(vm.playerNewsData.body![0].jsonData!.rotoworldCreated.toString()), 10,AppColor.whiteColor, TextAlign.start),
                 const SizedBox(
                   height: 10,
                 ),
-               if(vm.playerNewsModel.isNotEmpty) CommonText(
-                    vm.playerNewsModel[0].content.toString(),
+               if(vm.playerNewsData.body != null  && vm.playerNewsData.body!.isNotEmpty) CommonText(
+                    vm.playerNewsData.body![0].jsonData!.comment.toString(),
                     10,
                     AppColor.whiteColor,
                     TextAlign.start),
