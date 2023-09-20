@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/betting_data/betting_data_vm.dart';
 import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../utils/all_keys.dart';
 import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
@@ -26,10 +24,10 @@ class _BeatingDataState extends State<BeatingData> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     getData();
+
   }
 
 
@@ -503,7 +501,10 @@ class _BeatingDataState extends State<BeatingData> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (
-                                context) => BettingDetail(week : vm.value,date : dateTimeFormat(vm.bettingData[index].dateTime.toString()))));
+                                context) => BettingDetail(week : vm.value,
+                                date : dateTimeFormat(vm.bettingData[index].dateTime.toString()),
+                                scoreId : vm.bettingData[index].pregameOdds![0].scoreId.toString()
+                            )));
                           },
                           child: Container(
                             width: double.infinity,

@@ -7,9 +7,9 @@ import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 
 class BettingDetail extends StatefulWidget {
-  String week,date;
+  String week,date,scoreId;
 
-  BettingDetail({Key? key, required this.week, required this.date}) : super(key: key);
+  BettingDetail({Key? key, required this.week, required this.date, required this.scoreId}) : super(key: key);
 
   @override
   State<BettingDetail> createState() => _BettingDetailState();
