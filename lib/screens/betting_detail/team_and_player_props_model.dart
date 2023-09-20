@@ -1,14 +1,18 @@
 class TeamAndPlayerPropsModel {
-  int? bettingMarketID;
-  int? bettingEventID;
-  int? bettingMarketTypeID;
+  var bettingMarketID;
+  var bettingEventID;
+  var bettingMarketTypeID;
   String? bettingMarketType;
-  int? bettingBetTypeID;
+  var bettingBetTypeID;
   String? bettingBetType;
-  int? bettingPeriodTypeID;
+  var bettingPeriodTypeID;
   String? bettingPeriodType;
   var name;
+  var teamImg;
+  var playerImg;
   var teamID;
+  var over;
+  var under;
   var teamKey;
   var playerID;
   var playerName;
@@ -104,7 +108,7 @@ class TeamAndPlayerPropsModel {
 }
 
 class AvailableSportsbooks {
-  int? sportsbookID;
+  var sportsbookID;
   String? name;
 
   AvailableSportsbooks({this.sportsbookID, this.name});
@@ -123,22 +127,22 @@ class AvailableSportsbooks {
 }
 
 class BettingOutcomes {
-  int? bettingOutcomeID;
-  int? bettingMarketID;
-  int? bettingOutcomeTypeID;
+  var bettingOutcomeID;
+  var bettingMarketID;
+  var bettingOutcomeTypeID;
   String? bettingOutcomeType;
-  int? payoutAmerican;
-  double? payoutDecimal;
-  int? value;
+  var payoutAmerican;
+  var payoutDecimal;
+  var value;
   String? participant;
   bool? isAvailable;
   bool? isAlternate;
   String? created;
   String? updated;
   var unlisted;
-  int? teamID;
+  var teamID;
   var playerID;
-  int? globalTeamID;
+  var globalTeamID;
   String? sportsbookUrl;
   bool? isInPlay;
   String? sportsbookMarketID;

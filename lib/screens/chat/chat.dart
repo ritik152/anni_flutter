@@ -100,7 +100,6 @@ class _ChatState extends State<Chat> {
   initTts() async {
     flutterTts = FlutterTts();
 
-
     await vm.currentSeason(context);
     await vm.currentWeek(context);
     await vm.getPlayerGameStatsByWeek(context);

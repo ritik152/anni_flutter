@@ -115,7 +115,7 @@ class _PlayerDataState extends State<PlayerData> {
                                 children: [
                                   CommonText("Free Agent", 10,
                                       AppColor.whiteColor, TextAlign.start),
-                                  BoldText("#${vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor,
+                                  BoldText("#${(vm.allTeamsData.number.toString() == "null")?"":vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor,
                                       TextAlign.start),
                                   Container(
                                     height: 20,

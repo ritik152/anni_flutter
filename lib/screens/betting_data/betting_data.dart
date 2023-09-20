@@ -501,9 +501,14 @@ class _BeatingDataState extends State<BeatingData> {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context, MaterialPageRoute(builder: (
-                                context) => BettingDetail(week : vm.value,
+                                context) => BettingDetail(
                                 date : dateTimeFormat(vm.bettingData[index].dateTime.toString()),
-                                scoreId : vm.bettingData[index].pregameOdds![0].scoreId.toString()
+                                scoreId : vm.bettingData[index].pregameOdds![0].scoreId.toString(),
+                              awayImg : vm.bettingData[index].awayTeamImg.toString(),
+                              awayName : vm.bettingData[index].awayTeamName.toString(),
+                              homeImg : vm.bettingData[index].homeTeamImg.toString(),
+                              homeName : vm.bettingData[index].homeTeamName.toString(),
+
                             )));
                           },
                           child: Container(
@@ -526,9 +531,7 @@ class _BeatingDataState extends State<BeatingData> {
   Future<void> getData() async {
     vm.bettingData.clear();
     vm.allTeams.clear();
-    String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/$season/${vm.value.toString()}?key=${AllKeys.sportsKey}",
-        null, null, context);
+    String res = await thirdPartyMethod("GET","https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/$season/${vm.value.toString()}?key=${AllKeys.sportsKey}", null, null, context);
 
     var response = jsonDecode(res);
 
@@ -568,9 +571,7 @@ class _BeatingDataState extends State<BeatingData> {
         if (vm.bettingData[k].awayTeamId.toString() == vm.allTeams[j].teamID.toString()) {
           vm.bettingData[k].awayTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
           vm.bettingData[k].name = vm.allTeams[j].name.toString();
-        }
-
-        if (vm.bettingData[k].homeTeamId.toString() == vm.allTeams[j].teamID.toString()) {
+        }else if (vm.bettingData[k].homeTeamId.toString() == vm.allTeams[j].teamID.toString()) {
           vm.bettingData[k].homeTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
           vm.bettingData[k].name = vm.allTeams[j].name.toString();
         }

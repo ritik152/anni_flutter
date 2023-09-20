@@ -7,12 +7,19 @@ import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 
 class BettingDetail extends StatefulWidget {
-  String week,date,scoreId;
 
-  BettingDetail({Key? key, required this.week, required this.date, required this.scoreId}) : super(key: key);
+  String date,scoreId,awayImg,awayName,homeImg,homeName;
+
+  BettingDetail({Key? key,required this.date,
+    required this.scoreId,
+    required this.awayImg,
+    required this.awayName,
+    required this.homeImg,
+    required this.homeName}) : super(key: key);
 
   @override
   State<BettingDetail> createState() => _BettingDetailState();
+
 }
 
 class _BettingDetailState extends State<BettingDetail> {
@@ -567,7 +574,9 @@ class _BettingDetailState extends State<BettingDetail> {
                 ],
               ),
             )),
-          if (vm.index == 1) PlayerPropsList()
+          if (vm.index == 1) PlayerPropsList(),
+          if (vm.index == 2) GamePropsList(),
+          if (vm.index == 3) TeamPropsList()
         ],
       ),
     );
@@ -575,11 +584,10 @@ class _BettingDetailState extends State<BettingDetail> {
 
   Widget PlayerPropsList() {
     return Expanded(
-        child:(vm.isLoading == true)
+        child:(vm.isLoading)
             ?Progress()
-            :(vm.playersPropsData.isEmpty)
-            ?NoData("No Betting Data", "assets/images/no_data.png", context)
-            : ListView.builder(
+        :(vm.playersPropsData.isEmpty)?NoData("No Data", "", context)
+            :ListView.builder(
           padding: EdgeInsets.zero,
             itemCount: vm.playersPropsData.length,
             itemBuilder: (context, index) {
@@ -592,8 +600,7 @@ class _BettingDetailState extends State<BettingDetail> {
                           height: 40,
                           color: AppColor.dialogBackgroundColor,
                           padding: const EdgeInsets.only(top: 10,left: 10),
-                          child: BoldText(
-                              vm.playersPropsData[index].description.toString(),
+                          child: BoldText("${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
                               13,
                               AppColor.whiteColor,
                               TextAlign.start),
@@ -607,10 +614,10 @@ class _BettingDetailState extends State<BettingDetail> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              CommonText("Over/Under", 11, AppColor.whiteColor,
-                                  TextAlign.center),
-                              CommonText(vm.playersPropsData[index].overUnder.toString(), 11, AppColor.whiteColor,
-                                  TextAlign.center),
+                              // CommonText("Over/Under", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
+                              // CommonText("10", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
                             ],
                           ),
                         ),
@@ -649,34 +656,13 @@ class _BettingDetailState extends State<BettingDetail> {
                                     width: 5,
                                   ),
                                   BoldText(
-                                      vm.playersPropsData[index].name.toString(),
+                                      vm.playersPropsData[index].playerName.toString(),
                                       13,
                                       AppColor.whiteColor,
                                       TextAlign.start)
                                 ],
                               ),
                               const SizedBox(height: 20,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SvgPicture.network(
-                                    vm.playersPropsData[index].teamImg
-                                        .toString(),
-                                    height: 15,
-                                    width: 15,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  BoldText(
-                                      vm.playersPropsData[index].team
-                                          .toString(),
-                                      13,
-                                      AppColor.whiteColor,
-                                      TextAlign.start)
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -698,7 +684,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     MediumText(
-                                        "U ${vm.playersPropsData[index].underPayout.toString()}",
+                                        "U ${(vm.playersPropsData[index].under.toString() =="null")?"0":vm.playersPropsData[index].under.toString()}",
                                         12,
                                         AppColor.textGreenColor,
                                         TextAlign.start),
@@ -718,9 +704,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    MediumText(
-                                        "O ${vm.playersPropsData[index].overPayout.toString()}",
-                                        12,
+                                    MediumText("O ${(vm.playersPropsData[index].over.toString() =="null")?"0":vm.playersPropsData[index].over.toString()}", 12,
                                         AppColor.textGreenColor,
                                         TextAlign.start),
                                   ],
@@ -732,7 +716,60 @@ class _BettingDetailState extends State<BettingDetail> {
                       ],
                     ),
                   ),
-                 /* Container(
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }));
+  }
+
+  Widget GamePropsList() {
+    return Expanded(
+        child:(vm.isLoading)
+            ?Progress()
+        :(vm.gamePropsData.isEmpty)?NoData("No Data", "", context)
+            :ListView.builder(
+          padding: EdgeInsets.zero,
+            itemCount: vm.gamePropsData.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          color: AppColor.dialogBackgroundColor,
+                          padding: const EdgeInsets.only(top: 10,left: 10),
+                          child: BoldText("${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
+                              13,
+                              AppColor.whiteColor,
+                              TextAlign.start),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          color: AppColor.backColor,
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              // CommonText("Over/Under", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
+                              // CommonText("10", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
                     alignment: Alignment.center,
                     padding: const EdgeInsets.only(left: 10),
                     child: Row(
@@ -744,20 +781,48 @@ class _BettingDetailState extends State<BettingDetail> {
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  SvgPicture.network(
-                                    vm.playersPropsData[index].teamImg
-                                        .toString(),
-                                    height: 15,
-                                    width: 15,
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child:  SvgPicture.network(
+                                      widget.homeImg
+                                          .toString(),
+                                      height: 15,
+                                      width: 15,
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   BoldText(
-                                      vm.playersPropsData[index].team
+                                      widget.homeName.toString(),
+                                      13,
+                                      AppColor.whiteColor,
+                                      TextAlign.start)
+                                ],
+                              ),
+                              const SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child:  SvgPicture.network(
+                                      widget.awayImg
                                           .toString(),
+                                      height: 15,
+                                      width: 15,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  BoldText(
+                                      widget.awayName.toString(),
                                       13,
                                       AppColor.whiteColor,
                                       TextAlign.start)
@@ -772,70 +837,39 @@ class _BettingDetailState extends State<BettingDetail> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                width: 45,
+                                width: 50,
                                 height: 45,
                                 margin: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border:
-                                        Border.all(color: AppColor.hintColor)),
+                                    Border.all(color: AppColor.hintColor)),
                                 padding: const EdgeInsets.all(2),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    MediumText("+6.5", 12, AppColor.whiteColor,
-                                        TextAlign.start),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
                                     MediumText(
-                                        "-105",
+                                        "U ${(vm.gamePropsData[index].under.toString() =="null")?"0":vm.gamePropsData[index].under.toString()}",
                                         12,
                                         AppColor.textGreenColor,
                                         TextAlign.start),
                                   ],
                                 ),
                               ),
+                              const SizedBox(width: 10,),
                               Container(
-                                width: 45,
+                                width: 50,
                                 height: 45,
                                 margin: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border:
-                                        Border.all(color: AppColor.hintColor)),
+                                    Border.all(color: AppColor.hintColor)),
                                 padding: const EdgeInsets.all(2),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    MediumText(
-                                        "+250",
-                                        12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 45,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                        Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText("O 53.5", 12,
-                                        AppColor.whiteColor, TextAlign.start),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    MediumText(
-                                        "-110",
-                                        12,
+                                    MediumText("O ${(vm.gamePropsData[index].over.toString() =="null")?"0":vm.gamePropsData[index].over.toString()}", 12,
                                         AppColor.textGreenColor,
                                         TextAlign.start),
                                   ],
@@ -846,7 +880,149 @@ class _BettingDetailState extends State<BettingDetail> {
                         )
                       ],
                     ),
-                  ),*/
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }));
+  }
+
+  Widget TeamPropsList() {
+    return Expanded(
+        child:(vm.isLoading)
+            ?Progress()
+        :(vm.teamPropsData.isEmpty)?NoData("No Data", "", context)
+            :ListView.builder(
+          padding: EdgeInsets.zero,
+            itemCount: vm.teamPropsData.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          color: AppColor.dialogBackgroundColor,
+                          padding: const EdgeInsets.only(top: 10,left: 10),
+                          child: BoldText("${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
+                              13,
+                              AppColor.whiteColor,
+                              TextAlign.start),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          alignment: Alignment.center,
+                          color: AppColor.backColor,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              // CommonText("Over/Under", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
+                              // CommonText("10", 11, AppColor.whiteColor,
+                              //     TextAlign.center),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child:  SvgPicture.network(
+                                      vm.teamPropsData[index].teamImg
+                                          .toString(),
+                                      height: 15,
+                                      width: 15,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  BoldText(
+                                      vm.teamPropsData[index].name
+                                          .toString(),
+                                      13,
+                                      AppColor.whiteColor,
+                                      TextAlign.start)
+                                ],
+                              ),
+                              const SizedBox(height: 20,),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border:
+                                    Border.all(color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "U ${(vm.teamPropsData[index].under.toString() =="null")?"0":vm.teamPropsData[index].under.toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 10,),
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border:
+                                    Border.all(color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    MediumText("O ${(vm.teamPropsData[index].over.toString() =="null")?"0":vm.teamPropsData[index].over.toString()}", 12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -856,7 +1032,7 @@ class _BettingDetailState extends State<BettingDetail> {
   }
 
   Future<void> getData() async {
-    await vm.getPlayerPropsData(context, widget.week);
+    await vm.getPlayerPropsData(context, widget.scoreId);
     await vm.getTeams(context);
     await vm.getPlayers(context);
     setState(() {

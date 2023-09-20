@@ -79,7 +79,7 @@ class Overview extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText("${vm.allTeamsData.rosted}%", 14, AppColor.whiteColor,
+                              BoldText("${(vm.allTeamsData.rosted.toString() == "null")?"0":vm.allTeamsData.rosted}%", 14, AppColor.whiteColor,
                                   TextAlign.start),
                               CommonText("Roster", 10, AppColor.whiteColor,
                                   TextAlign.start),
@@ -91,7 +91,7 @@ class Overview extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText("${vm.allTeamsData.start}%", 14, AppColor.whiteColor,
+                              BoldText("${(vm.allTeamsData.start.toString() == "null")?"0":vm.allTeamsData.start}%", 14, AppColor.whiteColor,
                                   TextAlign.start),
                               CommonText("Start", 10, AppColor.whiteColor,
                                   TextAlign.start),
