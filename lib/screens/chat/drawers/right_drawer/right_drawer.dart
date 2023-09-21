@@ -306,7 +306,7 @@ class _RightDrawerState extends State<RightDrawer> {
   String dateTimeFormat(String eventDate) 
   {
     var createTime = "";
-    String formattedDate2 = DateFormat('E hh:mm a ').format(DateTime.parse(eventDate).toUtc());
+    String formattedDate2 = DateFormat('E hh:mm a ').format(DateTime.parse(eventDate).toLocal());
     print(formattedDate2);
     createTime = formattedDate2.toString();
     return createTime;

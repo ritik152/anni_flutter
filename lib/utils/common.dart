@@ -105,7 +105,7 @@ String dateFormatBetting2(String eventDate) {
 
 String dateTimeFormat(String eventDate) {
   var createTime = "";
-  String formattedDate2 = DateFormat('hh:mm a MMM dd').format(DateTime.parse(eventDate).toUtc());
+  String formattedDate2 = DateFormat('hh:mm a MMM dd').format(DateTime.parse(eventDate).toLocal());
   print(formattedDate2);
   createTime = formattedDate2.toString();
   return createTime;

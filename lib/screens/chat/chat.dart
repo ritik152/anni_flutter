@@ -103,6 +103,7 @@ class _ChatState extends State<Chat> {
     await vm.currentSeason(context);
     await vm.currentWeek(context);
     await vm.getPlayerGameStatsByWeek(context);
+
     _setAwaitOptions();
 
     if (isAndroid) {

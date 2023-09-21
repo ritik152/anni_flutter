@@ -22,6 +22,22 @@ Widget NoData(String text,String image, BuildContext context) {
   );
 }
 
+Widget NoDataText(String text, BuildContext context) {
+  return SizedBox(
+    height: MediaQuery.of(context).size.height*0.70,
+    child: Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BoldText(text, 17, AppColor.whiteColor, TextAlign.center),
+        ],
+      ),
+    ),
+  );
+}
+
 Widget CommonText(String s, double size, Color color, TextAlign align) {
   return Text(s, textAlign: align,
     style: TextStyle(

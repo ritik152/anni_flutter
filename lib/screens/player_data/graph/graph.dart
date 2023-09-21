@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:anni_ai/utils/color.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -8,43 +10,50 @@ import '../../../dialogs/filter_graph.dart';
 import '../../compare_player/compare_player.dart';
 
 class GraphTab extends StatefulWidget {
-   GraphTab({
+  GraphTab({
     super.key,
     Color? line1Color1,
     Color? line1Color2,
     Color? line2Color1,
-    Color? line2Color2,}) : line1Color1 = line1Color1 ?? Colors.orange,
-        line1Color2 = line1Color2 ?? Colors.orange,
-        line2Color1 = line2Color1 ?? Colors.orange,
-        line2Color2 = line2Color2 ?? Colors.orange {
+    Color? line2Color2,}): line1Color1 = line1Color1 ?? Colors.orange, line1Color2 = line1Color2 ?? Colors.orange, line2Color1 = line2Color1 ?? Colors.orange, line2Color2 = line2Color2 ?? Colors.orange {
     minSpotX = 1;
     maxSpotX = 1;
     minSpotY = 1;
     maxSpotY = 1;
 
-    
-    for(var i = 0; i == 10; i++){
+
+    for (var i = 0; i == 10; i++) {
       maxSpotY = double.parse(i.toString());
     }
   }
 
-   final Color line1Color1;
-   final Color line1Color2;
-   final Color line2Color1;
-   final Color line2Color2;
+  final Color line1Color1;
+  final Color line1Color2;
+  final Color line2Color1;
+  final Color line2Color2;
 
 
-
-   late double minSpotX;
-   late double maxSpotX;
-   late double minSpotY;
-   late double maxSpotY;
+  late double minSpotX;
+  late double maxSpotX;
+  late double minSpotY;
+  late double maxSpotY;
 
   @override
   State<GraphTab> createState() => _GraphTabState();
 }
 
 class _GraphTabState extends State<GraphTab> {
+
+
+  final List<FlSpot> dummyData1 = List.generate(8, (index) {
+    return FlSpot(index.toDouble(), index * Random().nextDouble());
+  });
+
+  // This will be used to draw the orange line
+  final List<FlSpot> dummyData2 = List.generate(8, (index) {
+    return FlSpot(index.toDouble(), index * Random().nextDouble());
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -53,77 +62,81 @@ class _GraphTabState extends State<GraphTab> {
           children: [
             Expanded(
                 child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    barrierColor: AppColor.dialogBackgroundColor,
-                    context: context,
-                    builder: (context) => const FilterGraphDialog());
-              },
-              child: Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                child: Container(
-                  decoration: BoxDecoration(color: AppColor.backColor, borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                  onTap: () {
+                    showDialog(
+                        barrierColor: AppColor.dialogBackgroundColor,
+                        context: context,
+                        builder: (context) => const FilterGraphDialog());
+                  },
+                  child: Container(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                    child: Container(
+                      decoration: BoxDecoration(color: AppColor.backColor,
+                          borderRadius: BorderRadius.circular(30)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BoldText(
-                              "Yards", 13, AppColor.whiteColor, TextAlign.start),
-                          BoldText(
-                              "per game", 13, AppColor.hintColor, TextAlign.start)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              BoldText(
+                                  "Yards", 13, AppColor.whiteColor,
+                                  TextAlign.start),
+                              BoldText(
+                                  "per game", 13, AppColor.hintColor,
+                                  TextAlign.start)
+                            ],
+                          ),
+                          Image.asset(
+                            "assets/icons/filter.png",
+                            height: 20,
+                            width: 20,
+                          )
                         ],
                       ),
-                      Image.asset(
-                        "assets/icons/filter.png",
-                        height: 20,
-                        width: 20,
-                      )
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            )),
+                )),
             Expanded(
                 child: GestureDetector(
-              onTap: () {
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ComparePlayer()));
-
-              },
-              child: Container(
-                // color: AppColor.hintColor,
-                padding:
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ComparePlayer()));
+                  },
+                  child: Container(
+                    // color: AppColor.hintColor,
+                    padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                child: Container(
-                  decoration: BoxDecoration(color: AppColor.backColor, borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Container(
+                      decoration: BoxDecoration(color: AppColor.backColor,
+                          borderRadius: BorderRadius.circular(30)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CommonText("Compare...", 13, AppColor.hintColor,
-                              TextAlign.start),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CommonText("Compare...", 13, AppColor.hintColor,
+                                  TextAlign.start),
+                            ],
+                          ),
+                          Image.asset(
+                            "assets/icons/search.png",
+                            height: 20,
+                            width: 20,
+                          )
                         ],
                       ),
-                      Image.asset(
-                        "assets/icons/search.png",
-                        height: 20,
-                        width: 20,
-                      )
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            )),
+                )),
           ],
         ),
         Expanded(
@@ -131,14 +144,14 @@ class _GraphTabState extends State<GraphTab> {
             padding: const EdgeInsets.all(10),
             width: double.infinity,
             height: 300,
-            child: LineChart(
+            /* child: LineChart(
               LineChartData(
                 borderData: FlBorderData(show: false),
                 lineBarsData: [
                   LineChartBarData(
                       color: AppColor.greenColor,
                       isCurved: false,
-                      dotData: const FlDotData(
+                      dotData:  FlDotData(
                         show: false,
                       ),
                       spots: [
@@ -153,8 +166,8 @@ class _GraphTabState extends State<GraphTab> {
                         const FlSpot(8, 20)
                       ]),
                 ],
-                gridData: const FlGridData(drawVerticalLine: false),
-                titlesData: FlTitlesData(rightTitles: const AxisTitles(), topTitles: const AxisTitles(),
+                gridData: FlGridData(drawVerticalLine: false),
+                titlesData: FlTitlesData(rightTitles: AxisTitles(), topTitles: AxisTitles(),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
@@ -175,7 +188,63 @@ class _GraphTabState extends State<GraphTab> {
                         getTitlesWidget: leftTitleWidgets,
                         reservedSize: 38,
                       ),
-                    )),
+                    )
+                ),
+              ),
+            ),*/
+            child: LineChart(
+              LineChartData(
+                backgroundColor: Colors.black,
+                gridData: FlGridData(drawVerticalLine: false),
+                titlesData: FlTitlesData(
+                  rightTitles: AxisTitles(), topTitles: AxisTitles(),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: 1,
+                      getTitlesWidget: (value, meta) {
+                        return bottomTitleWidgets(
+                          value,
+                          meta,
+                          MediaQuery.of(context).size.width,
+                        );
+                      },
+                      reservedSize: 30,
+                    ),
+                  ),
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      getTitlesWidget: (value, meta) => Container(),
+                      showTitles: true,
+                      reservedSize: 10,
+                    ),
+                  ),
+                ),
+                lineBarsData: [
+                  // The red line
+                  LineChartBarData(
+
+                    dotData:  FlDotData(
+                      show: false,
+                    ),
+                    spots: dummyData1,
+                    isCurved: true,
+                    barWidth: 3,
+                    color: Colors.red,
+                  ),
+                  // The orange line
+                  LineChartBarData(
+                    dotData:  FlDotData(
+                      show: false,
+                    ),
+                    spots: dummyData2,
+                    isCurved: true,
+                    barWidth: 3,
+                    color: AppColor.greenColor,
+                  ),
+
+                  // The blue line
+                ],
               ),
             ),
           ),
@@ -233,7 +302,7 @@ class _GraphTabState extends State<GraphTab> {
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    final style = TextStyle(
+     var style = const TextStyle(
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontSize: 12,

@@ -247,13 +247,13 @@ class _PlayerDataState extends State<PlayerData> {
               ),
               Expanded(
                 child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Overview(vm,widget.fantasyPoints),
                       TableList(playerId : vm.allTeamsData.playerID.toString()),
                       GraphTab(),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
-                      Career()
+                      const Career()
                     ]),
               ),
             ],

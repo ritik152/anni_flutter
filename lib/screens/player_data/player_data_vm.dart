@@ -152,11 +152,7 @@ class PlayerDataVm {
   }
 
   Future<void> playerNews(BuildContext context, String playerId) async {
-    String res = await getMethodWithQuery(
-        "GET",
-        "getRotoworldPlayerNews?PlayerID=$playerId",
-        null,
-        context);
+    String res = await getMethodWithQuery("GET", "getRotoworldPlayerNews?PlayerID=$playerId", null, context);
 
     var response = await jsonDecode(res);
 

@@ -136,6 +136,12 @@ class ChatVm{
       return bValue.compareTo(aValue);
     });
 
+    duplicateItems.sort((a, b) {
+      final aValue = a.fantasyPoints;
+      final bValue = b.fantasyPoints;
+      return bValue.compareTo(aValue);
+    });
+
     await getTeams(context);
     await getPlayers(context);
 
