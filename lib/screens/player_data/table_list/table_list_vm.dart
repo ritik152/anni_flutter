@@ -25,7 +25,7 @@ class TableListVm {
 
   Future<void> getTableListWeek(BuildContext context, String seasonL, String playerId) async {
     print("Season $seasonL");
-    String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=10&Season=$seasonL&PlayerID=$playerId", null, context);
+    String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$seasonL&PlayerID=$playerId", null, context);
 
     var response = jsonDecode(res);
 

@@ -77,7 +77,9 @@ class _TableListState extends State<TableList> {
                       child:  (vm.isLoading == true)?SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Progress())
-                          :(vm.tableModel.body == null || vm.tableModel.body!.isEmpty)?NoDataText("No Data", context):SingleChildScrollView(
+                          :(vm.tableModel.body == null || vm.tableModel.body!.isEmpty)
+                          ?NoDataText("No Data", context)
+                          :SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,

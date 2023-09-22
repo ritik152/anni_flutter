@@ -124,6 +124,9 @@ class ChatVm{
     List<dynamic> list = [];
     list.addAll(response);
 
+    trendingUpData.clear();
+    duplicateItems.clear();
+
     for (var i = 0; i < list.length; i++) {
       TrendingData allPlayersData = TrendingData.fromJson(list[i]);
       trendingUpData.add(allPlayersData);

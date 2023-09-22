@@ -251,9 +251,9 @@ class _PlayerDataState extends State<PlayerData> {
                     children: [
                       Overview(vm,widget.fantasyPoints),
                       TableList(playerId : vm.allTeamsData.playerID.toString()),
-                      GraphTab(),
+                      GraphTab(playerId : vm.allTeamsData.playerID.toString()),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
-                      const Career()
+                      Career(playerId : vm.allTeamsData.playerID.toString())
                     ]),
               ),
             ],

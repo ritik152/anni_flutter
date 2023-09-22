@@ -1,3 +1,6 @@
+import 'package:anni_ai/apis/api_controller.dart';
+import 'package:anni_ai/screens/player_data/graph/graph_vm.dart';
+import 'package:anni_ai/utils/common.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../../utils/color.dart';
@@ -5,7 +8,10 @@ import '../../utils/color.dart';
 
 class FilterGraphDialog extends StatefulWidget {
 
-  const FilterGraphDialog({Key? key}) : super(key: key);
+  GraphVm vm;
+  String playerId;
+
+  FilterGraphDialog({Key? key, required this.vm, required this.playerId}) : super(key: key);
 
   @override
   State<FilterGraphDialog> createState() => _FilterGraphDialog();
@@ -13,6 +19,16 @@ class FilterGraphDialog extends StatefulWidget {
 }
 
 class _FilterGraphDialog extends State<FilterGraphDialog> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    dataSeasons();
+  }
+
 
 
   @override
@@ -53,94 +69,80 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
           const SizedBox(height: 5,),
           CommonText("Select a variable to view.", 12, AppColor.whiteColor, TextAlign.center),
           const SizedBox(height: 20,),
+          SizedBox(
+            height: 150,
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.vm.category.length,
+                itemBuilder: (context,index){
+              return GestureDetector(
+                onTap: (){
+                  widget.vm.categoryClick = index;
+                  widget.vm.categorySelect = widget.vm.category[index].toString();
+                  setState(() {
 
-          Row(
-            children: [
-              Image.asset("assets/icons/check.png",height: 20,width: 20,),
-              const SizedBox(width: 5,),
-              BoldText("Yards", 13, AppColor.whiteColor, TextAlign.start),
-              const SizedBox(width: 3,),
-              MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
+                  });
+                },
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Image.asset((widget.vm.categoryClick != index)?"assets/icons/uncheck_checkbox.png":"assets/icons/check.png",height: 20,width: 20,),
+                        const SizedBox(width: 5,),
+                        BoldText(widget.vm.category[index].toString(), 13, AppColor.whiteColor, TextAlign.start),
+                        const SizedBox(width: 3,),
+                        MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
 
-            ],
-          ),
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              Image.asset("assets/icons/uncheck_checkbox.png",height: 20,width: 20,),
-              const SizedBox(width: 5,),
-              BoldText("Touchdowns", 13, AppColor.whiteColor, TextAlign.start),
-              const SizedBox(width: 3,),
-              MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
-
-            ],
-          ),
-
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              Image.asset("assets/icons/uncheck_checkbox.png",height: 20,width: 20,),
-              const SizedBox(width: 5,),
-              BoldText("Receptions", 13, AppColor.whiteColor, TextAlign.start),
-              const SizedBox(width: 3,),
-              MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
-
-            ],
-          ),
-
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              Image.asset("assets/icons/uncheck_checkbox.png",height: 20,width: 20,),
-              const SizedBox(width: 5,),
-              BoldText("Targets", 13, AppColor.whiteColor, TextAlign.start),
-              const SizedBox(width: 3,),
-              MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
-
-            ],
-          ),
-
-          const SizedBox(height: 10,),
-          Row(
-            children: [
-              Image.asset("assets/icons/uncheck_checkbox.png",height: 20,width: 20,),
-              const SizedBox(width: 5,),
-              BoldText("Attempts", 13, AppColor.whiteColor, TextAlign.start),
-              const SizedBox(width: 3,),
-              MediumText("per game", 10, AppColor.whiteColor, TextAlign.start),
-
-            ],
+                      ],
+                    ),
+                    const SizedBox(height: 10,),
+                  ],
+                ),
+              );
+            }),
           ),
           const SizedBox(height: 20,),
           SizedBox(
             width: double.infinity,
               child: BoldText("Year", 13, AppColor.fieldBackColor, TextAlign.start)),
           const SizedBox(height: 10,),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                BoldText("2023", 14, AppColor.textGreenColor, TextAlign.start),
-                const SizedBox(width: 10,),
-                BoldText("2022", 14, AppColor.whiteColor, TextAlign.start),
-                const SizedBox(width: 10,),
-                BoldText("2021", 14, AppColor.whiteColor, TextAlign.start),
-                const SizedBox(width: 10,),
-                BoldText("2020", 14, AppColor.whiteColor, TextAlign.start),
-                const SizedBox(width: 10,),
-                BoldText("2019", 14, AppColor.whiteColor, TextAlign.start),
-                const SizedBox(width: 10,),
-                BoldText("2018", 14, AppColor.whiteColor, TextAlign.start),
-              ],
-            ),
+          SizedBox(
+            height: 30,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.vm.years.length,
+                itemBuilder: (context,index){
+              return Row(
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      widget.vm.click = index;
+                      widget.vm.yearSelect = widget.vm.years[index].toString();
+                      setState(() {
+
+                      });
+                    },
+                      child: BoldText(widget.vm.years[index].toString(), 14,(widget.vm.click == index)?AppColor.textGreenColor:AppColor.whiteColor, TextAlign.start)),
+                  const SizedBox(width: 10,),
+                ],
+              );
+            }),
           ),
           const SizedBox(height: 30,),
           SizedBox(
             height: 50,
             width: 170,
             child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
+                onPressed: () async {
+                  showLoader(context);
+                  var data = await widget.vm.getTableListWeek(context, season, widget.playerId);
+
+                  hideLoader(context);
+                  if(data == true){
+                    Navigator.pop(context,true);
+                  }
+
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: AppColor.greenColor, backgroundColor: AppColor.greenColor,
@@ -154,8 +156,18 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
           const SizedBox(height: 10,),
         ],
       ),
-
     );
+  }
+
+  void dataSeasons() {
+    var seasonL = int.parse(season.toString());
+    for(var i = 0; i < 19; i++){
+      var data = seasonL - i;
+      widget.vm.years.add(data);
+    }
+    setState(() {
+
+    });
   }
 
 }

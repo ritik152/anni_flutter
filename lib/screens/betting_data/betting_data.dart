@@ -168,11 +168,16 @@ class _BeatingDataState extends State<BeatingData> {
                             ],
                             onChanged: (value) { //get value when changed
                               print("You have selected $value");
-                              setState(() {
-                                vm.value = value.toString();
-                                vm.isLoading = true;
-                                getData();
-                              });
+                              if(int.parse(value.toString()) < int.parse(week.toString())){
+                                showError("Please select current or future weeks");
+                              }else{
+                                setState(() {
+                                  vm.value = value.toString();
+                                  vm.isLoading = true;
+                                  getData();
+                                });
+                              }
+
                             },
                             icon: Icon(Icons.keyboard_arrow_down,
                               color: AppColor.greenColor,),
@@ -216,7 +221,8 @@ class _BeatingDataState extends State<BeatingData> {
                   itemCount: vm.bettingData.length,
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
-                    return Column(
+                    var data = dateTimeFormatCheck(vm.bettingData[index].dateTime.toString());
+                    return (data == true)?const SizedBox():Column(
                       children: [
                         Row(
                           children: [

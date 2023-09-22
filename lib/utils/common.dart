@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:instant/instant.dart';
 import 'package:intl/intl.dart';
 import 'color.dart';
 
@@ -94,9 +95,11 @@ String dateFormatBetting(String eventDate) {
   createTime = formattedDate2.toString();
   return createTime;
 }
+
 String dateFormatBetting2(String eventDate) {
   var createTime = "";
-  DateTime date = DateTime.parse(eventDate);
+  final utcTime = DateTime.parse(eventDate).add(const Duration(hours: 9,minutes: 30));
+  var date = utcTime.toLocal();
   String formattedDate2 = DateFormat('MMM dd').format(date);
   print(formattedDate2);
   createTime = formattedDate2.toString();
@@ -105,12 +108,23 @@ String dateFormatBetting2(String eventDate) {
 
 String dateTimeFormat(String eventDate) {
   var createTime = "";
-  String formattedDate2 = DateFormat('hh:mm a MMM dd').format(DateTime.parse(eventDate).toLocal());
-  print(formattedDate2);
-  createTime = formattedDate2.toString();
+  final utcTime = DateTime.parse(eventDate).add(const Duration(hours: 9,minutes: 30));
+  var dateLocal = utcTime.toLocal();
+  var dateTime2 = DateFormat('hh:mm a MMM dd').format(dateLocal.toLocal());
+  DateTime EastCoast = dateTimeToZone(zone: "EST", datetime: DateTime.parse(eventDate));
+  print('UTC Time: ${DateTime.parse(eventDate).toUtc()}');
+  print('Local Time: ${dateLocal}');
+  print('eventDate Time: $EastCoast');
+  createTime = dateTime2.toString();
   return createTime;
 }
 
+bool dateTimeFormatCheck(String eventDate) {
+  final utcTime = DateTime.parse(eventDate).add(const Duration(hours: 4));
+  var dateLocal = utcTime.toLocal();
+  print('UTC Time: ${dateLocal.isBefore(DateTime.now())}');
+  return dateLocal.isBefore(DateTime.now());
+}
 
 String getOrdinal(int number) {
   if (number % 10 == 1 && number % 100 != 11) {

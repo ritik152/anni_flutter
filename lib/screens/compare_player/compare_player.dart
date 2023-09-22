@@ -1,4 +1,5 @@
 import 'package:anni_ai/screens/compare_player/compare_player_vm.dart';
+import 'package:anni_ai/screens/player_data/graph/graph_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,7 +8,8 @@ import '../../utils/common_widget.dart';
 import '../betting_detail/players_model.dart';
 
 class ComparePlayer extends StatefulWidget {
-  const ComparePlayer({Key? key}) : super(key: key);
+  GraphVm vm;
+  ComparePlayer({Key? key, required this.vm}) : super(key: key);
 
   @override
   State<ComparePlayer> createState() => _ComparePlayerState();
@@ -112,34 +114,44 @@ class _ComparePlayerState extends State<ComparePlayer> {
                 :ListView.builder(
               itemCount: vm.allPlayers.length,
                 itemBuilder: (context,index){
-              return Container(
-                margin: const EdgeInsets.only(right: 20, left: 20, top: 10),
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  children: [
-                    Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Image.network(
-                            vm.allPlayers[index].photoUrl.toString(),
-                            height: 40,
-                            width: 40,
-                            fit: BoxFit.cover,
+              return GestureDetector(
+                onTap: () async {
+                  widget.vm.isLoading = true;
+                  widget.vm.comparePlayerName = await vm.allPlayers[index].name.toString();
+                  Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.pop(context,vm.allPlayers[index].playerID.toString());
+                  });
+
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(right: 20, left: 20, top: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              vm.allPlayers[index].photoUrl.toString(),
+                              height: 40,
+                              width: 40,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Container(
-                            margin: const EdgeInsets.only(top: 30, left: 10),
-                            child: SizedBox(
-                              height: 20,width: 20,
-                                child: SvgPicture.network(vm.allPlayers[index].teamImg.toString()))),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    BoldText(vm.allPlayers[index].name.toString(), 15, AppColor.whiteColor, TextAlign.start)
-                  ],
+                          Container(
+                              margin: const EdgeInsets.only(top: 30, left: 10),
+                              child: SizedBox(
+                                height: 20,width: 20,
+                                  child: SvgPicture.network(vm.allPlayers[index].teamImg.toString()))),
+                        ],
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      BoldText(vm.allPlayers[index].name.toString(), 15, AppColor.whiteColor, TextAlign.start)
+                    ],
+                  ),
                 ),
               );
             }),
