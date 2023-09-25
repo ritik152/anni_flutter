@@ -176,7 +176,6 @@ class _GraphTabState extends State<GraphTab> {
                             ),
                           )),
                       lineBarsData: [
-                        // The red line
                         LineChartBarData(
                           dotData: FlDotData(
                             show: false,

@@ -9,6 +9,7 @@ import 'package:video_player/video_player.dart';
 
 import '../../dialogs/delete_save_chat/delete_save_chat.dart';
 import '../../utils/color.dart';
+import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
 import '../chat/chat_loader.dart';
 import '../chat/chat_vm.dart';
@@ -461,14 +462,12 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     Map<String, dynamic> data1 = {};
     Map<String, dynamic> dataHuman = {};
 
-    data1 = {"role": "assistant", "content": "my name is Anni"};
+    data1 = {"role": "system", "content": "Provide information only  NFL, or National Football League . if Not related to the NFL  return BLANK only"};
     dataHuman = {"role": "user","content": message.trim()};
-
 
     if(map.isEmpty){
       map.add(data1);
     }
-
     map.add(dataHuman);
     var jsondecod = json.encode(map);
     String dataMess = jsondecod;
@@ -490,7 +489,12 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
       LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
 
       vm.chatId += 1;
-      vm.chatArray.add(aiData);
+      if(model.body?.choices?.first.message.content != "BLANK"){
+        LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+        vm.chatArray.add(aiData);
+      }else{
+        showError("Please ask National Football League(NFL) related questions");
+      }
       setState(() {
         vm.timer = Timer(const Duration(milliseconds: 200), () {
           setState(() {

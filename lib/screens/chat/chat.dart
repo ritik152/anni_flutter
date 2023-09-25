@@ -537,15 +537,14 @@ class _ChatState extends State<Chat> {
     Map<String, dynamic> data1 = {};
     Map<String, dynamic> dataHuman = {};
 
-      data1 = {"role": "assistant", "content": "my name is Anni"};
-      dataHuman = {"role": "user","content": message.trim()};
+    data1 = {"role": "system","content": "Provide information only  NFL(National Football League).if Not related to the NFL(National Football League) return  BLANK only"};
+    dataHuman = {"role": "user","content": message.trim()};
 
 
-    if(map.isEmpty){
-      map.add(data1);
-    }
 
+    map.add(data1);
     map.add(dataHuman);
+
     var jsondecod = json.encode(map);
     String dataMess = jsondecod;
 
@@ -566,10 +565,15 @@ class _ChatState extends State<Chat> {
       dataAi = {"role":"assistant","content": model.body?.choices?[0].message.content ?? ''};
       map.add(dataAi);
       debugPrint('Here i got');
-      LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
 
       vm.chatId += 1;
-      vm.chatArray.add(aiData);
+      if(model.body?.choices?.first.message.content != "BLANK"){
+        LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+        vm.chatArray.add(aiData);
+      }else{
+        showError("Please ask National Football League(NFL) related questions");
+      }
+     
       setState(() {
         vm.timer = Timer(const Duration(milliseconds: 200), () {
           setState(() {
