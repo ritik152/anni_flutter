@@ -11,8 +11,7 @@ import '../table_list/table_model.dart';
 class GraphVm {
 
   List<int> years = [];
-  List<double> selfData = [];
-  List<double> otherData = [];
+
   List<String> category = ["Yards","Touchdowns","Receptions","Targets","Attempts"];
   var click = 0;
   var categoryClick = 0;
@@ -20,8 +19,7 @@ class GraphVm {
   var categorySelect = "Yards";
   var comparePlayerName = "Compare...";
   var isLoading = true;
-  TableModel tableModel = TableModel();
-  TableModel tableModelOther = TableModel();
+
 
   Widget bottomTitleWidgets(double value, TitleMeta meta, double chartWidth) {
     final style = TextStyle(

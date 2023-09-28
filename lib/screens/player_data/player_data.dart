@@ -4,9 +4,11 @@ import 'package:anni_ai/screens/player_data/table_list/table_list.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../apis/api_controller.dart';
 import '../../utils/color.dart';
 import '../../utils/common.dart';
 import 'career/career.dart';
+import 'career/career_model.dart';
 import 'graph/graph.dart';
 import 'overview/overview.dart';
 
@@ -24,11 +26,14 @@ class _PlayerDataState extends State<PlayerData> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    new Future.delayed(Duration.zero, () {
+
+    careerModel = CareerModel();
+
+    Future.delayed(Duration.zero, () {
       showLoader(context);
     });
+
     getData();
   }
 

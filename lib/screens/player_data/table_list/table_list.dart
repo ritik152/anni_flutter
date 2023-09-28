@@ -58,7 +58,7 @@ class _TableListState extends State<TableList> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BoldText("${vm.seasonList[index].toString()} Playoffs", 12, AppColor.textGreenColor,
+                          BoldText("${vm.seasonList[index].toString()} Regular Season", 12, AppColor.textGreenColor,
                               TextAlign.start),
                           Icon(
                             (vm.click == index)

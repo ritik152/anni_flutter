@@ -12,12 +12,10 @@ import '../../../dialogs/filter_graph.dart';
 import '../../compare_player/compare_player.dart';
 
 class GraphTab extends StatefulWidget {
+  
   String playerId;
 
-  GraphTab({
-    Key? key,
-    required this.playerId,
-  }) : super(key: key);
+  GraphTab({Key? key, required this.playerId,}) : super(key: key);
 
   @override
   State<GraphTab> createState() => _GraphTabState();
@@ -126,7 +124,7 @@ class _GraphTabState extends State<GraphTab> {
                           : GestureDetector(
                         onTap: (){
                           vm.comparePlayerName = "Compare...";
-                          vm.otherData.clear();
+                         otherData.clear();
                           setState(() {
 
                           });
@@ -180,46 +178,46 @@ class _GraphTabState extends State<GraphTab> {
                           dotData: FlDotData(
                             show: false,
                           ),
-                          spots: (vm.otherData.length > 1)
+                          spots: (otherData.length > 1)
                               ? [
-                                  if (vm.otherData.length >= 1)
-                                    FlSpot(0, vm.otherData[0]),
-                                  if (vm.otherData.length >= 2)
-                                    FlSpot(1, vm.otherData[1]),
-                                  if (vm.otherData.length >= 3)
-                                    FlSpot(2, vm.otherData[2]),
-                                  if (vm.otherData.length >= 4)
-                                    FlSpot(3, vm.otherData[3]),
-                                  if (vm.otherData.length >= 5)
-                                    FlSpot(4, vm.otherData[4]),
-                                  if (vm.otherData.length >= 6)
-                                    FlSpot(5, vm.otherData[5]),
-                                  if (vm.otherData.length >= 7)
-                                    FlSpot(6, vm.otherData[6]),
-                                  if (vm.otherData.length >= 8)
-                                    FlSpot(7, vm.otherData[7]),
-                                  if (vm.otherData.length >= 9)
-                                    FlSpot(8, vm.otherData[8]),
-                                  if (vm.otherData.length >= 10)
-                                    FlSpot(9, vm.otherData[9]),
-                                  if (vm.otherData.length >= 11)
-                                    FlSpot(10, vm.otherData[10]),
-                                  if (vm.otherData.length >= 12)
-                                    FlSpot(11, vm.otherData[11]),
-                                  if (vm.otherData.length >= 13)
-                                    FlSpot(12, vm.otherData[12]),
-                                  if (vm.otherData.length >= 14)
-                                    FlSpot(13, vm.otherData[13]),
-                                  if (vm.otherData.length >= 15)
-                                    FlSpot(14, vm.otherData[14]),
-                                  if (vm.otherData.length >= 16)
-                                    FlSpot(15, vm.otherData[15]),
-                                  if (vm.otherData.length >= 17)
-                                    FlSpot(16, vm.otherData[16]),
-                                  if (vm.otherData.length >= 18)
-                                    FlSpot(17, vm.otherData[17]),
-                                  if (vm.otherData.length >= 19)
-                                    FlSpot(18, vm.otherData[18]),
+                                  if (otherData.length >= 1)
+                                    FlSpot(0, otherData[0]),
+                                  if (otherData.length >= 2)
+                                    FlSpot(1, otherData[1]),
+                                  if (otherData.length >= 3)
+                                    FlSpot(2, otherData[2]),
+                                  if (otherData.length >= 4)
+                                    FlSpot(3, otherData[3]),
+                                  if (otherData.length >= 5)
+                                    FlSpot(4, otherData[4]),
+                                  if (otherData.length >= 6)
+                                    FlSpot(5, otherData[5]),
+                                  if (otherData.length >= 7)
+                                    FlSpot(6, otherData[6]),
+                                  if (otherData.length >= 8)
+                                    FlSpot(7, otherData[7]),
+                                  if (otherData.length >= 9)
+                                    FlSpot(8, otherData[8]),
+                                  if (otherData.length >= 10)
+                                    FlSpot(9, otherData[9]),
+                                  if (otherData.length >= 11)
+                                    FlSpot(10, otherData[10]),
+                                  if (otherData.length >= 12)
+                                    FlSpot(11, otherData[11]),
+                                  if (otherData.length >= 13)
+                                    FlSpot(12, otherData[12]),
+                                  if (otherData.length >= 14)
+                                    FlSpot(13, otherData[13]),
+                                  if (otherData.length >= 15)
+                                    FlSpot(14, otherData[14]),
+                                  if (otherData.length >= 16)
+                                    FlSpot(15, otherData[15]),
+                                  if (otherData.length >= 17)
+                                    FlSpot(16, otherData[16]),
+                                  if (otherData.length >= 18)
+                                    FlSpot(17, otherData[17]),
+                                  if (otherData.length >= 19)
+                                    FlSpot(18, otherData[18]),
                                 ]
                               : [
                                   FlSpot(0, 0),
@@ -251,46 +249,46 @@ class _GraphTabState extends State<GraphTab> {
                           dotData: FlDotData(
                             show: false,
                           ),
-                          spots: (vm.otherData.length > 1)
+                          spots: (selfData.length > 1)
                               ? [
-                                  if (vm.selfData.length > 1)
-                                    FlSpot(0, vm.selfData[0]),
-                                  if (vm.selfData.length >= 2)
-                                    FlSpot(1, vm.selfData[1]),
-                                  if (vm.selfData.length >= 3)
-                                    FlSpot(2, vm.selfData[2]),
-                                  if (vm.selfData.length >= 4)
-                                    FlSpot(3, vm.selfData[3]),
-                                  if (vm.selfData.length >= 5)
-                                    FlSpot(4, vm.selfData[4]),
-                                  if (vm.selfData.length >= 6)
-                                    FlSpot(5, vm.selfData[5]),
-                                  if (vm.selfData.length >= 7)
-                                    FlSpot(6, vm.selfData[6]),
-                                  if (vm.selfData.length >= 8)
-                                    FlSpot(7, vm.selfData[7]),
-                                  if (vm.selfData.length >= 9)
-                                    FlSpot(8, vm.selfData[8]),
-                                  if (vm.selfData.length >= 10)
-                                    FlSpot(9, vm.selfData[9]),
-                                  if (vm.selfData.length >= 11)
-                                    FlSpot(10, vm.selfData[10]),
-                                  if (vm.selfData.length >= 12)
-                                    FlSpot(11, vm.selfData[11]),
-                                  if (vm.selfData.length >= 13)
-                                    FlSpot(12, vm.selfData[12]),
-                                  if (vm.selfData.length >= 14)
-                                    FlSpot(13, vm.selfData[13]),
-                                  if (vm.selfData.length >= 15)
-                                    FlSpot(14, vm.selfData[14]),
-                                  if (vm.selfData.length >= 16)
-                                    FlSpot(15, vm.selfData[15]),
-                                  if (vm.selfData.length >= 17)
-                                    FlSpot(16, vm.selfData[16]),
-                                  if (vm.selfData.length >= 18)
-                                    FlSpot(17, vm.selfData[17]),
-                                  if (vm.selfData.length >= 19)
-                                    FlSpot(18, vm.selfData[18]),
+                                  if (selfData.length > 1)
+                                    FlSpot(0, selfData[0]),
+                                  if (selfData.length >= 2)
+                                    FlSpot(1, selfData[1]),
+                                  if (selfData.length >= 3)
+                                    FlSpot(2, selfData[2]),
+                                  if (selfData.length >= 4)
+                                    FlSpot(3, selfData[3]),
+                                  if (selfData.length >= 5)
+                                    FlSpot(4, selfData[4]),
+                                  if (selfData.length >= 6)
+                                    FlSpot(5, selfData[5]),
+                                  if (selfData.length >= 7)
+                                    FlSpot(6, selfData[6]),
+                                  if (selfData.length >= 8)
+                                    FlSpot(7, selfData[7]),
+                                  if (selfData.length >= 9)
+                                    FlSpot(8, selfData[8]),
+                                  if (selfData.length >= 10)
+                                    FlSpot(9, selfData[9]),
+                                  if (selfData.length >= 11)
+                                    FlSpot(10, selfData[10]),
+                                  if (selfData.length >= 12)
+                                    FlSpot(11, selfData[11]),
+                                  if (selfData.length >= 13)
+                                    FlSpot(12, selfData[12]),
+                                  if (selfData.length >= 14)
+                                    FlSpot(13, selfData[13]),
+                                  if (selfData.length >= 15)
+                                    FlSpot(14, selfData[14]),
+                                  if (selfData.length >= 16)
+                                    FlSpot(15, selfData[15]),
+                                  if (selfData.length >= 17)
+                                    FlSpot(16, selfData[16]),
+                                  if (selfData.length >= 18)
+                                    FlSpot(17, selfData[17]),
+                                  if (selfData.length >= 19)
+                                    FlSpot(18, selfData[18]),
                                 ]
                               : [
                                   FlSpot(0, 0),

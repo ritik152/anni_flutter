@@ -2,6 +2,7 @@ import 'package:anni_ai/screens/player_data/career/career_vm.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../apis/api_controller.dart';
 import '../../../utils/color.dart';
 
 class Career extends StatefulWidget {
@@ -34,7 +35,7 @@ class _CareerState extends State<Career> {
       child:  (vm.isLoading == true)?SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Progress())
-          :(vm.careerModel.body == null || vm.careerModel.body!.isEmpty)
+          :(careerModel.body == null || careerModel.body!.isEmpty)
           ?NoDataText("No Data", context)
           :SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -137,13 +138,13 @@ class _CareerState extends State<Career> {
 
 
   Widget ListData(int index){
-    return (vm.careerModel.body!.length < index+1)?const SizedBox():Row(
+    return (careerModel.body!.length < index+1)?const SizedBox():Row(
       mainAxisSize: MainAxisSize.max,
       children: [
         const SizedBox(width: 23,),
         SizedBox(
             width: 33,
-            child: BoldText(vm.careerModel.body![index].year.toString(), 11, AppColor.whiteColor, TextAlign.start)),
+            child: BoldText(careerModel.body![index].year.toString(), 11, AppColor.whiteColor, TextAlign.start)),
         const SizedBox(width: 17,),
         SizedBox(
             width: 33,
@@ -165,7 +166,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].receiving!.receivingTargets.toString(),
+                careerModel.body![index].receiving!.receivingTargets.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -184,7 +185,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].receiving!.receptions.toString(),
+                careerModel.body![index].receiving!.receptions.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -203,7 +204,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].receiving!.receivingYards.toString(),
+                careerModel.body![index].receiving!.receivingYards.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -222,7 +223,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].receiving!.receivingYardsPerReception.toString(),
+                careerModel.body![index].receiving!.receivingYardsPerReception.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -241,7 +242,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].receiving!.receivingTouchdowns.toString(),
+                careerModel.body![index].receiving!.receivingTouchdowns.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -265,7 +266,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].rushing!.rushingAttempts.toString(),
+                careerModel.body![index].rushing!.rushingAttempts.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -284,7 +285,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].rushing!.rushingYards.toString(),
+                careerModel.body![index].rushing!.rushingYards.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -303,7 +304,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].rushing!.rushingYardsPerAttempt.toString(),
+                careerModel.body![index].rushing!.rushingYardsPerAttempt.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -322,7 +323,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].rushing!.rushingTouchdowns.toString(),
+                careerModel.body![index].rushing!.rushingTouchdowns.toString(),
                 10,
                 AppColor.black,
                 TextAlign.center)),
@@ -348,7 +349,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].passing!.passingAttempts.toString(),
+                careerModel.body![index].passing!.passingAttempts.toString(),
                 10,
                 AppColor.whiteColor,
                 TextAlign.center)),
@@ -367,7 +368,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].passing!.passingCompletions.toString(),
+                careerModel.body![index].passing!.passingCompletions.toString(),
                 10,
                 AppColor.whiteColor,
                 TextAlign.center)),
@@ -386,7 +387,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].passing!.passingYards.toString(),
+                careerModel.body![index].passing!.passingYards.toString(),
                 10,
                 AppColor.whiteColor,
                 TextAlign.center)),
@@ -405,7 +406,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].passing!.passingTouchdowns.toString(),
+                careerModel.body![index].passing!.passingTouchdowns.toString(),
                 10,
                 AppColor.whiteColor,
                 TextAlign.center)),
@@ -424,7 +425,7 @@ class _CareerState extends State<Career> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.careerModel.body![index].passing!.passingInterceptions.toString(),
+                careerModel.body![index].passing!.passingInterceptions.toString(),
                 10,
                 AppColor.whiteColor,
                 TextAlign.center)),

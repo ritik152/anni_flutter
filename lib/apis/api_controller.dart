@@ -8,6 +8,8 @@ import '../screens/alerts/alerts_model.dart';
 import '../screens/betting_data/all_teams_model.dart';
 import '../screens/betting_detail/players_model.dart';
 import '../screens/chat/drawers/right_drawer/trending_up_model.dart';
+import '../screens/player_data/career/career_model.dart';
+import '../screens/player_data/table_list/table_model.dart';
 import '../screens/save_chat_list/SavedChatModel.dart';
 import '../utils/all_keys.dart';
 import '../utils/common.dart';
@@ -27,6 +29,12 @@ List<TrendingData> trendingUpData = [];
 List<TrendingData> duplicateItems = [];
 List<PlayersModel> allPlayers = [];
 List<AllTeamsModel> allTeams = [];
+CareerModel careerModel = CareerModel();
+TableModel tableModel = TableModel();
+TableModel tableModelOther = TableModel();
+List<double> selfData = [];
+List<double> otherData = [];
+
 String season = "2022";
 String week = "1";
 //---------------------------------Post Method----------------------------------

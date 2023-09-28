@@ -86,10 +86,15 @@ Widget MediumText(String s, double size,Color color, TextAlign align) {
 }
 
 Widget Progress() {
-  return Center(child: Platform.isAndroid?CircularProgressIndicator(
+  return Center(child: CircularProgressIndicator(
     color: AppColor.greenColor,
-  ):const CupertinoActivityIndicator());
+  ));
 }
+// Widget Progress() {
+//   return Center(child: Platform.isAndroid?CircularProgressIndicator(
+//     color: AppColor.greenColor,
+//   ):const CupertinoActivityIndicator());
+// }
 
 Widget NoInternet(BuildContext context) {
   return Scaffold(

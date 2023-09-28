@@ -8,11 +8,10 @@ import '../table_list/table_model.dart';
 
 class CareerVm {
 
-  var isLoading = true;
-  CareerModel careerModel = CareerModel();
-
+  var isLoading = (careerModel.body == null || careerModel.body!.isEmpty)?true:false;
 
   Future<bool> getTableListWeek(BuildContext context, String playerId) async {
+
     String res = await getMethodWithQuery("GET", "getCareer?PlayerID=$playerId", null, context);
 
     var response = jsonDecode(res);
