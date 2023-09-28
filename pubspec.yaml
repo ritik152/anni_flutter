@@ -48,7 +48,7 @@ dependencies:
   fl_chart: ^0.62.0
   flutter_svg: ^2.0.7
   intl: ^0.18.1
-  flutter_tts: ^3.8.2
+  flutter_tts: ^3.3.0
   in_app_purchase: ^3.1.10
   instant: ^0.5.1
 flutter_native_splash:

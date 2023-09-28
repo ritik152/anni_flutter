@@ -27,32 +27,37 @@ class Chat extends StatefulWidget {
 }
 
 enum TtsState { playing, stopped, paused, continued }
-const String femalevoice = "cmn-CN-Standard-A";
+
 class _ChatState extends State<Chat> {
+
   var vm = ChatVm();
   List<Map<String, dynamic>> map = [];
 
-
   late FlutterTts flutterTts;
+
   String? language = "en-IN";
+
   String? engine;
-  double volume = 0.5;
+
+  double volume = 1;
+
   double pitch = 1;
+
   double rate = 0.5;
+
   bool isCurrentLanguageInstalled = false;
 
   TtsState ttsState = TtsState.stopped;
 
   get isPlaying => ttsState == TtsState.playing;
+
   get isStopped => ttsState == TtsState.stopped;
+
   get isPaused => ttsState == TtsState.paused;
+
   get isContinued => ttsState == TtsState.continued;
 
-  bool get isIOS => !kIsWeb && Platform.isIOS;
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
-  bool get isWindows => !kIsWeb && Platform.isWindows;
-  bool get isWeb => kIsWeb;
-
 
   @override
   void initState() {
@@ -98,20 +103,15 @@ class _ChatState extends State<Chat> {
   }
 
   initTts() async {
+
     flutterTts = FlutterTts();
 
-    await vm.currentSeason(context);
-    await vm.currentWeek(context);
     await vm.getPlayerGameStatsByWeek(context);
+    vm.getPlayers(context);
+    vm.getTeams(context);
 
     _setAwaitOptions();
 
-    // _getDefaultEngine();
-    // _getDefaultVoice();
-    // if (isAndroid) {
-    //   _getDefaultEngine();
-    //   _getDefaultVoice();
-    // }
 
     flutterTts.setStartHandler(() {
       setState(() {
@@ -167,26 +167,9 @@ class _ChatState extends State<Chat> {
     });
   }
 
-  Future _getDefaultEngine() async {
-    var engine = await flutterTts.getDefaultEngine;
-    if (engine != null) {
-      print(engine);
-    }
-  }
-
-  Future _getDefaultVoice() async {
-    var voice = await flutterTts.getDefaultVoice;
-    if (voice != null) {
-      print(voice);
-    }
-  }
-
   Future _speak(String? newVoiceText) async {
-    await flutterTts.setLanguage(language!);
-    if (isAndroid) {
-      await flutterTts.isLanguageInstalled(language!).then((value) => isCurrentLanguageInstalled = (value as bool));
-    }
-    await flutterTts.setVoice({"languageCode": "cmn-CN", "name": femalevoice});
+
+    await flutterTts.setVoice({"name": "Karen", "locale": "en-IN"});
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
@@ -212,7 +195,6 @@ class _ChatState extends State<Chat> {
     vm.controller.dispose();
     flutterTts.stop();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +472,6 @@ class _ChatState extends State<Chat> {
     }
     return mArray;
   }
-
 
   Future<void> sendMessage() async {
     if (vm.chatController.text.trim().isNotEmpty) {
@@ -796,4 +777,5 @@ class _ChatState extends State<Chat> {
     }
 
   }
+
 }

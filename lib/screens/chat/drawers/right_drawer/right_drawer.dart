@@ -145,12 +145,12 @@ class _RightDrawerState extends State<RightDrawer> {
                                     padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 13),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Expanded(
                                             flex: 70,
                                             child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Stack(
                                                   children: [
@@ -165,11 +165,15 @@ class _RightDrawerState extends State<RightDrawer> {
                                                     ),
                                                     Container(
                                                         margin: const EdgeInsets.only(top: 30, left: 7),
-                                                        child:  SvgPicture.network(
-                                                          trendingUpData[indexList].teamImg
-                                                              .toString(),
-                                                          height: 15,
-                                                          width: 15,
+                                                        child:  SizedBox(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child: SvgPicture.network(
+                                                            trendingUpData[indexList].teamImg
+                                                                .toString(),
+                                                            height: 15,
+                                                            width: 15,
+                                                          ),
                                                         ),),
                                                   ],
                                                 ),

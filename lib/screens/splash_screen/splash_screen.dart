@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:anni_ai/screens/chat/chat.dart';
+import 'package:anni_ai/screens/splash_screen/splash_vm.dart';
 import 'package:anni_ai/screens/start_screen/start_screen.dart';
 import 'package:anni_ai/utils/all_keys.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +18,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   late VideoPlayerController controller;
+  var vm = SplashVm();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+    vm.currentSeason(context);
+    vm.currentWeek(context);
     controller = VideoPlayerController.asset('assets/video/splash.mp4');
     controller.initialize().then((value){
       setState(() {
