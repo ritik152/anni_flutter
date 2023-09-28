@@ -27,7 +27,7 @@ class Chat extends StatefulWidget {
 }
 
 enum TtsState { playing, stopped, paused, continued }
-
+const String femalevoice = "cmn-CN-Standard-A";
 class _ChatState extends State<Chat> {
   var vm = ChatVm();
   List<Map<String, dynamic>> map = [];
@@ -106,8 +106,8 @@ class _ChatState extends State<Chat> {
 
     _setAwaitOptions();
 
-    _getDefaultEngine();
-    _getDefaultVoice();
+    // _getDefaultEngine();
+    // _getDefaultVoice();
     // if (isAndroid) {
     //   _getDefaultEngine();
     //   _getDefaultVoice();
@@ -186,6 +186,7 @@ class _ChatState extends State<Chat> {
     if (isAndroid) {
       await flutterTts.isLanguageInstalled(language!).then((value) => isCurrentLanguageInstalled = (value as bool));
     }
+    await flutterTts.setVoice({"languageCode": "cmn-CN", "name": femalevoice});
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
