@@ -301,7 +301,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 200,
           color: Colors.transparent,
           child: Container(
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 10),
             padding: const EdgeInsets.fromLTRB(0, 14, 0, 0),
             width: MediaQuery.of(context).size.width,
             height: 200,
@@ -334,13 +334,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     margin: const EdgeInsets.only(left: 10),
                     child: Row(
                       children: [
-                        Image.asset("assets/icons/camera.png",
-                            height: 25, width: 25, color: Color(0xff147efb)),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        BoldText(
-                            "Camera", 15, AppColor.whiteColor, TextAlign.start)
+                        Image.asset("assets/icons/camera.png",height: 25,width: 25,color: const Color(0xff147efb)),
+                        const SizedBox(width: 20,),
+                        BoldText("Camera", 15, AppColor.whiteColor, TextAlign.start)
                       ],
                     ),
                   ),

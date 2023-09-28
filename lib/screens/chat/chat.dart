@@ -34,10 +34,10 @@ class _ChatState extends State<Chat> {
 
 
   late FlutterTts flutterTts;
-  String? language;
+  String? language = "en-IN";
   String? engine;
   double volume = 0.5;
-  double pitch = 1.1;
+  double pitch = 1;
   double rate = 0.5;
   bool isCurrentLanguageInstalled = false;
 
@@ -71,7 +71,7 @@ class _ChatState extends State<Chat> {
     });
 
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       // initLanguages();
     });
 
@@ -106,10 +106,12 @@ class _ChatState extends State<Chat> {
 
     _setAwaitOptions();
 
-    if (isAndroid) {
-      _getDefaultEngine();
-      _getDefaultVoice();
-    }
+    _getDefaultEngine();
+    _getDefaultVoice();
+    // if (isAndroid) {
+    //   _getDefaultEngine();
+    //   _getDefaultVoice();
+    // }
 
     flutterTts.setStartHandler(() {
       setState(() {
@@ -180,6 +182,10 @@ class _ChatState extends State<Chat> {
   }
 
   Future _speak(String? newVoiceText) async {
+    await flutterTts.setLanguage(language!);
+    if (isAndroid) {
+      await flutterTts.isLanguageInstalled(language!).then((value) => isCurrentLanguageInstalled = (value as bool));
+    }
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
@@ -540,8 +546,6 @@ class _ChatState extends State<Chat> {
     data1 = {"role": "system","content": "Provide information only  NFL(National Football League).if Not related to the NFL(National Football League) return  BLANK only"};
     dataHuman = {"role": "user","content": message.trim()};
 
-
-
     map.add(data1);
     map.add(dataHuman);
 
@@ -559,8 +563,6 @@ class _ChatState extends State<Chat> {
     vm.chatArray.removeLast();
     if (model.success == 1) {
       vm.errorMesasge = '';
-
-
       Map<String, dynamic> dataAi = {};
       dataAi = {"role":"assistant","content": model.body?.choices?[0].message.content ?? ''};
       map.add(dataAi);
@@ -582,7 +584,6 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               _speak(_newVoiceText);
-
             }
           });
 

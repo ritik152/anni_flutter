@@ -1033,7 +1033,7 @@ class _BettingDetailState extends State<BettingDetail> {
 
   Future<void> getData() async {
     await vm.getPlayerPropsData(context, widget.scoreId);
-    await vm.getTeams(context);
+    vm.getTeams(context);
     await vm.getPlayers(context);
     setState(() {
 

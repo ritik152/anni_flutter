@@ -145,8 +145,8 @@ class ChatVm{
       return bValue.compareTo(aValue);
     });
 
-    await getTeams(context);
-    await getPlayers(context);
+    getTeams(context);
+    getPlayers(context);
 
   }
 
@@ -172,7 +172,7 @@ class ChatVm{
 
   Future<void> getTeams(BuildContext context) async {
     String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/$season?key=${AllKeys.sportsKey}",
         null, null, context);
 
     var response = await jsonDecode(res);
@@ -205,12 +205,13 @@ class ChatVm{
     list.addAll(response);
 
     for (var i = 0; i < list.length; i++) {
+
       PlayersModel allPlayersData = PlayersModel.fromJson(list[i]);
       allPlayers.add(allPlayersData);
+
     }
 
     for (var k = 0; k < trendingUpData.length; k++) {
-
       for (var j = 0; j < allPlayers.length; j++) {
         if (trendingUpData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
           trendingUpData[k].playerImg = allPlayers[j].photoUrl.toString();
