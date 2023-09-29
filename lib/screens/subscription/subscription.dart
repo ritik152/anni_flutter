@@ -26,7 +26,7 @@ class _SubscriptionState extends State<Subscription> {
     var products = await SubscriptionVM.instance.fetchSubscriptions();
     vm.productList = products;
     setState(() {
-
+      vm.isLoading = false;
     });
   }
 
@@ -44,7 +44,7 @@ class _SubscriptionState extends State<Subscription> {
           child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)),
       elevation: 0.0,
     ),
-      body: SizedBox(
+      body: (vm.isLoading == true)?Progress():SizedBox(
         width: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -52,7 +52,7 @@ class _SubscriptionState extends State<Subscription> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 50,),
-              BoldText("\$9.99", 55, AppColor.whiteColor, TextAlign.center),
+              BoldText(vm.productList[0].price, 55, AppColor.whiteColor, TextAlign.center),
               BoldText("/month", 15, AppColor.hintColor, TextAlign.center),
               const SizedBox(height: 50,),
               BoldText("What can premium do?", 18, AppColor.whiteColor, TextAlign.center),
@@ -148,11 +148,12 @@ class _SubscriptionState extends State<Subscription> {
                 margin: const EdgeInsets.symmetric(horizontal: 35),
                 child: RoundedButton(text: "Get Started", color: AppColor.black, buttonColor: AppColor.greenColor, radios: 50,
                     onTap: (){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Chat()), (route) => false);
+                      vm.performPayment(context);
+                      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Chat()), (route) => false);
                     }),
               ),
               const SizedBox(height: 20,),
-              BoldText("3-day trial,then \$9.99/mo", 14, AppColor.greenColor, TextAlign.center),
+              BoldText("3-day trial,then ${vm.productList[0].price}/mo", 14, AppColor.greenColor, TextAlign.center),
               const SizedBox(height: 5,),
               MediumText("Secured with iTunes,Cancel anytime", 12, AppColor.whiteColor, TextAlign.center),
               const SizedBox(height: 20,),

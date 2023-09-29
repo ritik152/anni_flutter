@@ -88,45 +88,13 @@ class BettingDetailVm {
     }
 
 
-  }
-
-  Future<void> getTeams(BuildContext context) async {
-    String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
-        null, null, context);
-
-    var response = await jsonDecode(res);
-
-    List<dynamic> list = [];
-    list.addAll(response);
-
-    for (var i = 0; i < list.length; i++) {
-      AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
-      allTeams.add(allTeamsData);
-    }
-
     for (var k = 0; k < teamPropsData.length; k++) {
-        for (var j = 0; j < allTeams.length; j++) {
-          if (teamPropsData[k].teamKey.toString() == allTeams[j].key.toString()) {
-            teamPropsData[k].name = allTeams[j].name.toString();
-            teamPropsData[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
-          }
+      for (var j = 0; j < allTeams.length; j++) {
+        if (teamPropsData[k].teamKey.toString() == allTeams[j].key.toString()) {
+          teamPropsData[k].name = allTeams[j].name.toString();
+          teamPropsData[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
         }
-    }
-  }
-
-  Future<void> getPlayers(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}",
-        null, null, context);
-
-    var response = await jsonDecode(res);
-
-    List<dynamic> list = [];
-    list.addAll(response);
-
-    for (var i = 0; i < list.length; i++) {
-      PlayersModel allPlayersData = PlayersModel.fromJson(list[i]);
-      allPlayers.add(allPlayersData);
+      }
     }
 
     for (var k = 0; k < playersPropsData.length; k++) {
@@ -138,7 +106,7 @@ class BettingDetailVm {
     }
 
     isLoading = false;
-  }
 
+  }
 
 }

@@ -148,43 +148,22 @@ class ChatVm{
 
   }
 
-  Future<void> getTeams(BuildContext context) async {
-    String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/$season?key=${AllKeys.sportsKey}",
-        null, null, context);
-
-    var response = await jsonDecode(res);
-
-    List<dynamic> list = [];
-    list.addAll(response);
-
-    for (var i = 0; i < list.length; i++) {
-      AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
-      allTeams.add(allTeamsData);
-    }
-
-    for (var k = 0; k < trendingUpData.length; k++) {
-
-      for (var j = 0; j < allTeams.length; j++) {
-        if (trendingUpData[k].team.toString() == allTeams[j].key.toString()) {
-          trendingUpData[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
-        }
-      }
-    }
-  }
-
   Future<void> getPlayers(BuildContext context) async {
 
     String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
 
-    var response = await jsonDecode(res);
-    List<dynamic> list = [];
+    var response = jsonDecode(res);
+
     hideLoader(context);
+
+    List<dynamic> list = [];
+
     list.addAll(response);
 
     for (var i = 0; i < list.length; i++) {
 
       PlayersModel allPlayersData = PlayersModel.fromJson(list[i]);
+
       allPlayers.add(allPlayersData);
 
     }
@@ -197,6 +176,35 @@ class ChatVm{
       }
     }
   }
+
+  Future<void> getTeams(BuildContext context) async {
+    String res = await thirdPartyMethod("GET",
+        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/$season?key=${AllKeys.sportsKey}",
+        null, null, context);
+
+    var response = jsonDecode(res);
+
+    List<dynamic> list = [];
+
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+      AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
+      allTeams.add(allTeamsData);
+    }
+
+    for (var k = 0; k < trendingUpData.length; k++) {
+
+      for (var j = 0; j < allTeams.length; j++) {
+        if (trendingUpData[k].team.toString() == allTeams[j].key.toString()) {
+          trendingUpData[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
+          duplicateItems[k].teamImg = allTeams[j].wikipediaLogoUrl.toString();
+        }
+      }
+    }
+
+  }
+
 }
 
 class LocalChatData {

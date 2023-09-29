@@ -71,7 +71,7 @@ class _TableListState extends State<TableList> {
                     ),
                   ),
                   if (vm.click == index)
-                    Container(
+                    SizedBox(
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                       child:  (vm.isLoading == true)?SizedBox(

@@ -7,19 +7,20 @@ import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
 
 class BettingDetail extends StatefulWidget {
+  String date, scoreId, awayImg, awayName, homeImg, homeName;
 
-  String date,scoreId,awayImg,awayName,homeImg,homeName;
-
-  BettingDetail({Key? key,required this.date,
-    required this.scoreId,
-    required this.awayImg,
-    required this.awayName,
-    required this.homeImg,
-    required this.homeName}) : super(key: key);
+  BettingDetail(
+      {Key? key,
+      required this.date,
+      required this.scoreId,
+      required this.awayImg,
+      required this.awayName,
+      required this.homeImg,
+      required this.homeName})
+      : super(key: key);
 
   @override
   State<BettingDetail> createState() => _BettingDetailState();
-
 }
 
 class _BettingDetailState extends State<BettingDetail> {
@@ -584,459 +585,514 @@ class _BettingDetailState extends State<BettingDetail> {
 
   Widget PlayerPropsList() {
     return Expanded(
-        child:(vm.isLoading)
-            ?Progress()
-        :(vm.playersPropsData.isEmpty)?NoData("No Data", "", context)
-            :ListView.builder(
-          padding: EdgeInsets.zero,
-            itemCount: vm.playersPropsData.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          color: AppColor.dialogBackgroundColor,
-                          padding: const EdgeInsets.only(top: 10,left: 10),
-                          child: BoldText("${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
-                              13,
-                              AppColor.whiteColor,
-                              TextAlign.start),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: AppColor.backColor,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: (vm.isLoading)
+            ? Progress()
+            : (vm.playersPropsData.isEmpty)
+                ? NoData("No Data", "", context)
+                : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: vm.playersPropsData.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Row(
                             children: [
-                              // CommonText("Over/Under", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                              // CommonText("10", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-                                      child: Image.network(
-                                        vm.playersPropsData[index].playerImg.toString(),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  BoldText(
-                                      vm.playersPropsData[index].playerName.toString(),
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  color: AppColor.dialogBackgroundColor,
+                                  padding:
+                                      const EdgeInsets.only(top: 10, left: 10),
+                                  child: BoldText(
+                                      "${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
                                       13,
                                       AppColor.whiteColor,
-                                      TextAlign.start)
-                                ],
-                              ),
-                              const SizedBox(height: 20,),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText(
-                                        "U ${(vm.playersPropsData[index].under.toString() =="null")?"0":vm.playersPropsData[index].under.toString()}",
-                                        12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                                      TextAlign.start),
                                 ),
                               ),
-                              const SizedBox(width: 10,),
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText("O ${(vm.playersPropsData[index].over.toString() =="null")?"0":vm.playersPropsData[index].over.toString()}", 12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  color: AppColor.backColor,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                      // CommonText("10", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              );
-            }));
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 25,
+                                            width: 25,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              child: Image.network(
+                                                vm.playersPropsData[index]
+                                                    .playerImg
+                                                    .toString(),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          BoldText(
+                                              vm.playersPropsData[index]
+                                                  .playerName
+                                                  .toString(),
+                                              13,
+                                              AppColor.whiteColor,
+                                              TextAlign.start)
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "U ${(vm.playersPropsData[index].under.toString() == "null") ? "0" : vm.playersPropsData[index].under.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "O ${(vm.playersPropsData[index].over.toString() == "null") ? "0" : vm.playersPropsData[index].over.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    }));
   }
 
   Widget GamePropsList() {
     return Expanded(
-        child:(vm.isLoading)
-            ?Progress()
-        :(vm.gamePropsData.isEmpty)?NoData("No Data", "", context)
-            :ListView.builder(
-          padding: EdgeInsets.zero,
-            itemCount: vm.gamePropsData.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          color: AppColor.dialogBackgroundColor,
-                          padding: const EdgeInsets.only(top: 10,left: 10),
-                          child: BoldText("${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
-                              13,
-                              AppColor.whiteColor,
-                              TextAlign.start),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: AppColor.backColor,
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: (vm.isLoading)
+            ? Progress()
+            : (vm.gamePropsData.isEmpty)
+                ? NoData("No Data", "", context)
+                : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: vm.gamePropsData.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Row(
                             children: [
-                              // CommonText("Over/Under", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                              // CommonText("10", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child:  SvgPicture.network(
-                                      widget.homeImg
-                                          .toString(),
-                                      height: 15,
-                                      width: 15,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  BoldText(
-                                      widget.homeName.toString(),
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  color: AppColor.dialogBackgroundColor,
+                                  padding:
+                                      const EdgeInsets.only(top: 10, left: 10),
+                                  child: BoldText(
+                                      "${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
                                       13,
                                       AppColor.whiteColor,
-                                      TextAlign.start)
-                                ],
-                              ),
-                              const SizedBox(height: 20,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child:  SvgPicture.network(
-                                      widget.awayImg
-                                          .toString(),
-                                      height: 15,
-                                      width: 15,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  BoldText(
-                                      widget.awayName.toString(),
-                                      13,
-                                      AppColor.whiteColor,
-                                      TextAlign.start)
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText(
-                                        "U ${(vm.gamePropsData[index].under.toString() =="null")?"0":vm.gamePropsData[index].under.toString()}",
-                                        12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                                      TextAlign.start),
                                 ),
                               ),
-                              const SizedBox(width: 10,),
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText("O ${(vm.gamePropsData[index].over.toString() =="null")?"0":vm.gamePropsData[index].over.toString()}", 12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  color: AppColor.backColor,
+                                  child: const Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                      // CommonText("10", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              );
-            }));
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 25,
+                                            width: 25,
+                                            child: SvgPicture.network(
+                                              widget.homeImg.toString(),
+                                              height: 15,
+                                              width: 15,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          BoldText(
+                                              widget.homeName.toString(),
+                                              13,
+                                              AppColor.whiteColor,
+                                              TextAlign.start)
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 25,
+                                            width: 25,
+                                            child: SvgPicture.network(
+                                              widget.awayImg.toString(),
+                                              height: 15,
+                                              width: 15,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          BoldText(
+                                              widget.awayName.toString(),
+                                              13,
+                                              AppColor.whiteColor,
+                                              TextAlign.start)
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "U ${(vm.gamePropsData[index].under.toString() == "null") ? "0" : vm.gamePropsData[index].under.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "O ${(vm.gamePropsData[index].over.toString() == "null") ? "0" : vm.gamePropsData[index].over.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    }));
   }
 
   Widget TeamPropsList() {
     return Expanded(
-        child:(vm.isLoading)
-            ?Progress()
-        :(vm.teamPropsData.isEmpty)?NoData("No Data", "", context)
-            :ListView.builder(
-          padding: EdgeInsets.zero,
-            itemCount: vm.teamPropsData.length,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          color: AppColor.dialogBackgroundColor,
-                          padding: const EdgeInsets.only(top: 10,left: 10),
-                          child: BoldText("${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
-                              13,
-                              AppColor.whiteColor,
-                              TextAlign.start),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          alignment: Alignment.center,
-                          color: AppColor.backColor,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: (vm.isLoading)
+            ? Progress()
+            : (vm.teamPropsData.isEmpty)
+                ? NoData("No Data", "", context)
+                : ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: vm.teamPropsData.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Row(
                             children: [
-                              // CommonText("Over/Under", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                              // CommonText("10", 11, AppColor.whiteColor,
-                              //     TextAlign.center),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                    width: 25,
-                                    child:  SvgPicture.network(
-                                      vm.teamPropsData[index].teamImg
-                                          .toString(),
-                                      height: 15,
-                                      width: 15,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  BoldText(
-                                      vm.teamPropsData[index].name
-                                          .toString(),
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  color: AppColor.dialogBackgroundColor,
+                                  padding:
+                                      const EdgeInsets.only(top: 10, left: 10),
+                                  child: BoldText(
+                                      "${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
                                       13,
                                       AppColor.whiteColor,
-                                      TextAlign.start)
-                                ],
-                              ),
-                              const SizedBox(height: 20,),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText(
-                                        "U ${(vm.teamPropsData[index].under.toString() =="null")?"0":vm.teamPropsData[index].under.toString()}",
-                                        12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                                      TextAlign.start),
                                 ),
                               ),
-                              const SizedBox(width: 10,),
-                              Container(
-                                width: 50,
-                                height: 45,
-                                margin: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                    Border.all(color: AppColor.hintColor)),
-                                padding: const EdgeInsets.all(2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MediumText("O ${(vm.teamPropsData[index].over.toString() =="null")?"0":vm.teamPropsData[index].over.toString()}", 12,
-                                        AppColor.textGreenColor,
-                                        TextAlign.start),
-                                  ],
+                              Expanded(
+                                child: Container(
+                                  height: 40,
+                                  alignment: Alignment.center,
+                                  color: AppColor.backColor,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                      // CommonText("10", 11, AppColor.whiteColor,
+                                      //     TextAlign.center),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
-              );
-            }));
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: 25,
+                                            width: 25,
+                                            child: SvgPicture.network(
+                                              vm.teamPropsData[index].teamImg
+                                                  .toString(),
+                                              height: 15,
+                                              width: 15,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          BoldText(
+                                              vm.teamPropsData[index].name
+                                                  .toString(),
+                                              13,
+                                              AppColor.whiteColor,
+                                              TextAlign.start)
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "U ${(vm.teamPropsData[index].under.toString() == "null") ? "0" : vm.teamPropsData[index].under.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        width: 50,
+                                        height: 45,
+                                        margin: const EdgeInsets.all(2),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            border: Border.all(
+                                                color: AppColor.hintColor)),
+                                        padding: const EdgeInsets.all(2),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            MediumText(
+                                                "O ${(vm.teamPropsData[index].over.toString() == "null") ? "0" : vm.teamPropsData[index].over.toString()}",
+                                                12,
+                                                AppColor.textGreenColor,
+                                                TextAlign.start),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
+                    }));
   }
 
   Future<void> getData() async {
     await vm.getPlayerPropsData(context, widget.scoreId);
-    vm.getTeams(context);
-    await vm.getPlayers(context);
-    setState(() {
-
-    });
+    setState(() {});
   }
 }

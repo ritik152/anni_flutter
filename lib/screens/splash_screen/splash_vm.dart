@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../apis/api_controller.dart';
 import '../../utils/all_keys.dart';
+import '../betting_data/all_teams_model.dart';
 
 class SplashVm {
 
@@ -27,5 +28,7 @@ class SplashVm {
     week = response.toString();
 
   }
+
+
 
 }

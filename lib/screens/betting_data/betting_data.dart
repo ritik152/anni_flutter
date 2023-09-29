@@ -536,7 +536,6 @@ class _BeatingDataState extends State<BeatingData> {
 
   Future<void> getData() async {
     vm.bettingData.clear();
-    vm.allTeams.clear();
     String res = await thirdPartyMethod("GET","https://api.sportsdata.io/v3/nfl/odds/json/GameOddsByWeek/$season/${vm.value.toString()}?key=${AllKeys.sportsKey}", null, null, context);
 
     var response = jsonDecode(res);
@@ -549,37 +548,16 @@ class _BeatingDataState extends State<BeatingData> {
       vm.bettingData.add(bettingDataNew);
     }
 
-    // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
-
-    getTeams();
-  }
-
-  Future<void> getTeams() async {
-    String res = await thirdPartyMethod("GET",
-        "https://api.sportsdata.io/v3/nfl/scores/json/Teams/2022?key=${AllKeys.sportsKey}",
-        null, null, context);
-
-    var response = jsonDecode(res);
-
-    List<dynamic> list = [];
-    list.addAll(response);
-
-    for (var i = 0; i < list.length; i++) {
-      AllTeamsModel allTeamsData = AllTeamsModel.fromJson(list[i]);
-      vm.allTeams.add(allTeamsData);
-    }
-    // BettingDataModel bettingDataNew = BettingDataModel.fromJson(response);
-
     for (var k = 0; k < vm.bettingData.length; k++) {
 
-      for (var j = 0; j < vm.allTeams.length; j++) {
+      for (var j = 0; j < allTeams.length; j++) {
 
-        if (vm.bettingData[k].awayTeamId.toString() == vm.allTeams[j].teamID.toString()) {
-          vm.bettingData[k].awayTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
-          vm.bettingData[k].name = vm.allTeams[j].name.toString();
-        }else if (vm.bettingData[k].homeTeamId.toString() == vm.allTeams[j].teamID.toString()) {
-          vm.bettingData[k].homeTeamImg = vm.allTeams[j].wikipediaLogoUrl.toString();
-          vm.bettingData[k].name = vm.allTeams[j].name.toString();
+        if (vm.bettingData[k].awayTeamId.toString() == allTeams[j].teamID.toString()) {
+          vm.bettingData[k].awayTeamImg = allTeams[j].wikipediaLogoUrl.toString();
+          vm.bettingData[k].name = allTeams[j].name.toString();
+        }else if (vm.bettingData[k].homeTeamId.toString() == allTeams[j].teamID.toString()) {
+          vm.bettingData[k].homeTeamImg = allTeams[j].wikipediaLogoUrl.toString();
+          vm.bettingData[k].name = allTeams[j].name.toString();
         }
 
       }
@@ -593,4 +571,6 @@ class _BeatingDataState extends State<BeatingData> {
     });
 
   }
+
+
 }
