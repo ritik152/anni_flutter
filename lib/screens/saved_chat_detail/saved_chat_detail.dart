@@ -192,6 +192,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   }
 
   Future _speak(String? newVoiceText) async {
+    await flutterTts.setVoice({"name": "Karen", "locale": "en-IN"});
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);

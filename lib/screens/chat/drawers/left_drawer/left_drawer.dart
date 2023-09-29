@@ -287,14 +287,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            widget.vm.controller.dispose();
                             var data = await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const SaveChats()));
-                            setState(() {
+                              setState(() {
 
-                            });
+                              });
+
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

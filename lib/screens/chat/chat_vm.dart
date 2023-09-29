@@ -148,6 +148,8 @@ class ChatVm{
 
   }
 
+
+
   Future<void> getPlayers(BuildContext context) async {
 
     String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
