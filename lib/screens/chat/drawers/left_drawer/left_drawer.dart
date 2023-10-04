@@ -6,7 +6,6 @@ import 'package:anni_ai/utils/color.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:video_player/video_player.dart';
 import '../../../../utils/all_keys.dart';
 import '../../../alerts/alerts.dart';
 import '../../../betting_data/betting_data.dart';
@@ -287,10 +286,9 @@ class _LeftDrawerState extends State<LeftDrawer> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            var data = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SaveChats()));
+
+                            var data = await Navigator.push(context, MaterialPageRoute(builder: (context) => SaveChats(vm:widget.vm)));
+
                               setState(() {
 
                               });
@@ -332,24 +330,17 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                         mapRate['id'] = savedChatModel.body![index].jsonData![i].id.toString();
                                         messageList.add(mapRate);
                                       }
-                                      widget.vm.controller.dispose();
                                       var data = await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>  SavedChatDetail(messageList: messageList,
                                                   chatId : savedChatModel.body![index].id,
-                                                  title : savedChatModel.body![index].title.toString())));
-                                      widget.vm.controller = VideoPlayerController.asset('assets/video/test.mp4');
-                                      widget.vm.controller.setLooping(true);
-                                      widget.vm.controller.setVolume(0.0);
-                                      widget.vm.controller.initialize().then((value){
-                                        setState(() {
+                                                  title : savedChatModel.body![index].title.toString(),
+                                                vm: widget.vm
+                                              )
+                                          )
+                                      );
 
-                                        });
-                                      });
-                                      setState(() {
-
-                                      });
                                     },
                                     child: Container(
                                       width: double.infinity,

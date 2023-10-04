@@ -11,15 +11,15 @@ import '../../utils/common.dart';
 import '../alerts/alerts_model.dart';
 import '../betting_data/all_teams_model.dart';
 import '../betting_detail/players_model.dart';
+import '../chat/chat_model.dart';
+import '../chat/drawers/right_drawer/trending_up_model.dart';
 import '../save_chat_list/SavedChatModel.dart';
-import 'chat_model.dart';
-import 'drawers/right_drawer/trending_up_model.dart';
 
-class ChatVm{
+class SavedChatVm{
 
   TextEditingController chatController = TextEditingController();
   TextEditingController saveChatController = TextEditingController();
-  List<LocalChatData> chatArray = [];
+  List<LocalChatDataSaved> chatArray = [];
   ScrollController scrollController = ScrollController();
   late VideoPlayerController controller;
   String lastQuestion = '';
@@ -30,7 +30,6 @@ class ChatVm{
   late Timer timer;
   var question = "";
   var mute = false;
-
   List<String> questionsList = [
     "Who led the NFL in rushing yards in 2022?",
     "Who had the toughest schedule in 2022?",
@@ -149,6 +148,8 @@ class ChatVm{
 
   }
 
+
+
   Future<void> getPlayers(BuildContext context) async {
 
     String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
@@ -208,7 +209,7 @@ class ChatVm{
 
 }
 
-class LocalChatData {
+class LocalChatDataSaved {
   String isFrom = '';
   String humanMesasge = '';
   String aiMessage = '';
@@ -217,7 +218,7 @@ class LocalChatData {
   String description = '';
   int? id = 0;
 
-  LocalChatData({
+  LocalChatDataSaved({
     required this.isFrom,
     required this.humanMesasge,
     required this.aiMessage,

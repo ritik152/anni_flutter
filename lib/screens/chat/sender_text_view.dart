@@ -5,7 +5,7 @@ import 'chat_vm.dart';
 
 class SenderTextView extends StatefulWidget {
 
-  LocalChatData chatData;
+  var chatData;
   SenderTextView({Key? key,required this.chatData,required this.email}) : super(key: key);
   String email = '';
   @override

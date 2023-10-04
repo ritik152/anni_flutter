@@ -1,3 +1,4 @@
+import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:flutter/material.dart';
 
 import '../../apis/api_controller.dart';
@@ -8,8 +9,8 @@ import '../saved_chat_detail/saved_chat_detail.dart';
 import 'SaveChatVM.dart';
 
 class SaveChats extends StatefulWidget {
-
-  const SaveChats({Key? key}) : super(key: key);
+  ChatVm vm;
+  SaveChats({Key? key, required this.vm}) : super(key: key);
 
   @override
   State<SaveChats> createState() => _SaveChatsState();
@@ -74,7 +75,12 @@ class _SaveChatsState extends State<SaveChats> {
                         var data = await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  SavedChatDetail(messageList: messageList,chatId : savedChatModel.body![index].id,title : savedChatModel.body![index].title.toString())));
+                                builder: (context) =>  SavedChatDetail(
+                                    messageList: messageList,
+                                    chatId : savedChatModel.body![index].id,
+                                    title : savedChatModel.body![index].title.toString(),
+                                  vm:widget.vm
+                                )));
 
                         if(data == true){
                           setState(() {

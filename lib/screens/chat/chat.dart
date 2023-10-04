@@ -190,11 +190,11 @@ class _ChatState extends State<Chat> {
     if (result == 1) setState(() => ttsState = TtsState.stopped);
   }
 
-  @override
-  void dispose() {
-    vm.controller.dispose();
-    flutterTts.stop();
-  }
+  // @override
+  // void dispose() {
+  //   vm.controller.dispose();
+  //   flutterTts.stop();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -206,9 +206,7 @@ class _ChatState extends State<Chat> {
          if(isOpened){
 
          }else{
-           setState(() {
-
-           });
+           initTts();
          }
         },
         onEndDrawerChanged: (isOpened) {
@@ -227,12 +225,7 @@ class _ChatState extends State<Chat> {
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.30,
                       child: VideoPlayer(vm.controller)),
-                  // if(vm.mute)Image.asset(
-                  //   "assets/images/anni_image.png",
-                  //   width: double.infinity,
-                  //   height: MediaQuery.of(context).size.height * 0.30,
-                  //   fit: BoxFit.cover,
-                  // ),
+
                   Container(
                     alignment: Alignment.centerRight,
                     height: MediaQuery.of(context).size.height * 0.29,
@@ -332,25 +325,6 @@ class _ChatState extends State<Chat> {
                     ),
                   );
                 }):
-               /* ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(bottom: 10,top: 10),
-                    itemCount: 1,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(top: 2,bottom: 2,right: 10,left: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(topLeft: Radius.circular(30),topRight: Radius.circular(30),bottomLeft: Radius.circular(30)),
-                            border: Border.all(color: AppColor.hintColor)
-                        ),
-                        padding: const EdgeInsets.all(20),
-                        child: Expanded(
-                            flex: 70,
-                            child: CommonText(question, 14, AppColor.whiteColor, TextAlign.start)),
-                      );
-                    }),*/
                 ListView(
                   controller: vm.scrollController,
                   padding: EdgeInsets.zero,
@@ -377,13 +351,6 @@ class _ChatState extends State<Chat> {
                                   borderRadius: BorderRadius.circular(25),
                                   color: AppColor.fieldBack,
                                   border: Border.all(color: AppColor.backColor)
-                                  /*boxShadow: [
-                                      BoxShadow(
-                                          spreadRadius: 2,
-                                          blurRadius: 3,
-                                          color: Colors.grey.withOpacity(0.3),
-                                          offset: const Offset(0, 2))
-                                    ]*/
                                 ),
                                 child: Row(
                                   children: [
@@ -566,6 +533,7 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               _speak(_newVoiceText);
+              vm.controller.play();
             }
           });
 

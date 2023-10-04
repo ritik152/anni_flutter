@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:anni_ai/screens/chat/chat_vm.dart';
+import 'package:anni_ai/screens/saved_chat_detail/saved_chat_vm.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../dialogs/delete_save_chat/delete_save_chat.dart';
 import '../../utils/color.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
 import '../chat/chat_loader.dart';
-import '../chat/chat_vm.dart';
 import '../chat/receiver_text_view.dart';
 import '../chat/sender_text_view.dart';
 
@@ -20,7 +19,8 @@ class SavedChatDetail extends StatefulWidget {
   List<Map<String, String>> messageList;
   int? chatId;
   String title;
-  SavedChatDetail({Key? key,required this.messageList,this.chatId, required this.title}) : super(key: key);
+  ChatVm vm;
+  SavedChatDetail({Key? key,required this.messageList,this.chatId, required this.title, required this.vm}) : super(key: key);
 
   @override
   State<SavedChatDetail> createState() => _SavedChatDetailState();
@@ -30,10 +30,11 @@ enum TtsState { playing, stopped, paused, continued }
 
 class _SavedChatDetailState extends State<SavedChatDetail> {
 
+  var vm = SavedChatVm();
   var mute = false;
-  var vm = ChatVm();
-  late VideoPlayerController controllerSaved;
+  // late VideoPlayerController controllerSaved;
   List<Map<String, dynamic>> map = [];
+
 
   late FlutterTts flutterTts;
   String? language;
@@ -62,19 +63,10 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
 
     initTts();
 
-    controllerSaved = VideoPlayerController.asset('assets/video/video_anni.mp4');
-    controllerSaved.setLooping(true);
-    controllerSaved.setVolume(0.0);
-    controllerSaved.initialize().then((value){
-      setState(() {
-
-      });
-    });
-
     if (widget.messageList.isNotEmpty) {
 
       for (var i = 0; i < widget.messageList.length; i++) {
-        LocalChatData aiData = LocalChatData(
+        LocalChatDataSaved aiData = LocalChatDataSaved(
             isFrom: widget.messageList[i]["isFrom"].toString(),
             humanMesasge: widget.messageList[i]["humanMesasge"].toString(),
             aiMessage: widget.messageList[i]["aiMessage"].toString(),
@@ -93,7 +85,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
           map.add(dataAi);
         }
 
-        vm.chatArray.add(aiData);
+       vm.chatArray.add(aiData);
       }
 
       setState(() {
@@ -113,21 +105,18 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   }
 
 
-  initTts() {
+  initTts() async {
+
+
     flutterTts = FlutterTts();
 
     _setAwaitOptions();
-
-    if (isAndroid) {
-      _getDefaultEngine();
-      _getDefaultVoice();
-    }
 
     flutterTts.setStartHandler(() {
       setState(() {
         print("Playing");
         ttsState = TtsState.playing;
-        controllerSaved.play();
+         widget.vm.controller.play();
       });
     });
 
@@ -142,8 +131,8 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     flutterTts.setCompletionHandler(() {
       setState(() {
         print("Complete");
-        controllerSaved.pause();
-        controllerSaved.seekTo(const Duration(seconds: 0));
+         widget.vm.controller.pause();
+         widget.vm.controller.seekTo(const Duration(seconds: 0));
         ttsState = TtsState.stopped;
       });
     });
@@ -177,20 +166,6 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     });
   }
 
-  Future _getDefaultEngine() async {
-    var engine = await flutterTts.getDefaultEngine;
-    if (engine != null) {
-      print(engine);
-    }
-  }
-
-  Future _getDefaultVoice() async {
-    var voice = await flutterTts.getDefaultVoice;
-    if (voice != null) {
-      print(voice);
-    }
-  }
-
   Future _speak(String? newVoiceText) async {
     await flutterTts.setVoice({"name": "Karen", "locale": "en-IN"});
     await flutterTts.setVolume(volume);
@@ -214,12 +189,6 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   }
 
   @override
-  void dispose() {
-    vm.controller.dispose();
-    flutterTts.stop();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.black,
@@ -236,7 +205,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                       margin: const EdgeInsets.only(top: 60),
                       width: double.infinity,
                       height: MediaQuery.of(context).size.height * 0.30,
-                      child: VideoPlayer(controllerSaved),
+                      child: VideoPlayer(widget.vm.controller),
                         // Image.asset("assets/images/anni_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),
                     ),
                     Container(
@@ -251,8 +220,8 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                             mute = !mute;
                             setState(() {
                               if(mute == true){
-                                controllerSaved.pause();
-                                controllerSaved.seekTo(const Duration(seconds: 0));
+                                 widget.vm.controller.pause();
+                                 widget.vm.controller.seekTo(const Duration(seconds: 0));
                                 _stop();
                               }
 
@@ -276,7 +245,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                           ),
                           GestureDetector(
                               onTap: (){
-                                controllerSaved.dispose();
+
                                 Navigator.pop(context,true);
                               },
                               child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)),
@@ -385,7 +354,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     if (vm.chatController.text.trim().isNotEmpty) {
       FocusManager.instance.primaryFocus?.unfocus();
       String message = '';
-      LocalChatData data = LocalChatData(isFrom: 'human', humanMesasge: vm.chatController.text, aiMessage: '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+      LocalChatDataSaved data = LocalChatDataSaved(isFrom: 'human', humanMesasge: vm.chatController.text, aiMessage: '', category: 'chat', prompt: "", description: "", id: vm.chatId);
       vm.chatArray.add(data);
       message = vm.chatController.text;
       vm.lastQuestion = message;
@@ -397,7 +366,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   }
 
 
-  List<Widget> getChatList(List<LocalChatData> messages) {
+  List<Widget> getChatList(List<LocalChatDataSaved> messages) {
     List<Widget> mArray = [];
     for (var item in messages) {
       if (item.isFrom == 'human') {
@@ -438,7 +407,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
 
 
   makeSendAIChatRequest(String message) async {
-    LocalChatData loaderData = LocalChatData(
+    LocalChatDataSaved loaderData = LocalChatDataSaved(
         isFrom: 'loader',
         humanMesasge: message,
         aiMessage: '',
@@ -487,11 +456,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
       dataAi = {"role":"assistant","content": model.body?.choices?[0].message.content ?? ''};
       map.add(dataAi);
       debugPrint('Here i got');
-      LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+      LocalChatDataSaved aiData = LocalChatDataSaved(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
 
       vm.chatId += 1;
       if(model.body?.choices?.first.message.content != "BLANK"){
-        LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+        LocalChatDataSaved aiData = LocalChatDataSaved(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
         vm.chatArray.add(aiData);
       }else{
         showError("Please ask National Football League(NFL) related questions");
@@ -528,3 +497,5 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   }
 
 }
+
+

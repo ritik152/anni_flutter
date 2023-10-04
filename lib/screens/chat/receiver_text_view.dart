@@ -9,9 +9,9 @@ import '../../utils/common_widget.dart';
 
 class ReceiverTextView extends StatefulWidget {
   final Function regeratedTapped;
-  LocalChatData chatData;
+  var chatData;
   bool isLast;
-  ChatVm vm;
+  var vm;
   ReceiverTextView({Key? key, required this.chatData, required this.isLast, required this.vm, required this.regeratedTapped}) : super(key: key);
 
   @override
