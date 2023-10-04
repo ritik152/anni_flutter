@@ -39,8 +39,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   late FlutterTts flutterTts;
   String? language;
   String? engine;
-  double volume = 0.5;
-  double pitch = 1.1;
+
+  double volume = 1;
+
+  double pitch = 1;
+
   double rate = 0.5;
   bool isCurrentLanguageInstalled = false;
 

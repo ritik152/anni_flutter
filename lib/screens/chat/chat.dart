@@ -533,7 +533,6 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               _speak(_newVoiceText);
-              vm.controller.play();
             }
           });
 
