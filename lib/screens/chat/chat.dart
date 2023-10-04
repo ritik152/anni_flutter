@@ -35,10 +35,6 @@ class _ChatState extends State<Chat> {
 
   late FlutterTts flutterTts;
 
-  String? language = "en-IN";
-
-  String? engine;
-
   double volume = 1;
 
   double pitch = 1;
@@ -63,7 +59,7 @@ class _ChatState extends State<Chat> {
   void initState() {
     super.initState();
 
-    initTts();
+    initTts("1");
 
     List<int> originalList = [2, 4, 1, 3, 7, 5, 0];
 
@@ -102,13 +98,16 @@ class _ChatState extends State<Chat> {
     getData();
   }
 
-  initTts() async {
+  initTts(String s) async {
 
     flutterTts = FlutterTts();
 
-    await vm.getPlayerGameStatsByWeek(context);
-    vm.getPlayers(context);
-    vm.getTeams(context);
+    if(s == "1"){
+      await vm.getPlayerGameStatsByWeek(context);
+      vm.getPlayers(context);
+      vm.getTeams(context);
+    }
+
 
     _setAwaitOptions();
 
@@ -206,7 +205,7 @@ class _ChatState extends State<Chat> {
          if(isOpened){
 
          }else{
-           initTts();
+           initTts("0");
          }
         },
         onEndDrawerChanged: (isOpened) {
