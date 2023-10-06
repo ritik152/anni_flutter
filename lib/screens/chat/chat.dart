@@ -37,7 +37,7 @@ class _ChatState extends State<Chat> {
 
   double volume = 1;
 
-  double pitch = 1;
+  double pitch = 1.1;
 
   double rate = 0.5;
 
@@ -61,30 +61,6 @@ class _ChatState extends State<Chat> {
 
     initTts("1");
 
-    List<int> originalList = [2, 4, 1, 3, 7, 5, 0];
-
-    originalList.sort((a, b) => b.compareTo(a));
-
-    print(originalList);
-
-    Future.delayed(Duration.zero, () {
-      showLoader(context);
-    });
-
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // initLanguages();
-    });
-
-    if(widget.from == "signup"){
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await showDialog(
-            barrierDismissible: false,
-            barrierColor: AppColor.dialogBackgroundColor,
-            context: context, builder: (context)=> const StartChatDialog());
-      });
-    }
-
     vm.controller = VideoPlayerController.asset('assets/video/test.mp4');
     vm.controller.setLooping(true);
     vm.controller.setVolume(0.0);
@@ -94,6 +70,26 @@ class _ChatState extends State<Chat> {
       });
 
     });
+
+
+
+
+    if(widget.from == "signup"){
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const StartChatDialog());
+
+        Future.delayed(Duration.zero, () {
+          showLoader(context);
+        });
+
+      });
+    }else {
+      Future.delayed(Duration.zero, () {
+        showLoader(context);
+      });
+    }
+
+
 
     getData();
   }
@@ -168,9 +164,12 @@ class _ChatState extends State<Chat> {
 
   Future _speak(String? newVoiceText) async {
 
+    await flutterTts.synthesizeToFile("Hello World", Platform.isAndroid ? "tts.wav" : "tts.caf");
     await flutterTts.setVoice({"name": "Karen", "locale": "en-IN"});
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
+    await flutterTts.setSilence(2);
+    await flutterTts.setQueueMode(1);
     await flutterTts.setPitch(pitch);
 
     if (newVoiceText != null) {
@@ -189,11 +188,11 @@ class _ChatState extends State<Chat> {
     if (result == 1) setState(() => ttsState = TtsState.stopped);
   }
 
-  // @override
-  // void dispose() {
-  //   vm.controller.dispose();
-  //   flutterTts.stop();
-  // }
+  @override
+  void dispose() {
+    vm.controller.dispose();
+    flutterTts.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,6 +237,7 @@ class _ChatState extends State<Chat> {
                           children: [
                             GestureDetector(
                               onTap: () async {
+                                vm.saveChatController.clear();
                                 var value = await showTopModalSheet<String>(
                                     context, SaveChat());
                               },
@@ -269,8 +269,10 @@ class _ChatState extends State<Chat> {
                               onTap: () async {
 
                                 vm.mute = !vm.mute;
+
                                 setState(() {
                                   if(vm.mute == true){
+
                                     vm.controller.pause();
                                     vm.controller.seekTo(const Duration(seconds: 0));
                                     _stop();
@@ -421,20 +423,21 @@ class _ChatState extends State<Chat> {
         mArray.add(const ChatLoader());
       }
       else {
-        mArray.add(GestureDetector(
-          onLongPress: () {
 
-          },
-          child: ReceiverTextView(
-            chatData: item,
-            isLast: (item.id == messages.last.id) ? true : false,
-            vm: vm,
-            regeratedTapped: (){
-              makeSendAIChatRequest(vm.lastQuestion);
+          mArray.add(GestureDetector(
+            onLongPress: () {
+
             },
-          ),
-        ));
-      }
+            child: ReceiverTextView(
+              chatData: item,
+              isLast: (item.id == messages.last.id) ? true : false,
+              vm: vm,
+              regeratedTapped: (){
+                makeSendAIChatRequest(vm.lastQuestion);
+              },
+            ),
+          ));
+        }
     }
     return mArray;
   }
@@ -514,31 +517,52 @@ class _ChatState extends State<Chat> {
       Map<String, dynamic> dataAi = {};
       dataAi = {"role":"assistant","content": model.body?.choices?[0].message.content ?? ''};
       map.add(dataAi);
+
       debugPrint('Here i got');
 
       vm.chatId += 1;
+
       if(model.body?.choices?.first.message.content != "BLANK"){
+
         LocalChatData aiData = LocalChatData(isFrom: 'ai', humanMesasge: message, aiMessage: model.body?.choices?.first.message.content ?? '', category: 'chat', prompt: "", description: "", id: vm.chatId);
+
         vm.chatArray.add(aiData);
-      }else{
+
+      }
+
+      else{
+
         showError("Please ask National Football League(NFL) related questions");
+
       }
      
       setState(() {
+
         vm.timer = Timer(const Duration(milliseconds: 200), () {
           setState(() {
             vm.scrollController.animateTo(vm.scrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
             vm.timer.cancel();
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
-              _speak(_newVoiceText);
+              if(_newVoiceText != ""){
+
+                _speak(_newVoiceText);
+
+              }else{
+
+                _speak("It seems like you've entered another random sequence of characters. "
+                    "If you have any questions or need assistance with anything, "
+                    "please let me know, and I'll be glad to assist you.");
+
+              }
+
             }
           });
 
         });
 
-
       });
+
     }
     else if ((model.code ?? 0) == 429) {
       makeSendAIChatRequest(message);

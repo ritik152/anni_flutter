@@ -46,39 +46,10 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CommonText(widget.chatData.aiMessage.replaceFirst('\n', '', 1), 14, AppColor.whiteColor, TextAlign.start),
+                        (widget.chatData.aiMessage != "")?CommonText(widget.chatData.aiMessage.replaceFirst('\n', '', 1), 14, AppColor.whiteColor, TextAlign.start)
+                            :CommonText("It seems like you've entered another random sequence of characters. If you have any questions or need assistance with anything, please let me know, and I'll be glad to assist you.", 14, AppColor.whiteColor, TextAlign.start),
                         const SizedBox(height: 5,),
-                        /*Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
 
-                            Padding(
-                              padding: const EdgeInsets.only(right: 12.0),
-                              child: InkWell(
-                                  onTap: (){
-
-                                    Share.share("${widget.chatData.aiMessage.replaceFirst('\n', '', 1)}",subject: "Auria Ai");
-
-                                  },
-                                  child: Image.asset('assets/images/share_chat.png',width: 25,)),
-                            ),
-                            // InkWell(child: Padding(
-                            //   padding: const EdgeInsets.only(right: 8.0,bottom: 10,top: 5),
-                            //   child: Image.asset('assets/images/chat_delete.png',width: 25,),
-                            // )),
-                            InkWell(
-                                onTap: () async {
-                                  await Clipboard.setData(ClipboardData(text: widget.chatData.aiMessage));
-                                  if (!mounted){return;}
-                                  showToast('Copied');
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 8.0,bottom: 10,top: 5),
-                                  child: Image.asset('assets/images/copy_icon.png',width: 25,),
-                                ))
-                          ],
-                        )*/
                       ],
                     ),
                   )
@@ -86,46 +57,7 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
               ),
             ),
           ),
-          /*if (widget.isLast)
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: InkWell(
-                  onTap: (){
-                    widget.regeratedTapped();
-                  },
-                  child: Container(
-                    width: 150,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color:Colors.white,
-                        boxShadow: [BoxShadow(
-                            offset: const Offset(1,1),
-                            spreadRadius: 1,
-                            blurRadius: 2,
-                            color:Colors.grey.withOpacity(0.3)
-                        )]
 
-                    ),
-                    child: Row(
-
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0,right: 10),
-                          child: Icon(Icons.settings_backup_restore,color: AppColor.greenColor,),
-                        ),
-                        Text('Regenerate',
-                          style: TextStyle(
-                              color:  AppColor.liteGrayColor
-                          ),),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),*/
         ],
       ),
     );

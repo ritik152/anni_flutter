@@ -9,10 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashScreen extends StatefulWidget {
+
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
+
 }
 
 class _SplashScreenState extends State<SplashScreen> {
@@ -22,12 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     vm.currentSeason(context);
     vm.currentWeek(context);
     controller = VideoPlayerController.asset('assets/video/splash.mp4');
+
     controller.initialize().then((value){
       setState(() {
 
@@ -65,6 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+
   }
 
   Future<void> nextScreen() async {

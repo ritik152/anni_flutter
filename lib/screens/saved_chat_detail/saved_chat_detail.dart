@@ -42,7 +42,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
 
   double volume = 1;
 
-  double pitch = 1;
+  double pitch = 1.1;
 
   double rate = 0.5;
   bool isCurrentLanguageInstalled = false;
@@ -58,7 +58,6 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
   bool get isAndroid => !kIsWeb && Platform.isAndroid;
   bool get isWindows => !kIsWeb && Platform.isWindows;
   bool get isWeb => kIsWeb;
-
 
   @override
   void initState() {
@@ -106,7 +105,6 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     }
 
   }
-
 
   initTts() async {
 
@@ -368,7 +366,6 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     }
   }
 
-
   List<Widget> getChatList(List<LocalChatDataSaved> messages) {
     List<Widget> mArray = [];
     for (var item in messages) {
@@ -390,24 +387,26 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
         mArray.add(const ChatLoader());
       }
       else {
-        mArray.add(GestureDetector(
-          onLongPress: () {
+        if(item.aiMessage != "" || item.aiMessage != "BLANK"){
+          mArray.add(GestureDetector(
+            onLongPress: () {
 
-          },
-          child: ReceiverTextView(
-            chatData: item,
-            isLast: (item.id == messages.last.id) ? true : false,
-            vm: vm,
-            regeratedTapped: (){
-              makeSendAIChatRequest(vm.lastQuestion);
             },
-          ),
-        ));
+            child: ReceiverTextView(
+              chatData: item,
+              isLast: (item.id == messages.last.id) ? true : false,
+              vm: vm,
+              regeratedTapped: (){
+                makeSendAIChatRequest(vm.lastQuestion);
+              },
+            ),
+          ));
+        }
+
       }
     }
     return mArray;
   }
-
 
   makeSendAIChatRequest(String message) async {
     LocalChatDataSaved loaderData = LocalChatDataSaved(
@@ -475,7 +474,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
             vm.timer.cancel();
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(mute != true){
-              _speak(_newVoiceText);
+              if(_newVoiceText != ""){
+                _speak(_newVoiceText);
+              }else{
+                _speak("It seems like you've entered another random sequence of characters. If you have any questions or need assistance with anything, please let me know, and I'll be glad to assist you.");
+              }
 
             }
           });
