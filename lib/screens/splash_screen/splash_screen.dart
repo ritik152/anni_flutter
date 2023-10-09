@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     vm.currentSeason(context);
     vm.currentWeek(context);
+
     controller = VideoPlayerController.asset('assets/video/splash.mp4');
 
     controller.initialize().then((value){
@@ -45,9 +46,9 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
 
-    Timer(const Duration(seconds: 5), () {
+    // Timer(const Duration(seconds: 5), () {
       nextScreen();
-    });
+    // });
 
   }
 
@@ -57,14 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 70,vertical: 50),
-            child: Image.asset("assets/images/ball.png"),
-            // child: VideoPlayer(controller),
-          ),
-        ),
+        child: Image.asset("assets/images/ball.png",height: 86,width: 86,),
       ),
     );
 

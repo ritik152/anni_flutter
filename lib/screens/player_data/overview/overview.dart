@@ -1,3 +1,4 @@
+import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/player_data/player_data_vm.dart';
 import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class Overview extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -143,7 +145,7 @@ class Overview extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+          if(vm.playerNewsData.body != null && vm.playerNewsData.body!.isNotEmpty)Container(
             width: double.infinity,
             margin: const EdgeInsets.only(top: 20, right: 10, left: 10),
             decoration: BoxDecoration(
@@ -153,7 +155,7 @@ class Overview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BoldText("2023 Season Outlook", 13, AppColor.whiteColor, TextAlign.start),
+                BoldText("$season Season Outlook", 13, AppColor.whiteColor, TextAlign.start),
                 const SizedBox(
                   height: 5,
                 ),
@@ -171,8 +173,7 @@ class Overview extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: BoldText(
-                "Projections", 13, AppColor.whiteColor, TextAlign.start),
+            child: BoldText("Projections", 13, AppColor.whiteColor, TextAlign.start),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -221,7 +222,7 @@ class Overview extends StatelessWidget {
                       padding:
                       const EdgeInsets.only(top: 13, left: 13, bottom: 13),
                       child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
+                          "Final", 10, AppColor.whiteColor, TextAlign.start),
                     ),
                   ],
                 ),
@@ -268,7 +269,7 @@ class Overview extends StatelessWidget {
                       padding:
                       const EdgeInsets.only(top: 13, left: 13, bottom: 13),
                       child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
+                          "Final", 10, AppColor.whiteColor, TextAlign.start),
                     ),
                   ],
                 ),
@@ -315,7 +316,7 @@ class Overview extends StatelessWidget {
                       padding:
                       const EdgeInsets.only(top: 13, left: 13, bottom: 13),
                       child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
+                          "Final", 10, AppColor.whiteColor, TextAlign.start),
                     ),
                   ],
                 ),
@@ -362,7 +363,7 @@ class Overview extends StatelessWidget {
                       padding:
                       const EdgeInsets.only(top: 13, left: 13, bottom: 13),
                       child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
+                          "Final", 10, AppColor.whiteColor, TextAlign.start),
                     ),
                   ],
                 ),
@@ -409,7 +410,7 @@ class Overview extends StatelessWidget {
                       padding:
                       const EdgeInsets.only(top: 13, left: 13, bottom: 13),
                       child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
+                          "Final", 10, AppColor.whiteColor, TextAlign.start),
                     ),
                   ],
                 ),

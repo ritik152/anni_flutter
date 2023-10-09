@@ -35,11 +35,12 @@ class PlayerDataVm {
     var response = await jsonDecode(res);
 
     allTeamsData = PlayerDataModel.fromJson(response);
+    print("User Img = ${allTeamsData.photoUrl}");
     for (var j = 0; j < allTeams.length; j++) {
 
       if (keys.toString() == allTeams[j].key.toString()) {
         allTeamsData.teamImg = allTeams[j].wikipediaLogoUrl.toString();
-        allTeamsData.teamName = allTeams[j].name.toString();
+        allTeamsData.teamName = (allTeams[j].name.toString() == "null")?"":allTeams[j].name.toString();
         teamId = allTeams[j].teamID.toString();
         print("Team Id === ${allTeams[j].teamID.toString()}");
 

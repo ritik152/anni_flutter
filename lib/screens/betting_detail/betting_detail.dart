@@ -204,7 +204,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                       TextAlign.center),
                                   CommonText("ML", 11, AppColor.whiteColor,
                                       TextAlign.center),
-                                  CommonText("total", 11, AppColor.whiteColor,
+                                  CommonText("Total", 11, AppColor.whiteColor,
                                       TextAlign.center),
                                 ],
                               ),
@@ -229,7 +229,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        "assets/images/instagram.png",
+                                        "assets/images/dummy_team.png",
                                         height: 15,
                                         width: 15,
                                       ),
@@ -352,7 +352,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        "assets/images/instagram.png",
+                                        "assets/images/dummy_team.png",
                                         height: 15,
                                         width: 15,
                                       ),
@@ -595,39 +595,39 @@ class _BettingDetailState extends State<BettingDetail> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  color: AppColor.dialogBackgroundColor,
-                                  padding:
-                                      const EdgeInsets.only(top: 10, left: 10),
-                                  child: BoldText(
-                                      "${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
-                                      13,
-                                      AppColor.whiteColor,
-                                      TextAlign.start),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  color: AppColor.backColor,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                      // CommonText("10", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                    ],
+                          Container(
+                            color: AppColor.backColor,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    color: AppColor.fieldBack,
+                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    child: BoldText(
+                                        "${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
+                                        13,
+                                        AppColor.whiteColor,
+                                        TextAlign.start),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: AppColor.backColor,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                        // CommonText("10", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -655,11 +655,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(30),
-                                              child: Image.network(
-                                                vm.playersPropsData[index]
-                                                    .playerImg
-                                                    .toString(),
-                                                fit: BoxFit.fill,
+                                              child: (vm.playersPropsData[index].playerImg.toString() == "null")?Image.asset("assets/images/football_player.png"):Image.network(vm.playersPropsData[index].playerImg.toString(), fit: BoxFit.fill,
                                               ),
                                             ),
                                           ),
@@ -760,39 +756,39 @@ class _BettingDetailState extends State<BettingDetail> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  color: AppColor.dialogBackgroundColor,
-                                  padding:
-                                      const EdgeInsets.only(top: 10, left: 10),
-                                  child: BoldText(
-                                      "${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
-                                      13,
-                                      AppColor.whiteColor,
-                                      TextAlign.start),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  color: AppColor.backColor,
-                                  child: const Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                      // CommonText("10", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                    ],
+                          Container(
+                            color: AppColor.backColor,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    color: AppColor.fieldBack,
+                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    child: BoldText(
+                                        "${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
+                                        13,
+                                        AppColor.whiteColor,
+                                        TextAlign.start),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: AppColor.backColor,
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                        // CommonText("10", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -817,7 +813,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                           SizedBox(
                                             height: 25,
                                             width: 25,
-                                            child: SvgPicture.network(
+                                            child: (widget.homeImg.toString() == "null")?Image.asset("assets/images/dummy_team.png"):SvgPicture.network(
                                               widget.homeImg.toString(),
                                               height: 15,
                                               width: 15,
@@ -943,39 +939,40 @@ class _BettingDetailState extends State<BettingDetail> {
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  color: AppColor.dialogBackgroundColor,
-                                  padding:
-                                      const EdgeInsets.only(top: 10, left: 10),
-                                  child: BoldText(
-                                      "${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
-                                      13,
-                                      AppColor.whiteColor,
-                                      TextAlign.start),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 40,
-                                  alignment: Alignment.center,
-                                  color: AppColor.backColor,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                      // CommonText("10", 11, AppColor.whiteColor,
-                                      //     TextAlign.center),
-                                    ],
+                          Container(
+                          color: AppColor.backColor,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+
+                                    color: AppColor.fieldBack,
+                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    child: BoldText(
+                                        "${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
+                                        13,
+                                        AppColor.whiteColor,
+                                        TextAlign.start),
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: AppColor.backColor,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                        // CommonText("10", 11, AppColor.whiteColor,
+                                        //     TextAlign.center),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -1001,8 +998,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                             height: 25,
                                             width: 25,
                                             child: SvgPicture.network(
-                                              vm.teamPropsData[index].teamImg
-                                                  .toString(),
+                                              vm.teamPropsData[index].teamImg.toString(),
                                               height: 15,
                                               width: 15,
                                             ),
@@ -1011,8 +1007,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                             width: 5,
                                           ),
                                           BoldText(
-                                              vm.teamPropsData[index].name
-                                                  .toString(),
+                                              vm.teamPropsData[index].name.toString(),
                                               13,
                                               AppColor.whiteColor,
                                               TextAlign.start)

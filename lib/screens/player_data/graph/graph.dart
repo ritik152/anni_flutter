@@ -30,6 +30,7 @@ class _GraphTabState extends State<GraphTab> {
     super.initState();
 
     getData();
+
   }
 
   @override
@@ -111,8 +112,11 @@ class _GraphTabState extends State<GraphTab> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CommonText(vm.comparePlayerName, 13,
-                              AppColor.hintColor, TextAlign.start),
+                          SizedBox(
+                            width: 90,
+                            child: CommonText(vm.comparePlayerName, 13,
+                                AppColor.hintColor, TextAlign.start),
+                          ),
                         ],
                       ),
                       (vm.comparePlayerName == "Compare...")
@@ -147,10 +151,10 @@ class _GraphTabState extends State<GraphTab> {
                 : LineChart(
                     LineChartData(
                       backgroundColor: Colors.black,
-                      gridData: FlGridData(drawVerticalLine: false),
+                      gridData: const FlGridData(drawVerticalLine: false),
                       titlesData: FlTitlesData(
-                          rightTitles: AxisTitles(),
-                          topTitles: AxisTitles(),
+                          rightTitles: const AxisTitles(),
+                          topTitles: const AxisTitles(),
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,

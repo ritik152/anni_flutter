@@ -190,11 +190,11 @@ class _LeftDrawerState extends State<LeftDrawer> {
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Alerts()));
+                          onTap: () async {
+                           await Navigator.push(context, MaterialPageRoute(builder: (context) => const Alerts()));
+                           setState(() {
+
+                           });
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,10 +219,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(
+                                    onTap: () async {
+                                      await Navigator.push(context, MaterialPageRoute(
                                               builder: (context) => AlertDetail(
                                                   detailData : alertsModel.body![index])));
+
+                                      setState(() {
+
+                                      });
                                     },
                                     child: Container(
                                       width: double.infinity,
@@ -330,16 +334,10 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                         mapRate['id'] = savedChatModel.body![index].jsonData![i].id.toString();
                                         messageList.add(mapRate);
                                       }
-                                      var data = await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>  SavedChatDetail(messageList: messageList,
-                                                  chatId : savedChatModel.body![index].id,
-                                                  title : savedChatModel.body![index].title.toString(),
-                                                vm: widget.vm
-                                              )
-                                          )
-                                      );
+                                      var data = await Navigator.push(context, MaterialPageRoute(builder: (context) =>  SavedChatDetail(messageList: messageList, chatId : savedChatModel.body![index].id, title : savedChatModel.body![index].title.toString(), vm: widget.vm)));
+                                      setState(() {
+
+                                      });
 
                                     },
                                     child: Container(
@@ -384,14 +382,14 @@ class _LeftDrawerState extends State<LeftDrawer> {
 
   String dateFormat(String eventDate) {
     var createTime = "";
-    String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+    String formattedDate2 = DateFormat('MMM dd, yyyy').format(DateTime.parse(eventDate));
     print(formattedDate2); //formatted date output using intl package =>  2021-03-16
     createTime = formattedDate2.toString();
     return createTime;
   }
   String dateFormatAlert(String eventDate) {
     var createTime = "";
-    String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+    String formattedDate2 = DateFormat('MMM dd, yyyy').format(DateTime.parse(eventDate));
     print(formattedDate2); //formatted date output using intl package =>  2021-03-16
     createTime = formattedDate2.toString();
     return createTime;

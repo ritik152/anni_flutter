@@ -98,6 +98,9 @@ class _ChatState extends State<Chat> {
 
     flutterTts = FlutterTts();
 
+    await vm.currentSeason(context);
+    await vm.currentWeek(context);
+
     if(s == "1"){
       await vm.getPlayerGameStatsByWeek(context);
       vm.getPlayers(context);
@@ -164,12 +167,9 @@ class _ChatState extends State<Chat> {
 
   Future _speak(String? newVoiceText) async {
 
-    await flutterTts.synthesizeToFile("Hello World", Platform.isAndroid ? "tts.wav" : "tts.caf");
     await flutterTts.setVoice({"name": "Karen", "locale": "en-IN"});
     await flutterTts.setVolume(volume);
     await flutterTts.setSpeechRate(rate);
-    await flutterTts.setSilence(2);
-    await flutterTts.setQueueMode(1);
     await flutterTts.setPitch(pitch);
 
     if (newVoiceText != null) {
@@ -372,7 +372,7 @@ class _ChatState extends State<Chat> {
                                               fontWeight: FontWeight.w400),
                                           decoration: InputDecoration(
                                             contentPadding: const EdgeInsets.only(top: 5, bottom: 5),
-                                            hintText: 'Type here',
+                                            hintText: 'Start typing...',
                                             hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 13, fontWeight: FontWeight.w400),
                                             border: InputBorder.none,
                                             prefix: const SizedBox(width: 15,),),

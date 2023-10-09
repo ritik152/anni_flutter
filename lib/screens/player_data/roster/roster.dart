@@ -56,19 +56,28 @@ class _RosterState extends State<Roster> {
                   children: [
                     Stack(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(30),
-                          child: Image.network(
-                            rostedData.body![index].playerImg.toString(),
-                            height: 40,
-                            width: 40,
-                            fit: BoxFit.cover,
+                        Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(color: AppColor.hintColor,width: 0.5)
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Image.network(
+                              rostedData.body![index].playerImg.toString(),
+                              height: 40,
+                              width: 40,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 30, left: 10),
+                          alignment: Alignment.bottomCenter,
+                          width: 46,
+                          margin: const EdgeInsets.only(top: 35),
                           child: SizedBox(
-                              height: 30, width: 30,
+                              height: 25, width: 25,
                               child: SvgPicture.network(
                                 rostedData.body![index].teamImg.toString(),)),
                         ),

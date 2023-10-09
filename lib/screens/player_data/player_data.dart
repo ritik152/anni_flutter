@@ -150,6 +150,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CommonText("Age", 12, AppColor.whiteColor,
                                           TextAlign.start),
@@ -158,6 +159,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     ],
                                   ),
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CommonText("Height", 12,
                                           AppColor.whiteColor, TextAlign.start),
@@ -166,6 +168,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     ],
                                   ),
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       CommonText("Weight", 12,
                                           AppColor.whiteColor, TextAlign.start),
@@ -225,6 +228,8 @@ class _PlayerDataState extends State<PlayerData> {
                     labelColor: AppColor.greenColor,
                     unselectedLabelColor: Colors.grey,
                     dividerColor: Colors.green,
+                    labelStyle: const TextStyle(fontSize: 14.0,fontFamily: 'Bold'),  //For Selected tab
+                    unselectedLabelStyle: const TextStyle(fontSize: 14.0,fontFamily: 'Bold'), //For Un-selected Tabs
                     indicatorWeight: 1,
                     indicatorColor: AppColor.greenColor,
                     tabs: const [

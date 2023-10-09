@@ -77,7 +77,7 @@ class _SwipeRightDialog extends State<SwipeRightDialog> {
             ],
           ),
           const SizedBox(height: 5,),
-          MediumText("Swipe the screen to the right to\nsee game data,Anni Alerts, and\nsaved charts.", 13, AppColor.whiteColor, TextAlign.center),
+          MediumText("Swipe the screen to the right to\nsee game data, Anni Alerts, and\nsaved charts.", 13, AppColor.whiteColor, TextAlign.center),
 
           const SizedBox(height: 20,),
 

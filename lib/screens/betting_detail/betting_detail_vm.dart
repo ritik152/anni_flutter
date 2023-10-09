@@ -21,7 +21,6 @@ class BettingDetailVm {
 
   Future<void> getPlayerPropsData(BuildContext context, String scoreId) async {
     teamPropsData.clear();
-    allTeams.clear();
     String res = await thirdPartyMethod("GET",
         "https://api.sportsdata.io/v3/nfl/odds/json/BettingMarketsByScoreID/$scoreId?key=${AllKeys.sportsKey}",
         null, null, context);
@@ -65,7 +64,10 @@ class BettingDetailVm {
 
         }
 
-        playersPropsData.add(bettingDataNew);
+        if(bettingDataNew.playerID.toString() != "null"){
+          playersPropsData.add(bettingDataNew);
+        }
+
       }
 
       if(bettingDataNew.bettingMarketType.toString() == "Game Prop"){

@@ -79,7 +79,7 @@ class _HelpSuccess extends State<HelpSuccess> {
           ),
           BoldText("Form Sent!", 16, AppColor.whiteColor, TextAlign.center),
           const SizedBox(height: 5,),
-          MediumText("Thank you for your message,your feedback helps us improve!", 13, AppColor.whiteColor, TextAlign.center),
+          MediumText("Thank you for your message, your feedback helps us improve!", 13, AppColor.whiteColor, TextAlign.center),
           const SizedBox(height: 30,)
         ],
       ),

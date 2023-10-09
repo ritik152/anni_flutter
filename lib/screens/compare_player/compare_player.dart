@@ -130,17 +130,26 @@ class _ComparePlayerState extends State<ComparePlayer> {
                     children: [
                       Stack(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
-                              vm.allPlayers[index].photoUrl.toString(),
-                              height: 40,
-                              width: 40,
-                              fit: BoxFit.cover,
+                          Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: AppColor.hintColor,width: 0.5)
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: Image.network(
+                                vm.allPlayers[index].photoUrl.toString(),
+                                height: 40,
+                                width: 40,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Container(
-                              margin: const EdgeInsets.only(top: 30, left: 10),
+                              alignment: Alignment.bottomCenter,
+                              width: 46,
+                              margin: const EdgeInsets.only(top: 37),
                               child: SizedBox(
                                 height: 20,width: 20,
                                   child: SvgPicture.network(vm.allPlayers[index].teamImg.toString()))),

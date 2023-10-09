@@ -49,7 +49,7 @@ class AlertsVm {
   String changeFormat(String date) {
     DateFormat dateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss");
     DateTime dateTime = dateFormat.parse(date);
-    String formattedDate = DateFormat('MMM dd,yyyy').format(dateTime);
+    String formattedDate = DateFormat('MMM dd, yyyy').format(dateTime);
     String _selectedDate = formattedDate.toString();
     return _selectedDate;
   }

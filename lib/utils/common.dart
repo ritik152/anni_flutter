@@ -80,7 +80,7 @@ void hideKeyboard() {
 
 String dateFormat(String eventDate) {
   var createTime = "";
-  String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+  String formattedDate2 = DateFormat('MMM dd, yyyy').format(DateTime.parse(eventDate));
   print(formattedDate2);
   createTime = formattedDate2.toString();
   return createTime;

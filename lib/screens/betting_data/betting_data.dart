@@ -58,7 +58,9 @@ class _BeatingDataState extends State<BeatingData> {
                         Navigator.pop(context);
                       },
                       child: Icon(
-                        Icons.arrow_back_ios, color: AppColor.greenColor,)),
+                        Icons.arrow_back_ios,
+                        color: AppColor.greenColor,
+                      )),
                 ],
               )
           ),
@@ -222,6 +224,7 @@ class _BeatingDataState extends State<BeatingData> {
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
                     var data = dateTimeFormatCheck(vm.bettingData[index].dateTime.toString());
+                    print(vm.bettingData[index].homeTeamImg.toString());
                     return (data == true)?const SizedBox():Column(
                       children: [
                         Row(
@@ -261,7 +264,7 @@ class _BeatingDataState extends State<BeatingData> {
                                         TextAlign.center),
                                     CommonText("ML", 11, AppColor.whiteColor,
                                         TextAlign.center),
-                                    CommonText("total", 11, AppColor.whiteColor,
+                                    CommonText("Total", 11, AppColor.whiteColor,
                                         TextAlign.center),
                                   ],
                                 ),
@@ -280,11 +283,10 @@ class _BeatingDataState extends State<BeatingData> {
                                   children: [
                                     const SizedBox(width: 20,),
                                     (vm.bettingData[index].homeTeamImg.toString() == "null")
-                                        ?Image.asset("assets/images/instagram.png",height: 25,width: 25,)
-                                        :SizedBox(
+                                        ?Image.asset("assets/images/dummy_team.png",height: 25,width: 25,)
+                                        :Container(
                                         height: 30, width: 30,
-                                        child: SvgPicture.network(vm.bettingData[index].homeTeamImg.toString(),)),
-                                    // Image.asset("assets/images/instagram.png",height: 25,width: 25,),
+                                        child: SvgPicture.network(vm.bettingData[index].homeTeamImg.toString())),
                                     const SizedBox(width: 10,),
                                     MediumText(vm.bettingData[index].homeTeamName
                                         .toString(), 25, AppColor.whiteColor,
@@ -297,6 +299,7 @@ class _BeatingDataState extends State<BeatingData> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    const SizedBox(width: 10,),
                                     Container(
                                       width: 45,
                                       height: 45,
@@ -376,8 +379,8 @@ class _BeatingDataState extends State<BeatingData> {
                                         children: [
                                           // MediumText("O 53.5", 12, AppColor.whiteColor, TextAlign.start),
                                           // const SizedBox(height: 2,),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"O${vm.bettingData[index].pregameOdds![1].overUnder}":"O${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].overPayout == null)?"${vm.bettingData[index].pregameOdds![1].overPayout}":"${vm.bettingData[index].pregameOdds![0].overPayout}", 12, AppColor.whiteColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder != null)?"O ${vm.bettingData[index].pregameOdds![0].overUnder}":"O 0", 12, AppColor.whiteColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overPayout != null)?"${vm.bettingData[index].pregameOdds![0].overPayout}":"0", 12, AppColor.textGreenColor, TextAlign.center),
 
                                         ],
                                       ),
@@ -397,7 +400,7 @@ class _BeatingDataState extends State<BeatingData> {
                                   children: [
                                     const SizedBox(width: 20,),
                                     (vm.bettingData[index].awayTeamImg.toString() == "null")
-                                        ?Image.asset("assets/images/instagram.png",height: 25,width: 25,)
+                                        ?Image.asset("assets/images/dummy_team.png",height: 25,width: 25,)
                                         : SizedBox(
                     height: 30, width: 30,
                                         child: SvgPicture.network(vm.bettingData[index].awayTeamImg.toString())),
@@ -413,6 +416,7 @@ class _BeatingDataState extends State<BeatingData> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
+                                    const SizedBox(width: 10,),
                                     Container(
                                       width: 45,
                                       height: 45,
@@ -491,10 +495,8 @@ class _BeatingDataState extends State<BeatingData> {
                                         mainAxisAlignment: MainAxisAlignment
                                             .center,
                                         children: [
-                                          // MediumText("U 53.5", 12, AppColor.whiteColor, TextAlign.start),
-                                          // const SizedBox(height: 2,),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder == null)?"U${vm.bettingData[index].pregameOdds![1].overUnder}":"U${vm.bettingData[index].pregameOdds![0].overUnder}", 12, AppColor.textGreenColor, TextAlign.center),
-                                          MediumText((vm.bettingData[index].pregameOdds![0].underPayout == null)?"${vm.bettingData[index].pregameOdds![1].underPayout}":"${vm.bettingData[index].pregameOdds![0].underPayout}", 12, AppColor.whiteColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].overUnder != null)?"U ${vm.bettingData[index].pregameOdds![0].overUnder}":"U 0", 12, AppColor.whiteColor, TextAlign.center),
+                                          MediumText((vm.bettingData[index].pregameOdds![0].underPayout != null)?"${vm.bettingData[index].pregameOdds![0].underPayout}":"0", 12, AppColor.textGreenColor, TextAlign.center),
                                         ],
                                       ),
                                     ),
@@ -549,17 +551,16 @@ class _BeatingDataState extends State<BeatingData> {
     }
 
     for (var k = 0; k < vm.bettingData.length; k++) {
-
       for (var j = 0; j < allTeams.length; j++) {
-
         if (vm.bettingData[k].awayTeamId.toString() == allTeams[j].teamID.toString()) {
           vm.bettingData[k].awayTeamImg = allTeams[j].wikipediaLogoUrl.toString();
           vm.bettingData[k].name = allTeams[j].name.toString();
-        }else if (vm.bettingData[k].homeTeamId.toString() == allTeams[j].teamID.toString()) {
+        }
+
+        if (vm.bettingData[k].homeTeamId.toString() == allTeams[j].teamID.toString()) {
           vm.bettingData[k].homeTeamImg = allTeams[j].wikipediaLogoUrl.toString();
           vm.bettingData[k].name = allTeams[j].name.toString();
         }
-
       }
 
     }
