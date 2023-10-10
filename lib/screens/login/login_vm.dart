@@ -33,13 +33,16 @@ class LoginVm {
     if(email.text.toString().trim() == ""){
       showError('Please enter email');
       return false;
-    }else if(!regex.hasMatch(email.text.toString().trim())){
+    }
+    else if(!regex.hasMatch(email.text.toString().trim())){
       showError('Please enter valid email');
       return false;
-    }else if (password.text.toString().trim() == ""){
+    }
+    else if (password.text.toString().trim() == ""){
       showError('Please enter password');
       return false;
-    }else{
+    }
+    else{
       return true;
     }
 

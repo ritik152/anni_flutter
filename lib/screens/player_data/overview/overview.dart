@@ -8,8 +8,9 @@ import '../../../utils/common_widget.dart';
 
 class Overview extends StatelessWidget {
   PlayerDataVm vm;
-  String fantasyPoints;
-  Overview(this.vm, this.fantasyPoints, {Key? key}) : super(key: key);
+  String fantasyPoints,number,position;
+  double totalPoints;
+  Overview(this.vm, this.fantasyPoints,this.totalPoints, this.number, this.position, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class Overview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -41,16 +43,16 @@ class Overview extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText("#84", 14, AppColor.whiteColor,
+                              BoldText("#${(number == "null")?"":number}", 14, AppColor.whiteColor,
                                   TextAlign.start),
-                              CommonText("RB", 10, AppColor.whiteColor,
+                              CommonText((position == "null")?"":position, 10, AppColor.whiteColor,
                                   TextAlign.start),
                             ],
                           ),
                           const SizedBox(
                             width: 10,
                           ),
-                          Column(
+                        /*  Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               BoldText("#391", 14, AppColor.whiteColor,
@@ -58,7 +60,7 @@ class Overview extends StatelessWidget {
                               CommonText("Overall", 10, AppColor.whiteColor,
                                   TextAlign.start),
                             ],
-                          ),
+                          ),*/
                         ],
                       ),
                     ],
@@ -117,12 +119,10 @@ class Overview extends StatelessWidget {
                       Row(
                         children: [
                           Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BoldText(fantasyPoints, 14, AppColor.whiteColor,
-                                  TextAlign.start),
-                              CommonText("PPR", 10, AppColor.whiteColor,
-                                  TextAlign.start),
+                              BoldText(totalPoints.toStringAsFixed(2).toString(), 14, AppColor.whiteColor, TextAlign.start),
+                              CommonText("PPR", 10, AppColor.whiteColor, TextAlign.start),
                             ],
                           ),
                          /* const SizedBox(
@@ -145,6 +145,7 @@ class Overview extends StatelessWidget {
               ],
             ),
           ),
+
           if(vm.playerNewsData.body != null && vm.playerNewsData.body!.isNotEmpty)Container(
             width: double.infinity,
             margin: const EdgeInsets.only(top: 20, right: 10, left: 10),
@@ -171,10 +172,12 @@ class Overview extends StatelessWidget {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: BoldText("Projections", 13, AppColor.whiteColor, TextAlign.start),
           ),
+
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -417,9 +420,11 @@ class Overview extends StatelessWidget {
               ],
             ),
           ),
+
           const SizedBox(
             height: 30,
           )
+
         ],
       ),
     );

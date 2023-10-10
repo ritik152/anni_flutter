@@ -145,7 +145,8 @@ class _RosterState extends State<Roster> {
       });
 
       return true;
-    } else {
+    }
+    else {
       setState(() {
         isLoading = false;
       });

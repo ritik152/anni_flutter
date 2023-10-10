@@ -13,9 +13,9 @@ import 'graph/graph.dart';
 import 'overview/overview.dart';
 
 class PlayerData extends StatefulWidget {
-  String playerId,fantasyPoints,keys;
+  String playerId,fantasyPoints,keys,totalPlay;
 
-  PlayerData({Key? key, required this.playerId, required this.fantasyPoints, required this.keys}) : super(key: key);
+  PlayerData({Key? key, required this.playerId, required this.fantasyPoints, required this.keys, required this.totalPlay}) : super(key: key);
 
   @override
   State<PlayerData> createState() => _PlayerDataState();
@@ -33,6 +33,17 @@ class _PlayerDataState extends State<PlayerData> {
     Future.delayed(Duration.zero, () {
       showLoader(context);
     });
+
+    var fPoints = double.parse(widget.fantasyPoints.toString());
+    var tPlay = double.parse(widget.totalPlay.toString());
+
+    if(widget.fantasyPoints.toString() == "null" || widget.fantasyPoints.toString() == "0"){
+      vm.totalPoints = 0.0;
+    }else{
+      vm.totalPoints = (fPoints / tPlay);
+    }
+
+    print("QWERTYUIOP ${vm.totalPoints}");
 
     getData();
   }
@@ -154,8 +165,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     children: [
                                       CommonText("Age", 12, AppColor.whiteColor,
                                           TextAlign.start),
-                                      BoldText((vm.allTeamsData.age.toString() == "null")?"":vm.allTeamsData.age.toString(), 19, AppColor.whiteColor,
-                                          TextAlign.start)
+                                      BoldText((vm.allTeamsData.age.toString() == "null")?"":vm.allTeamsData.age.toString(), 19, AppColor.whiteColor, TextAlign.start)
                                     ],
                                   ),
                                   Column(
@@ -163,8 +173,7 @@ class _PlayerDataState extends State<PlayerData> {
                                     children: [
                                       CommonText("Height", 12,
                                           AppColor.whiteColor, TextAlign.start),
-                                      BoldText((vm.allTeamsData.height.toString() == "null")?"":vm.allTeamsData.height.toString(), 19, AppColor.whiteColor,
-                                          TextAlign.start)
+                                      BoldText((vm.allTeamsData.height.toString() == "null")?"":vm.allTeamsData.height.toString(), 19, AppColor.whiteColor, TextAlign.start)
                                     ],
                                   ),
                                   Column(
@@ -208,7 +217,7 @@ class _PlayerDataState extends State<PlayerData> {
                         const SizedBox(
                           width: 5,
                         ),
-                        BoldText(vm.allTeamsData.teamName.toString(), 14, AppColor.whiteColor,
+                        BoldText((vm.allTeamsData.teamName.toString() == "null")?"":vm.allTeamsData.teamName.toString(), 14, AppColor.whiteColor,
                             TextAlign.start),
                       ],
                     ),
@@ -259,7 +268,7 @@ class _PlayerDataState extends State<PlayerData> {
                 child: TabBarView(
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      Overview(vm,widget.fantasyPoints),
+                      Overview(vm,widget.fantasyPoints,vm.totalPoints,vm.allTeamsData.number.toString(),vm.allTeamsData.position.toString()),
                       TableList(playerId : vm.allTeamsData.playerID.toString()),
                       GraphTab(playerId : vm.allTeamsData.playerID.toString()),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),

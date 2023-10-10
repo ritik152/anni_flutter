@@ -7,6 +7,7 @@ import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../dialogs/delete_account_dialog.dart';
 import '../../dialogs/logout/logout_dialog.dart';
 import '../../utils/color.dart';
@@ -15,16 +16,13 @@ import '../help/help.dart';
 import '../subscription/subscription.dart';
 
 class ProfileScreen extends StatefulWidget {
-
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
-
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   var vm = ProfileVm();
 
   @override
@@ -35,34 +33,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: AppColor.backColor,
-              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
-            ),
-            padding: const EdgeInsets.only(top: 50,bottom: 20,right: 20,left: 20),
+                color: AppColor.backColor,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30))),
+            padding:
+                const EdgeInsets.only(top: 50, bottom: 20, right: 20, left: 20),
             child: Stack(
               children: [
-
                 SizedBox(
-
                   width: double.infinity,
-
-                  child: BoldText("Profile", 14, AppColor.whiteColor, TextAlign.center),
-
+                  child: BoldText(
+                      "Profile", 14, AppColor.whiteColor, TextAlign.center),
                 ),
                 GestureDetector(
-
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
-
-                    child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)
-
-                ),
-
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColor.greenColor,
+                    )),
               ],
             ),
           ),
-          
           Flexible(
             child: SingleChildScrollView(
               child: Column(
@@ -77,15 +71,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.all(3),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
-                              border: Border.all(color: AppColor.hintColor)
-                          ),
+                              border: Border.all(color: AppColor.hintColor)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: (registerModel.body!.image.toString() == "null")?Image.asset("assets/images/user.png",height: 100,width: 100,fit: BoxFit.cover,):Image.network(AllKeys.imageUrl+registerModel.body!.image.toString(),height: 100,width: 100,fit: BoxFit.cover,),
+                            child: (registerModel.body!.image.toString() ==
+                                    "null")
+                                ? Image.asset(
+                                    "assets/images/user.png",
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    AllKeys.imageUrl +
+                                        registerModel.body!.image.toString(),
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.cover,
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: Shimmer.fromColors(
+                                    baseColor: AppColor.fieldBackColor,
+                                    highlightColor: AppColor.liteGrayColor,
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              },
+                                  ),
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             openImageSelectionDialog(context);
                           },
                           child: Container(
@@ -93,40 +116,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                                 decoration: BoxDecoration(
                                     color: AppColor.backColor,
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
+                                    borderRadius: BorderRadius.circular(20)),
                                 padding: const EdgeInsets.all(8),
-                                child: Image.asset("assets/icons/pen.png",height: 18,width: 18,color: AppColor.greenColor,)),
+                                child: Image.asset(
+                                  "assets/icons/pen.png",
+                                  height: 18,
+                                  width: 18,
+                                  color: AppColor.greenColor,
+                                )),
                           ),
                         )
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
-                  BoldText(registerModel.body!.name.toString(), 17, AppColor.whiteColor, TextAlign.center),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  BoldText(registerModel.body!.name.toString(), 17,
+                      AppColor.whiteColor, TextAlign.center),
 
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
 
                   //-------------------------------------------------Account Settings-------------------------
                   GestureDetector(
                     onTap: () async {
-                      var data = await Navigator.push(context, MaterialPageRoute(builder: (context)=> const AccountSettings()));
-                        setState(() {
-
-                        });
+                      var data = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AccountSettings()));
+                      setState(() {});
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/settings.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Account Settings", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/settings.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText("Account Settings", 14, AppColor.whiteColor,
+                              TextAlign.start)
                         ],
                       ),
                     ),
@@ -134,22 +177,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   //-------------------------------------------------Subscription-------------------------
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const Subscription()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Subscription()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/subscription.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Subscription", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/subscription.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText("Subscription", 14, AppColor.whiteColor,
+                              TextAlign.start)
                         ],
                       ),
                     ),
@@ -157,22 +212,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   //-------------------------------------------------Help-------------------------
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const Help()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Help()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/help.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Help", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/help.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText(
+                              "Help", 14, AppColor.whiteColor, TextAlign.start)
                         ],
                       ),
                     ),
@@ -185,35 +252,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     margin:
-                    const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 20),
                     child: Row(
                       children: [
-                        Image.asset("assets/icons/legal.png",height: 20,width: 20,color: AppColor.greenColor,),
-                        const SizedBox(width: 10,),
-                        BoldText("Legal", 14, AppColor.whiteColor, TextAlign.start)
+                        Image.asset(
+                          "assets/icons/legal.png",
+                          height: 20,
+                          width: 20,
+                          color: AppColor.greenColor,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        BoldText(
+                            "Legal", 14, AppColor.whiteColor, TextAlign.start)
                       ],
                     ),
                   ),
 
                   //-------------------------------------------------Privacy Policy-------------------------
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> const PrivacyPolicy()));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PrivacyPolicy()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/privacy_policy.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Privacy Policy", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/privacy_policy.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText("Privacy Policy", 14, AppColor.whiteColor,
+                              TextAlign.start)
                         ],
                       ),
                     ),
@@ -221,24 +309,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   //-------------------------------------------------Log Out-------------------------
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           barrierColor: AppColor.dialogBackgroundColor,
-                          context: context, builder: (context)=> const LogoutConfirmation());
+                          context: context,
+                          builder: (context) => const LogoutConfirmation());
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/logout_icon.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Log Out", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/logout_icon.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText("Log Out", 14, AppColor.whiteColor,
+                              TextAlign.start)
                         ],
                       ),
                     ),
@@ -246,33 +344,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   //-------------------------------------------------Delete Account-------------------------
                   GestureDetector(
-
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           barrierColor: AppColor.dialogBackgroundColor,
-                          context: context, builder: (context)=> const DeleteAccountDialog());
+                          context: context,
+                          builder: (context) => const DeleteAccountDialog());
                     },
-
                     child: Container(
                       decoration: BoxDecoration(
                         color: AppColor.liteGrayColor,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                      padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 20),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
                       child: Row(
                         children: [
-                          Image.asset("assets/icons/delete.png",height: 20,width: 20,color: AppColor.greenColor,),
-                          const SizedBox(width: 10,),
-                          BoldText("Delete Account", 14, AppColor.whiteColor, TextAlign.start)
+                          Image.asset(
+                            "assets/icons/delete.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText("Delete Account", 14, AppColor.whiteColor,
+                              TextAlign.start)
                         ],
                       ),
                     ),
-
                   ),
 
-                  const SizedBox(height: 50,),
+                  const SizedBox(
+                    height: 50,
+                  ),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -282,25 +389,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset("assets/images/aifg.png",height: 50,),
-                            const SizedBox(height: 10,),
-                            CommonText("2023 AI Fantasy Guys", 11, AppColor.whiteColor, TextAlign.start),
-                            CommonText("All Rights Reserved", 11, AppColor.whiteColor, TextAlign.start),
+                            Image.asset(
+                              "assets/images/aifg.png",
+                              height: 50,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CommonText("2023 AI Fantasy Guys", 11,
+                                AppColor.whiteColor, TextAlign.start),
+                            CommonText("All Rights Reserved", 11,
+                                AppColor.whiteColor, TextAlign.start),
                           ],
                         ),
                         Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Image.asset("assets/images/instagram.png",height: 30,width: 30,),
+                              child: Image.asset(
+                                "assets/images/instagram.png",
+                                height: 30,
+                                width: 30,
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Image.asset("assets/images/twitter.png",height: 30,width: 30,),
+                              child: Image.asset(
+                                "assets/images/twitter.png",
+                                height: 30,
+                                width: 30,
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Image.asset("assets/images/browser.png",height: 30,width: 30,color: AppColor.greenColor,),
+                              child: Image.asset(
+                                "assets/images/browser.png",
+                                height: 30,
+                                width: 30,
+                                color: AppColor.greenColor,
+                              ),
                             ),
                           ],
                         )
@@ -308,17 +435,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                 ],
               ),
             ),
           )
         ],
       ),
-
-
     );
-
   }
 
   openImageSelectionDialog(BuildContext context) {
@@ -365,9 +491,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     margin: const EdgeInsets.only(left: 10),
                     child: Row(
                       children: [
-                        Image.asset("assets/icons/camera.png",height: 25,width: 25,color: const Color(0xff147efb)),
-                        const SizedBox(width: 20,),
-                        BoldText("Camera", 15, AppColor.whiteColor, TextAlign.start)
+                        Image.asset("assets/icons/camera.png",
+                            height: 25,
+                            width: 25,
+                            color: const Color(0xff147efb)),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        BoldText(
+                            "Camera", 15, AppColor.whiteColor, TextAlign.start)
                       ],
                     ),
                   ),
@@ -419,12 +551,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
                         SizedBox(
                             width: 70,
                             child: BoldText("Cancel", 15,
                                 const Color(0xff147efb), TextAlign.start))
-
                       ],
                     ),
                   ),
@@ -439,22 +569,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future pickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: source);
+      final image = await ImagePicker().pickImage(source: source,imageQuality: 25,);
       if (image == null) return;
       final imageTemp = File(image.path);
 
       vm.imageList = imageTemp;
 
-
       vm.imageParams = {'image$key_splite': vm.imageList!.path};
-      Map<String,String> map = {
-        "type":"1"
-      };
+      Map<String, String> map = {"type": "1"};
 
-      var data = await vm.updateProfilePicture(context, map,vm.imageParams);
-      if(data == true){
+      var data = await vm.updateProfilePicture(context, map, vm.imageParams);
+      if (data == true) {
         var profileData = await vm.getProfile(context);
-        if(profileData == true){
+        if (profileData == true) {
           setState(() {});
         }
       }
@@ -463,5 +590,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print('Failed to pick image: $e');
     }
   }
-
 }

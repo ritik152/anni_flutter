@@ -11,6 +11,7 @@ import '../betting_data/all_teams_model.dart';
 
 class BettingDetailVm {
 
+  final ScrollController controller = ScrollController();
   var index = 1;
   var isLoading = true;
   List<TeamAndPlayerPropsModel> teamPropsData = [];

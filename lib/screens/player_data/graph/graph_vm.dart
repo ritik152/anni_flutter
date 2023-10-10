@@ -115,23 +115,23 @@ class GraphVm {
     if(tableModel.code == 200){
       if(categoryClick == 0){
         for(var i = 0; i < tableModel.body!.length; i++){
-          selfData.add(tableModel.body![i].jsonData!.passingYards);
+          selfData.add(double.parse(tableModel.body![i].jsonData!.passingYards.toString()));
         }
       }else if(categoryClick == 1){
         for(var i = 0; i < tableModel.body!.length; i++){
-          selfData.add(tableModel.body![i].jsonData!.passingTouchdowns);
+          selfData.add(double.parse(tableModel.body![i].jsonData!.passingTouchdowns.toString()));
         }
       }else if(categoryClick == 2){
         for(var i = 0; i < tableModel.body!.length; i++){
-          selfData.add(tableModel.body![i].jsonData!.receptionPercentage);
+          selfData.add(double.parse(tableModel.body![i].jsonData!.receptionPercentage.toString()));
         }
       }else if(categoryClick == 3){
         for(var i = 0; i < tableModel.body!.length; i++){
-          otherData.add(tableModel.body![i].jsonData!.receivingTargets);
+          otherData.add(double.parse(tableModel.body![i].jsonData!.receivingTargets.toString()));
         }
       }else if(categoryClick == 4){
         for(var i = 0; i < tableModel.body!.length; i++){
-          selfData.add(tableModel.body![i].jsonData!.passingAttempts);
+          selfData.add(double.parse(tableModel.body![i].jsonData!.passingAttempts.toString()));
         }
       }
       return true;
@@ -154,23 +154,23 @@ class GraphVm {
     if(tableModelOther.code == 200){
       if(categoryClick == 0){
         for(var i = 0; i < tableModelOther.body!.length; i++){
-          otherData.add(tableModelOther.body![i].jsonData!.passingYards);
+          otherData.add(double.parse(tableModelOther.body![i].jsonData!.passingYards.toString()));
         }
       }else if(categoryClick == 1){
         for(var i = 0; i < tableModelOther.body!.length; i++){
-          otherData.add(tableModelOther.body![i].jsonData!.passingTouchdowns);
+          otherData.add(double.parse(tableModelOther.body![i].jsonData!.passingTouchdowns.toString()));
         }
       }else if(categoryClick == 2){
         for(var i = 0; i < tableModelOther.body!.length; i++){
-          otherData.add(tableModelOther.body![i].jsonData!.receptionPercentage);
+          otherData.add(double.parse(tableModelOther.body![i].jsonData!.receptionPercentage.toString()));
         }
       }else if(categoryClick == 3){
         for(var i = 0; i < tableModelOther.body!.length; i++){
-          otherData.add(tableModelOther.body![i].jsonData!.receivingTargets);
+          otherData.add(double.parse(tableModelOther.body![i].jsonData!.receivingTargets.toString()));
         }
       }else if(categoryClick == 4){
         for(var i = 0; i < tableModelOther.body!.length; i++){
-          otherData.add(tableModelOther.body![i].jsonData!.passingAttempts);
+          otherData.add(double.parse(tableModelOther.body![i].jsonData!.passingAttempts.toString()));
         }
       }
 

@@ -34,7 +34,7 @@ class SaveChatVM with ChangeNotifier{
 
   String dateFormat(String eventDate) {
     var createTime = "";
-    String formattedDate2 = DateFormat('MMM dd,yyyy').format(DateTime.parse(eventDate));
+    String formattedDate2 = DateFormat('MMM dd, yyyy').format(DateTime.parse(eventDate));
     print(
         formattedDate2); //formatted date output using intl package =>  2021-03-16
     createTime = formattedDate2.toString();

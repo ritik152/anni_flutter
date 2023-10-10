@@ -3,6 +3,7 @@ import 'package:anni_ai/screens/chat/drawers/right_drawer/trending_up_model.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../apis/api_controller.dart';
 import '../../../../utils/color.dart';
@@ -18,6 +19,17 @@ class RightDrawer extends StatefulWidget {
 }
 
 class _RightDrawerState extends State<RightDrawer> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      trendingUpData.clear();
+      trendingUpData.addAll(duplicateItems);
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -121,7 +133,10 @@ class _RightDrawerState extends State<RightDrawer> {
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(playerId : trendingUpData[indexList].playerID.toString(),
                                 fantasyPoints : trendingUpData[indexList].fantasyPoints.toString(),
-                            keys: trendingUpData[indexList].team.toString())));
+                                totalPlay : trendingUpData[indexList].played.toString(),
+                            keys: trendingUpData[indexList].team.toString())
+                            )
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 2),
@@ -161,6 +176,23 @@ class _RightDrawerState extends State<RightDrawer> {
                                                         height: 35,
                                                         width: 35,
                                                         fit: BoxFit.cover,
+                                                        loadingBuilder: (BuildContext context, Widget child,
+                                                            ImageChunkEvent? loadingProgress) {
+                                                          if (loadingProgress == null) return child;
+                                                          return SizedBox(
+                                                            height: 35,
+                                                            width: 35,
+                                                            child: Shimmer.fromColors(
+                                                              baseColor: AppColor.fieldBackColor,
+                                                              highlightColor: AppColor.liteGrayColor,
+                                                              child: Container(
+                                                                height: 35,
+                                                                width: 35,
+                                                                color: Colors.white,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
                                                       ),
                                                     ),
                                                     Container(

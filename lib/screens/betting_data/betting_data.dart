@@ -242,7 +242,8 @@ class _BeatingDataState extends State<BeatingData> {
                                         color: AppColor.whiteColor),
                                     children: [
                                       TextSpan(
-                                        text: ' @KC',
+                                        text: '@${vm.bettingData[index].homeTeamName
+                                            .toString()}',
                                         style: TextStyle(
                                             fontSize: 11,
                                             fontFamily: "Bold",
@@ -284,7 +285,7 @@ class _BeatingDataState extends State<BeatingData> {
                                     const SizedBox(width: 20,),
                                     (vm.bettingData[index].homeTeamImg.toString() == "null")
                                         ?Image.asset("assets/images/dummy_team.png",height: 25,width: 25,)
-                                        :Container(
+                                        :SizedBox(
                                         height: 30, width: 30,
                                         child: SvgPicture.network(vm.bettingData[index].homeTeamImg.toString())),
                                     const SizedBox(width: 10,),
@@ -301,8 +302,8 @@ class _BeatingDataState extends State<BeatingData> {
                                   children: [
                                     const SizedBox(width: 10,),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -341,8 +342,8 @@ class _BeatingDataState extends State<BeatingData> {
                                       ),
                                     ),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -364,8 +365,8 @@ class _BeatingDataState extends State<BeatingData> {
                                       ),
                                     ),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -418,8 +419,8 @@ class _BeatingDataState extends State<BeatingData> {
                                   children: [
                                     const SizedBox(width: 10,),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -458,8 +459,8 @@ class _BeatingDataState extends State<BeatingData> {
                                       ),
                                     ),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(
@@ -481,8 +482,8 @@ class _BeatingDataState extends State<BeatingData> {
                                       ),
                                     ),
                                     Container(
-                                      width: 45,
-                                      height: 45,
+                                      width: 50,
+                                      height: 50,
                                       margin: const EdgeInsets.all(2),
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(

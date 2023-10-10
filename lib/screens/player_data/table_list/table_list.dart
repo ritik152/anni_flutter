@@ -21,7 +21,7 @@ class _TableListState extends State<TableList> {
   @override
   void initState() {
     super.initState();
-
+    vm.getSeasonList();
     getData(vm.seasonL.toString());
 
   }
@@ -485,7 +485,7 @@ class _TableListState extends State<TableList> {
 
   Future<void> getData(String season) async {
 
-    await vm.getSeasonList();
+
     await vm.getTableListWeek(context, season,widget.playerId);
 
     setState(() {

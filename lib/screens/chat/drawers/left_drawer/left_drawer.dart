@@ -6,6 +6,7 @@ import 'package:anni_ai/utils/color.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../utils/all_keys.dart';
 import '../../../alerts/alerts.dart';
 import '../../../betting_data/betting_data.dart';
@@ -77,6 +78,22 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                       height: 38,
                                       width: 38,
                                       fit: BoxFit.cover,
+                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return SizedBox(
+                                    height: 35,
+                                    width: 35,
+                                    child: Shimmer.fromColors(
+                                      baseColor: AppColor.fieldBackColor,
+                                      highlightColor: AppColor.liteGrayColor,
+                                      child: Container(
+                                        height: 35,
+                                        width: 35,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  );
+                                },
                                     ),
                             ),
                             const SizedBox(

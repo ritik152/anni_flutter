@@ -80,7 +80,7 @@ class _BettingDetailState extends State<BettingDetail> {
                               color: AppColor.whiteColor),
                           children: [
                         TextSpan(
-                          text: '@KC',
+                          text: '@${widget.homeName}',
                           style: TextStyle(
                               fontSize: 11,
                               fontFamily: "Bold",
@@ -121,7 +121,16 @@ class _BettingDetailState extends State<BettingDetail> {
                   GestureDetector(
                     onTap: () {
                       vm.index = 1;
-                      setState(() {});
+                      setState(() {
+                        if(vm.playersPropsData.isNotEmpty){
+                          vm.controller.animateTo(
+                            vm.controller.position.minScrollExtent,
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 500),
+                          );
+                        }
+
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -137,7 +146,16 @@ class _BettingDetailState extends State<BettingDetail> {
                   GestureDetector(
                     onTap: () {
                       vm.index = 2;
-                      setState(() {});
+                      setState(() {
+                        if(vm.gamePropsData.isNotEmpty){
+                          vm.controller.animateTo(
+                            vm.controller.position.minScrollExtent,
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 500),
+                          );
+                        }
+
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -153,7 +171,15 @@ class _BettingDetailState extends State<BettingDetail> {
                   GestureDetector(
                     onTap: () {
                       vm.index = 3;
-                      setState(() {});
+                      setState(() {
+                        if(vm.teamPropsData.isNotEmpty){
+                          vm.controller.animateTo(
+                            vm.controller.position.minScrollExtent,
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 500),
+                          );
+                        }
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -174,8 +200,7 @@ class _BettingDetailState extends State<BettingDetail> {
             height: 20,
           ),
           if (vm.index == 0)
-            Expanded(
-                child: SingleChildScrollView(
+            Expanded(child: SingleChildScrollView(
               child: Column(
                 children: [
                   Column(
@@ -590,6 +615,7 @@ class _BettingDetailState extends State<BettingDetail> {
             : (vm.playersPropsData.isEmpty)
                 ? NoData("No Data", "", context)
                 : ListView.builder(
+                    controller: vm.controller,
                     padding: EdgeInsets.zero,
                     itemCount: vm.playersPropsData.length,
                     itemBuilder: (context, index) {
@@ -602,7 +628,8 @@ class _BettingDetailState extends State<BettingDetail> {
                                 Expanded(
                                   child: Container(
                                     color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    padding: const EdgeInsets.only(
+                                        top: 10, left: 10, bottom: 10),
                                     child: BoldText(
                                         "${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
                                         13,
@@ -655,20 +682,36 @@ class _BettingDetailState extends State<BettingDetail> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(30),
-                                              child: (vm.playersPropsData[index].playerImg.toString() == "null")?Image.asset("assets/images/football_player.png"):Image.network(vm.playersPropsData[index].playerImg.toString(), fit: BoxFit.fill,
-                                              ),
+                                              child: (vm.playersPropsData[index]
+                                                          .playerImg
+                                                          .toString() ==
+                                                      "null")
+                                                  ? Image.asset(
+                                                      "assets/images/football_player.png")
+                                                  : Image.network(
+                                                      vm.playersPropsData[index]
+                                                          .playerImg
+                                                          .toString(),
+                                                      fit: BoxFit.fill,
+                                                    ),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 5,
                                           ),
-                                          BoldText(
-                                              vm.playersPropsData[index]
-                                                  .playerName
-                                                  .toString(),
-                                              13,
-                                              AppColor.whiteColor,
-                                              TextAlign.start)
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.40,
+                                            child: BoldText(
+                                                vm.playersPropsData[index]
+                                                    .playerName
+                                                    .toString(),
+                                                13,
+                                                AppColor.whiteColor,
+                                                TextAlign.start),
+                                          )
                                         ],
                                       ),
                                       const SizedBox(
@@ -751,6 +794,7 @@ class _BettingDetailState extends State<BettingDetail> {
             : (vm.gamePropsData.isEmpty)
                 ? NoData("No Data", "", context)
                 : ListView.builder(
+                    controller: vm.controller,
                     padding: EdgeInsets.zero,
                     itemCount: vm.gamePropsData.length,
                     itemBuilder: (context, index) {
@@ -763,7 +807,8 @@ class _BettingDetailState extends State<BettingDetail> {
                                 Expanded(
                                   child: Container(
                                     color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    padding: const EdgeInsets.only(
+                                        top: 10, left: 10, bottom: 10),
                                     child: BoldText(
                                         "${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
                                         13,
@@ -813,11 +858,15 @@ class _BettingDetailState extends State<BettingDetail> {
                                           SizedBox(
                                             height: 25,
                                             width: 25,
-                                            child: (widget.homeImg.toString() == "null")?Image.asset("assets/images/dummy_team.png"):SvgPicture.network(
-                                              widget.homeImg.toString(),
-                                              height: 15,
-                                              width: 15,
-                                            ),
+                                            child: (widget.homeImg.toString() ==
+                                                    "null")
+                                                ? Image.asset(
+                                                    "assets/images/dummy_team.png")
+                                                : SvgPicture.network(
+                                                    widget.homeImg.toString(),
+                                                    height: 15,
+                                                    width: 15,
+                                                  ),
                                           ),
                                           const SizedBox(
                                             width: 5,
@@ -934,20 +983,21 @@ class _BettingDetailState extends State<BettingDetail> {
             : (vm.teamPropsData.isEmpty)
                 ? NoData("No Data", "", context)
                 : ListView.builder(
+                    controller: vm.controller,
                     padding: EdgeInsets.zero,
                     itemCount: vm.teamPropsData.length,
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           Container(
-                          color: AppColor.backColor,
+                            color: AppColor.backColor,
                             child: Row(
                               children: [
                                 Expanded(
                                   child: Container(
-
                                     color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(top: 10, left: 10,bottom: 10),
+                                    padding: const EdgeInsets.only(
+                                        top: 10, left: 10, bottom: 10),
                                     child: BoldText(
                                         "${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
                                         13,
@@ -998,7 +1048,8 @@ class _BettingDetailState extends State<BettingDetail> {
                                             height: 25,
                                             width: 25,
                                             child: SvgPicture.network(
-                                              vm.teamPropsData[index].teamImg.toString(),
+                                              vm.teamPropsData[index].teamImg
+                                                  .toString(),
                                               height: 15,
                                               width: 15,
                                             ),
@@ -1007,7 +1058,8 @@ class _BettingDetailState extends State<BettingDetail> {
                                             width: 5,
                                           ),
                                           BoldText(
-                                              vm.teamPropsData[index].name.toString(),
+                                              vm.teamPropsData[index].name
+                                                  .toString(),
                                               13,
                                               AppColor.whiteColor,
                                               TextAlign.start)
