@@ -11,23 +11,26 @@ class ComparePlayerVm {
   List<PlayersModel> allPlayers = [];
   List<PlayersModel> allPlayersDuplicate = [];
   var isLoading = true;
+  var click = -1;
 
 
-  Future<void> getPlayers(BuildContext context) async {
-    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}",
-        null, null, context);
+  Future<void> getPlayers(BuildContext context, String playerId) async {
+
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
 
     var response = await jsonDecode(res);
 
-
       List<dynamic> list = [];
+
       list.addAll(response);
 
       for (var i = 0; i < list.length; i++) {
         PlayersModel allPlayersData = PlayersModel.fromJson(list[i]);
         if(allPlayersData.teamID != null){
-          allPlayers.add(allPlayersData);
-          allPlayersDuplicate.add(allPlayersData);
+          if(playerId != allPlayersData.playerID.toString()){
+            allPlayers.add(allPlayersData);
+            allPlayersDuplicate.add(allPlayersData);
+          }
         }
       }
 
@@ -41,9 +44,8 @@ class ComparePlayerVm {
         }
       }
 
-
-
     isLoading = false;
+
   }
 
 }

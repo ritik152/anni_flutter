@@ -197,7 +197,7 @@ class _TableListState extends State<TableList> {
         const SizedBox(width: 17,),
         SizedBox(
             width: 33,
-            child: BoldText(vm.tableModel.body![index].jsonData!.opponent.toString(), 11, AppColor.whiteColor, TextAlign.start)),
+            child: BoldText((vm.tableModel.body![index].jsonData!.opponent.toString() == "null")?"":vm.tableModel.body![index].jsonData!.opponent.toString(), 11, AppColor.whiteColor, TextAlign.start)),
         const SizedBox(width: 9,),
 
         //________________________________Receiving____________________________
@@ -215,8 +215,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.tableModel.body![index].jsonData!.receivingTargets.toString(),
-                10,
+    (vm.tableModel.body![index].jsonData!.receivingTargets.toString() == "null")?"0":vm.tableModel.body![index].jsonData!.receivingTargets.toString(), 10,
                 AppColor.black,
                 TextAlign.center)),
         const SizedBox(width: 3,),
@@ -234,8 +233,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.tableModel.body![index].jsonData!.receptions.toString(),
-                10,
+                (vm.tableModel.body![index].jsonData!.receptions.toString() == "null")?"0":vm.tableModel.body![index].jsonData!.receptions.toString(), 10,
                 AppColor.black,
                 TextAlign.center)),
         const SizedBox(width: 3,),
@@ -253,8 +251,8 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.tableModel.body![index].jsonData!.receivingYards.toString(),
-                10,
+                (vm.tableModel.body![index].jsonData!.receivingYards.toString() == "null")?"0":
+                vm.tableModel.body![index].jsonData!.receivingYards.toString(), 10,
                 AppColor.black,
                 TextAlign.center)),
         const SizedBox(width: 3,),
@@ -272,8 +270,8 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
-                vm.tableModel.body![index].jsonData!.receivingYardsPerReception.toString(),
-                10,
+                (vm.tableModel.body![index].jsonData!.receivingYardsPerReception.toString() == "null")?"0":
+                vm.tableModel.body![index].jsonData!.receivingYardsPerReception.toString(), 10,
                 AppColor.black,
                 TextAlign.center)),
         const SizedBox(width: 3,),
@@ -291,6 +289,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.receivingTouchdowns.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.receivingTouchdowns.toString(),
                 10,
                 AppColor.black,
@@ -315,6 +314,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.rushingAttempts.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.rushingAttempts.toString(),
                 10,
                 AppColor.black,
@@ -334,6 +334,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.rushingYards.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.rushingYards.toString(),
                 10,
                 AppColor.black,
@@ -353,6 +354,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.rushingYardsPerAttempt.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.rushingYardsPerAttempt.toString(),
                 10,
                 AppColor.black,
@@ -372,6 +374,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.rushingTouchdowns.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.rushingTouchdowns.toString(),
                 10,
                 AppColor.black,
@@ -398,6 +401,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.passingAttempts.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.passingAttempts.toString(),
                 10,
                 AppColor.whiteColor,
@@ -417,6 +421,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.passingCompletions.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.passingCompletions.toString(),
                 10,
                 AppColor.whiteColor,
@@ -436,6 +441,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.passingYards.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.passingYards.toString(),
                 10,
                 AppColor.whiteColor,
@@ -455,6 +461,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.passingTouchdowns.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.passingTouchdowns.toString(),
                 10,
                 AppColor.whiteColor,
@@ -474,6 +481,7 @@ class _TableListState extends State<TableList> {
                 horizontal: 5,
                 vertical: 3),
             child: BoldText(
+                (vm.tableModel.body![index].jsonData!.passingInterceptions.toString() == "null")?"0":
                 vm.tableModel.body![index].jsonData!.passingInterceptions.toString(),
                 10,
                 AppColor.whiteColor,

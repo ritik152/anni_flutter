@@ -15,7 +15,8 @@ class GraphVm {
   List<String> category = ["Yards","Touchdowns","Receptions","Targets","Attempts"];
   var click = 0;
   var categoryClick = 0;
-  var yearSelect = "2023";
+  var otherPlayerId = "";
+  var yearSelect = season.toString();
   var categorySelect = "Yards";
   var comparePlayerName = "Compare...";
   var isLoading = true;
@@ -111,7 +112,7 @@ class GraphVm {
 
     isLoading = false;
     tableModel = TableModel.fromJson(response);
-
+    selfData.clear();
     if(tableModel.code == 200){
       if(categoryClick == 0){
         for(var i = 0; i < tableModel.body!.length; i++){
@@ -150,7 +151,7 @@ class GraphVm {
 
     isLoading = false;
     tableModelOther = TableModel.fromJson(response);
-
+    otherData.clear();
     if(tableModelOther.code == 200){
       if(categoryClick == 0){
         for(var i = 0; i < tableModelOther.body!.length; i++){

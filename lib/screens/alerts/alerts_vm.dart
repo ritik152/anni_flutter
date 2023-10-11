@@ -22,12 +22,14 @@ class AlertsVm {
     var response = jsonDecode(res);
     AlertsModel alertsModel2 = AlertsModel();
 
-    alertsModel = AlertsModel.fromJson(response);
+    if(page.toString() == "1"){
+      alertsModel = AlertsModel.fromJson(response);
+    }
+
     alertsModel2 = AlertsModel.fromJson(response);
     isLoading = false;
     if(alertsModel2.code == 200){
-      // for(var i = 0; i < alertsModel.body!.length;i++){
-        // AlartData alartData = alertsModel.body![i];
+
       if(alertsModel2.body != null){
         allAlerts.addAll(alertsModel2.body!);
       }

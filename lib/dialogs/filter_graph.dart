@@ -20,19 +20,26 @@ class FilterGraphDialog extends StatefulWidget {
 
 class _FilterGraphDialog extends State<FilterGraphDialog> {
 
+  var categoryClick = 0;
+  var click = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    categoryClick = widget.vm.categoryClick;
+    click = widget.vm.click;
+
+    setState(() {
+
+    });
 
     dataSeasons();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
@@ -41,6 +48,7 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
       backgroundColor: Colors.transparent,
       child: dialogContent(context),
     );
+
   }
 
   dialogContent(BuildContext context) {
@@ -77,8 +85,8 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
                 itemBuilder: (context,index){
               return GestureDetector(
                 onTap: (){
-                  widget.vm.categoryClick = index;
-                  widget.vm.categorySelect = widget.vm.category[index].toString();
+                  categoryClick = index;
+
                   setState(() {
 
                   });
@@ -87,7 +95,7 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
                   children: [
                     Row(
                       children: [
-                        Image.asset((widget.vm.categoryClick != index)?"assets/icons/uncheck_checkbox.png":"assets/icons/check.png",height: 20,width: 20,),
+                        Image.asset((categoryClick != index)?"assets/icons/uncheck_checkbox.png":"assets/icons/check.png",height: 20,width: 20,),
                         const SizedBox(width: 5,),
                         BoldText(widget.vm.category[index].toString(), 13, AppColor.whiteColor, TextAlign.start),
                         const SizedBox(width: 3,),
@@ -117,13 +125,13 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
                 children: [
                   GestureDetector(
                     onTap: (){
-                      widget.vm.click = index;
-                      widget.vm.yearSelect = widget.vm.years[index].toString();
+                      click = index;
+
                       setState(() {
 
                       });
                     },
-                      child: BoldText(widget.vm.years[index].toString(), 14,(widget.vm.click == index)?AppColor.textGreenColor:AppColor.whiteColor, TextAlign.start)),
+                      child: BoldText(widget.vm.years[index].toString(), 14,(click == index)?AppColor.textGreenColor:AppColor.whiteColor, TextAlign.start)),
                   const SizedBox(width: 10,),
                 ],
               );
@@ -136,9 +144,22 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
             child: ElevatedButton(
                 onPressed: () async {
                   showLoader(context);
-                  var data = await widget.vm.getTableListWeek(context, season, widget.playerId);
 
+                  widget.vm.categoryClick = categoryClick;
+                  widget.vm.categorySelect = widget.vm.category[categoryClick].toString();
+
+                  widget.vm.click = click;
+                  widget.vm.yearSelect = widget.vm.years[click].toString();
+
+
+                  if(widget.vm.otherPlayerId != ""){
+                    await widget.vm.getOtherListWeek(context, widget.vm.yearSelect, widget.vm.otherPlayerId);
+                  }
+                  var data = await widget.vm.getTableListWeek(context, widget.vm.yearSelect, widget.playerId);
                   hideLoader(context);
+
+
+
                   if(data == true){
                     Navigator.pop(context,true);
                   }
@@ -160,6 +181,7 @@ class _FilterGraphDialog extends State<FilterGraphDialog> {
   }
 
   void dataSeasons() {
+    widget.vm.years.clear();
     var seasonL = int.parse(season.toString());
     for(var i = 0; i < 19; i++){
       var data = seasonL - i;

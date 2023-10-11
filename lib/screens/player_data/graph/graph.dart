@@ -19,6 +19,7 @@ class GraphTab extends StatefulWidget {
 
   @override
   State<GraphTab> createState() => _GraphTabState();
+
 }
 
 class _GraphTabState extends State<GraphTab> {
@@ -28,9 +29,8 @@ class _GraphTabState extends State<GraphTab> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    otherData.clear();
     getData();
-
   }
 
   @override
@@ -67,10 +67,8 @@ class _GraphTabState extends State<GraphTab> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BoldText("Yards", 13, AppColor.whiteColor,
-                              TextAlign.start),
-                          BoldText("per game", 13, AppColor.hintColor,
-                              TextAlign.start)
+                          BoldText(vm.categorySelect, 13, AppColor.whiteColor, TextAlign.start),
+                          BoldText("per game", 13, AppColor.hintColor, TextAlign.start)
                         ],
                       ),
                       Image.asset(
@@ -86,15 +84,22 @@ class _GraphTabState extends State<GraphTab> {
             Expanded(
                 child: GestureDetector(
               onTap: () async {
-                var playerId = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ComparePlayer(vm: vm)));
-                setState(() {});
-                if (playerId != "") {
-                  await vm.getOtherListWeek(context, vm.yearSelect, playerId);
-                  setState(() {});
+                if(vm.comparePlayerName != "Compare..."){
+                  vm.comparePlayerName = "Compare...";
+                  otherData.clear();
+                  vm.otherPlayerId = "";
+                  setState(() {
+
+                  });
+                }else{
+                  var playerId = await Navigator.push(context, MaterialPageRoute(builder: (context) => ComparePlayer(vm: vm,playerId : widget.playerId)));
+                  if (playerId != "") {
+                    vm.otherPlayerId = playerId.toString();
+                    await vm.getOtherListWeek(context, vm.yearSelect, vm.otherPlayerId);
+                    setState(() {});
+                  }
                 }
+
               },
               child: Container(
                 // color: AppColor.hintColor,
@@ -104,8 +109,7 @@ class _GraphTabState extends State<GraphTab> {
                   decoration: BoxDecoration(
                       color: AppColor.backColor,
                       borderRadius: BorderRadius.circular(30)),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -128,7 +132,8 @@ class _GraphTabState extends State<GraphTab> {
                           : GestureDetector(
                         onTap: (){
                           vm.comparePlayerName = "Compare...";
-                         otherData.clear();
+                          otherData.clear();
+                          vm.otherPlayerId = "";
                           setState(() {
 
                           });
@@ -172,9 +177,9 @@ class _GraphTabState extends State<GraphTab> {
                           leftTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
-                              interval: 25,
+                              interval: 100,
                               getTitlesWidget: vm.leftTitleWidgets,
-                              reservedSize: 20,
+                              reservedSize: 30,
                             ),
                           )),
                       lineBarsData: [
@@ -360,7 +365,7 @@ class _GraphTabState extends State<GraphTab> {
   }
 
   Future<void> getData() async {
-    await vm.getTableListWeek(context, season, widget.playerId);
+    await vm.getTableListWeek(context, vm.yearSelect, widget.playerId);
 
     setState(() {});
   }

@@ -28,10 +28,9 @@ class TableListVm {
     String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$seasonL&PlayerID=$playerId", null, context);
 
     var response = jsonDecode(res);
-
-    isLoading = false;
+    tableModel = TableModel();
     tableModel = TableModel.fromJson(response);
-
+    isLoading = false;
     if(tableModel.code == 200){
 
     }else{

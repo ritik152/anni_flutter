@@ -122,7 +122,7 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 1;
                       setState(() {
-                        if(vm.playersPropsData.isNotEmpty){
+                        if(vm.controller.positions.isNotEmpty){
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,
@@ -147,7 +147,7 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 2;
                       setState(() {
-                        if(vm.gamePropsData.isNotEmpty){
+                        if(vm.controller.positions.isNotEmpty){
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,
@@ -172,7 +172,7 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 3;
                       setState(() {
-                        if(vm.teamPropsData.isNotEmpty){
+                        if(vm.controller.positions.isNotEmpty){
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,

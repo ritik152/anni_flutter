@@ -1,5 +1,6 @@
 import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/chat/drawers/right_drawer/trending_up_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -40,19 +41,22 @@ class _RightDrawerState extends State<RightDrawer> {
       if(query.isNotEmpty) {
         List<TrendingData> dummyListData = [];
         dummySearchList.forEach((item) {
-          if(item.name!.contains(query) || item.name!.toLowerCase().contains(query)) {
+          if(item.name!.contains(query.trim()) || item.name!.toLowerCase().contains(query.trim())) {
             dummyListData.add(item);
           }
         });
+        trendingUpData.clear();
+
+        trendingUpData.addAll(dummyListData);
         setState(() {
-          trendingUpData.clear();
-          trendingUpData.addAll(dummyListData);
+
         });
         return;
       } else {
+        trendingUpData.clear();
+        trendingUpData.addAll(duplicateItems);
         setState(() {
-          trendingUpData.clear();
-          trendingUpData.addAll(duplicateItems);
+
         });
       }
     }
@@ -171,28 +175,28 @@ class _RightDrawerState extends State<RightDrawer> {
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius: BorderRadius.circular(30),
-                                                      child: Image.network(
-                                                        trendingUpData[indexList].playerImg.toString(),
+                                                      child: CachedNetworkImage(
                                                         height: 35,
                                                         width: 35,
-                                                        fit: BoxFit.cover,
-                                                        loadingBuilder: (BuildContext context, Widget child,
-                                                            ImageChunkEvent? loadingProgress) {
-                                                          if (loadingProgress == null) return child;
-                                                          return SizedBox(
-                                                            height: 35,
-                                                            width: 35,
-                                                            child: Shimmer.fromColors(
-                                                              baseColor: AppColor.fieldBackColor,
-                                                              highlightColor: AppColor.liteGrayColor,
-                                                              child: Container(
-                                                                height: 35,
-                                                                width: 35,
-                                                                color: Colors.white,
+                                                        imageUrl: trendingUpData[indexList].playerImg
+                                                            .toString(),
+                                                        errorWidget: (context, url, error) => Image.asset("assets/images/football_player.png"),
+                                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                                            SizedBox(
+                                                              height: 35,
+                                                              width: 35,
+                                                              child: Shimmer.fromColors(
+                                                                baseColor:
+                                                                AppColor.fieldBackColor,
+                                                                highlightColor:
+                                                                AppColor.liteGrayColor,
+                                                                child: Container(
+                                                                  height: 35,
+                                                                  width: 35,
+                                                                  color: Colors.white,
+                                                                ),
                                                               ),
                                                             ),
-                                                          );
-                                                        },
                                                       ),
                                                     ),
                                                     Container(

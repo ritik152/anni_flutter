@@ -47,27 +47,32 @@ void showError(String msg) {
 }
 
 void showLoader(BuildContext context){
-  // EasyLoading.show(status: "Please wait...");
   showDialog(
     barrierColor: AppColor.dialogBackgroundColor,
     context: context,
     barrierDismissible: false,
     builder: (_) {
-      return SimpleDialog(
-        backgroundColor: Colors.transparent,//here set the color to transparent
-        elevation: 0,
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              CircularProgressIndicator(
-                color: AppColor.greenColor,
-              ),
-              const SizedBox(height: 10),
-              const Text("", textAlign: TextAlign.center),
-            ],
-          ),
-        ],
+      return WillPopScope(
+        onWillPop: () async {
+
+          return false;
+        },
+        child: SimpleDialog(
+          backgroundColor: Colors.transparent,//here set the color to transparent
+          elevation: 0,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(
+                  color: AppColor.greenColor,
+                ),
+                const SizedBox(height: 10),
+                const Text("", textAlign: TextAlign.center),
+              ],
+            ),
+          ],
+        ),
       );
     },
   );
