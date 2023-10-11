@@ -70,13 +70,12 @@ class _TableListState extends State<TableList> {
                       ),
                     ),
                   ),
-                  if (vm.click == index)
+                  if (vm.click == index && (vm.isLoading != true))
                     SizedBox(
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                       child:  (vm.isLoading == true)?SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Progress())
+                          width: MediaQuery.of(context).size.width)
                           :(vm.tableModel.body == null || vm.tableModel.body!.isEmpty)
                           ?NoDataText("No Data", context)
                           :SingleChildScrollView(

@@ -4,8 +4,10 @@ import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/player_data/roster/roster_model.dart';
 import 'package:anni_ai/utils/all_keys.dart';
 import 'package:anni_ai/utils/common.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
@@ -64,12 +66,28 @@ class _RosterState extends State<Roster> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(30),
-                            child: Image.network(
-                              rostedData.body![index].playerImg.toString(),
+                            child: CachedNetworkImage(
                               height: 40,
                               width: 40,
-                              fit: BoxFit.cover,
-                            ),
+                              imageUrl: rostedData.body![index].playerImg.toString(),
+                              errorWidget: (context, url, error) => Image.asset("assets/images/football_player.png"),
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                  SizedBox(
+                                    height: 40,
+                                    width: 40,
+                                    child: Shimmer.fromColors(
+                                      baseColor:
+                                      AppColor.fieldBackColor,
+                                      highlightColor:
+                                      AppColor.liteGrayColor,
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                            )
                           ),
                         ),
                         Container(

@@ -1,7 +1,9 @@
 import 'package:anni_ai/screens/betting_data/betting_data_vm.dart';
 import 'package:anni_ai/screens/betting_detail/betting_detail_vm.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
@@ -9,14 +11,13 @@ import '../../utils/common_widget.dart';
 class BettingDetail extends StatefulWidget {
   String date, scoreId, awayImg, awayName, homeImg, homeName;
 
-  BettingDetail(
-      {Key? key,
-      required this.date,
-      required this.scoreId,
-      required this.awayImg,
-      required this.awayName,
-      required this.homeImg,
-      required this.homeName})
+  BettingDetail({Key? key,
+    required this.date,
+    required this.scoreId,
+    required this.awayImg,
+    required this.awayName,
+    required this.homeImg,
+    required this.homeName})
       : super(key: key);
 
   @override
@@ -47,7 +48,7 @@ class _BettingDetailState extends State<BettingDetail> {
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30))),
             padding:
-                const EdgeInsets.only(top: 50, bottom: 20, right: 20, left: 20),
+            const EdgeInsets.only(top: 50, bottom: 20, right: 20, left: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -79,14 +80,14 @@ class _BettingDetailState extends State<BettingDetail> {
                               fontFamily: "Reg",
                               color: AppColor.whiteColor),
                           children: [
-                        TextSpan(
-                          text: '@${widget.homeName}',
-                          style: TextStyle(
-                              fontSize: 11,
-                              fontFamily: "Bold",
-                              color: AppColor.whiteColor),
-                        ),
-                      ])),
+                            TextSpan(
+                              text: '@${widget.homeName}',
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontFamily: "Bold",
+                                  color: AppColor.whiteColor),
+                            ),
+                          ])),
                 )
               ],
             ),
@@ -122,14 +123,13 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 1;
                       setState(() {
-                        if(vm.controller.positions.isNotEmpty){
+                        if (vm.controller.positions.isNotEmpty) {
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,
                             duration: const Duration(milliseconds: 500),
                           );
                         }
-
                       });
                     },
                     child: Padding(
@@ -147,14 +147,13 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 2;
                       setState(() {
-                        if(vm.controller.positions.isNotEmpty){
+                        if (vm.controller.positions.isNotEmpty) {
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,
                             duration: const Duration(milliseconds: 500),
                           );
                         }
-
                       });
                     },
                     child: Padding(
@@ -172,7 +171,7 @@ class _BettingDetailState extends State<BettingDetail> {
                     onTap: () {
                       vm.index = 3;
                       setState(() {
-                        if(vm.controller.positions.isNotEmpty){
+                        if (vm.controller.positions.isNotEmpty) {
                           vm.controller.animateTo(
                             vm.controller.position.minScrollExtent,
                             curve: Curves.easeOut,
@@ -223,7 +222,7 @@ class _BettingDetailState extends State<BettingDetail> {
                               color: AppColor.backColor,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                                MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CommonText("Spread", 11, AppColor.whiteColor,
                                       TextAlign.center),
@@ -251,7 +250,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
                                         "assets/images/dummy_team.png",
@@ -289,7 +288,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "+6.5",
@@ -318,7 +317,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "+250",
@@ -339,7 +338,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "O 53.5",
@@ -374,7 +373,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
                                         "assets/images/dummy_team.png",
@@ -412,7 +411,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "+6.5",
@@ -441,7 +440,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "+310",
@@ -462,7 +461,7 @@ class _BettingDetailState extends State<BettingDetail> {
                                     padding: const EdgeInsets.all(2),
                                     child: Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         MediumText(
                                             "U 53.5",
@@ -613,178 +612,203 @@ class _BettingDetailState extends State<BettingDetail> {
         child: (vm.isLoading)
             ? Progress()
             : (vm.playersPropsData.isEmpty)
-                ? NoData("No Data", "", context)
-                : ListView.builder(
-                    controller: vm.controller,
-                    padding: EdgeInsets.zero,
-                    itemCount: vm.playersPropsData.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
+            ? NoData("No Data", "", context)
+            : ListView.builder(
+            controller: vm.controller,
+            padding: EdgeInsets.zero,
+            itemCount: vm.playersPropsData.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    color: AppColor.backColor,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            color: AppColor.fieldBack,
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 10, bottom: 10),
+                            child: BoldText(
+                                "${vm.playersPropsData[index]
+                                    .bettingBetType}/${vm
+                                    .playersPropsData[index]
+                                    .bettingPeriodType}",
+                                13,
+                                AppColor.whiteColor,
+                                TextAlign.start),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
                             color: AppColor.backColor,
                             child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(
-                                        top: 10, left: 10, bottom: 10),
+                                // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                                // CommonText("10", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(30),
+                                        child: CachedNetworkImage(
+                                          height: 40,
+                                          width: 40,
+                                          imageUrl: vm.playersPropsData[index]
+                                              .playerImg.toString(),
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(
+                                                  "assets/images/football_player.png"),
+                                          progressIndicatorBuilder: (context,
+                                              url, downloadProgress) =>
+                                              SizedBox(
+                                                height: 40,
+                                                width: 40,
+                                                child: Shimmer.fromColors(
+                                                  baseColor:
+                                                  AppColor.fieldBackColor,
+                                                  highlightColor:
+                                                  AppColor.liteGrayColor,
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                        )
+
+
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  SizedBox(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width *
+                                        0.40,
                                     child: BoldText(
-                                        "${vm.playersPropsData[index].bettingBetType}/${vm.playersPropsData[index].bettingPeriodType}",
+                                        vm.playersPropsData[index]
+                                            .playerName
+                                            .toString(),
                                         13,
                                         AppColor.whiteColor,
                                         TextAlign.start),
-                                  ),
+                                  )
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "U ${(vm.playersPropsData[index].under
+                                            .toString() == "null") ? "0" : vm
+                                            .playersPropsData[index].under
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    color: AppColor.backColor,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                        // CommonText("10", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                      ],
-                                    ),
-                                  ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "O ${(vm.playersPropsData[index].over
+                                            .toString() == "null") ? "0" : vm
+                                            .playersPropsData[index].over
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            width: 25,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              child: (vm.playersPropsData[index]
-                                                          .playerImg
-                                                          .toString() ==
-                                                      "null")
-                                                  ? Image.asset(
-                                                      "assets/images/football_player.png")
-                                                  : Image.network(
-                                                      vm.playersPropsData[index]
-                                                          .playerImg
-                                                          .toString(),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.40,
-                                            child: BoldText(
-                                                vm.playersPropsData[index]
-                                                    .playerName
-                                                    .toString(),
-                                                13,
-                                                AppColor.whiteColor,
-                                                TextAlign.start),
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "U ${(vm.playersPropsData[index].under.toString() == "null") ? "0" : vm.playersPropsData[index].under.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "O ${(vm.playersPropsData[index].over.toString() == "null") ? "0" : vm.playersPropsData[index].over.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      );
-                    }));
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }));
   }
 
   Widget GamePropsList() {
@@ -792,188 +816,195 @@ class _BettingDetailState extends State<BettingDetail> {
         child: (vm.isLoading)
             ? Progress()
             : (vm.gamePropsData.isEmpty)
-                ? NoData("No Data", "", context)
-                : ListView.builder(
-                    controller: vm.controller,
-                    padding: EdgeInsets.zero,
-                    itemCount: vm.gamePropsData.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
+            ? NoData("No Data", "", context)
+            : ListView.builder(
+            controller: vm.controller,
+            padding: EdgeInsets.zero,
+            itemCount: vm.gamePropsData.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    color: AppColor.backColor,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            color: AppColor.fieldBack,
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 10, bottom: 10),
+                            child: BoldText(
+                                "${vm.gamePropsData[index].bettingBetType}/${vm
+                                    .gamePropsData[index].bettingPeriodType}",
+                                13,
+                                AppColor.whiteColor,
+                                TextAlign.start),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
                             color: AppColor.backColor,
-                            child: Row(
+                            child: const Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(
-                                        top: 10, left: 10, bottom: 10),
-                                    child: BoldText(
-                                        "${vm.gamePropsData[index].bettingBetType}/${vm.gamePropsData[index].bettingPeriodType}",
-                                        13,
-                                        AppColor.whiteColor,
-                                        TextAlign.start),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    color: AppColor.backColor,
-                                    child: const Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                        // CommonText("10", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                      ],
+                                // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                                // CommonText("10", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: (widget.homeImg.toString() ==
+                                        "null")
+                                        ? Image.asset(
+                                        "assets/images/dummy_team.png")
+                                        : SvgPicture.network(
+                                      widget.homeImg.toString(),
+                                      height: 15,
+                                      width: 15,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            width: 25,
-                                            child: (widget.homeImg.toString() ==
-                                                    "null")
-                                                ? Image.asset(
-                                                    "assets/images/dummy_team.png")
-                                                : SvgPicture.network(
-                                                    widget.homeImg.toString(),
-                                                    height: 15,
-                                                    width: 15,
-                                                  ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          BoldText(
-                                              widget.homeName.toString(),
-                                              13,
-                                              AppColor.whiteColor,
-                                              TextAlign.start)
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            width: 25,
-                                            child: SvgPicture.network(
-                                              widget.awayImg.toString(),
-                                              height: 15,
-                                              width: 15,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          BoldText(
-                                              widget.awayName.toString(),
-                                              13,
-                                              AppColor.whiteColor,
-                                              TextAlign.start)
-                                        ],
-                                      ),
-                                    ],
+                                  const SizedBox(
+                                    width: 5,
                                   ),
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "U ${(vm.gamePropsData[index].under.toString() == "null") ? "0" : vm.gamePropsData[index].under.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "O ${(vm.gamePropsData[index].over.toString() == "null") ? "0" : vm.gamePropsData[index].over.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                  BoldText(
+                                      widget.homeName.toString(),
+                                      13,
+                                      AppColor.whiteColor,
+                                      TextAlign.start)
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: SvgPicture.network(
+                                      widget.awayImg.toString(),
+                                      height: 15,
+                                      width: 15,
+                                    ),
                                   ),
-                                )
-                              ],
-                            ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  BoldText(
+                                      widget.awayName.toString(),
+                                      13,
+                                      AppColor.whiteColor,
+                                      TextAlign.start)
+                                ],
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "U ${(vm.gamePropsData[index].under
+                                            .toString() == "null") ? "0" : vm
+                                            .gamePropsData[index].under
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "O ${(vm.gamePropsData[index].over
+                                            .toString() == "null") ? "0" : vm
+                                            .gamePropsData[index].over
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      );
-                    }));
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }));
   }
 
   Widget TeamPropsList() {
@@ -981,161 +1012,169 @@ class _BettingDetailState extends State<BettingDetail> {
         child: (vm.isLoading)
             ? Progress()
             : (vm.teamPropsData.isEmpty)
-                ? NoData("No Data", "", context)
-                : ListView.builder(
-                    controller: vm.controller,
-                    padding: EdgeInsets.zero,
-                    itemCount: vm.teamPropsData.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
+            ? NoData("No Data", "", context)
+            : ListView.builder(
+            controller: vm.controller,
+            padding: EdgeInsets.zero,
+            itemCount: vm.teamPropsData.length,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    color: AppColor.backColor,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            color: AppColor.fieldBack,
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 10, bottom: 10),
+                            child: BoldText(
+                                "${vm.teamPropsData[index].bettingBetType
+                                    .toString()}/${vm.teamPropsData[index]
+                                    .bettingPeriodType.toString()}",
+                                13,
+                                AppColor.whiteColor,
+                                TextAlign.start),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
                             color: AppColor.backColor,
                             child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    color: AppColor.fieldBack,
-                                    padding: const EdgeInsets.only(
-                                        top: 10, left: 10, bottom: 10),
-                                    child: BoldText(
-                                        "${vm.teamPropsData[index].bettingBetType.toString()}/${vm.teamPropsData[index].bettingPeriodType.toString()}",
-                                        13,
-                                        AppColor.whiteColor,
-                                        TextAlign.start),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    color: AppColor.backColor,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        // CommonText("Over/Under", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                        // CommonText("10", 11, AppColor.whiteColor,
-                                        //     TextAlign.center),
-                                      ],
+                                // CommonText("Over/Under", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                                // CommonText("10", 11, AppColor.whiteColor,
+                                //     TextAlign.center),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.start,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                    width: 25,
+                                    child: SvgPicture.network(
+                                      vm.teamPropsData[index].teamImg
+                                          .toString(),
+                                      height: 15,
+                                      width: 15,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: 25,
-                                            width: 25,
-                                            child: SvgPicture.network(
-                                              vm.teamPropsData[index].teamImg
-                                                  .toString(),
-                                              height: 15,
-                                              width: 15,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          BoldText(
-                                              vm.teamPropsData[index].name
-                                                  .toString(),
-                                              13,
-                                              AppColor.whiteColor,
-                                              TextAlign.start)
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
+                                  const SizedBox(
+                                    width: 5,
                                   ),
+                                  BoldText(
+                                      vm.teamPropsData[index].name
+                                          .toString(),
+                                      13,
+                                      AppColor.whiteColor,
+                                      TextAlign.start)
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "U ${(vm.teamPropsData[index].under
+                                            .toString() == "null") ? "0" : vm
+                                            .teamPropsData[index].under
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
                                 ),
-                                Expanded(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "U ${(vm.teamPropsData[index].under.toString() == "null") ? "0" : vm.teamPropsData[index].under.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        width: 50,
-                                        height: 45,
-                                        margin: const EdgeInsets.all(2),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            border: Border.all(
-                                                color: AppColor.hintColor)),
-                                        padding: const EdgeInsets.all(2),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            MediumText(
-                                                "O ${(vm.teamPropsData[index].over.toString() == "null") ? "0" : vm.teamPropsData[index].over.toString()}",
-                                                12,
-                                                AppColor.textGreenColor,
-                                                TextAlign.start),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                width: 50,
+                                height: 45,
+                                margin: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.hintColor)),
+                                padding: const EdgeInsets.all(2),
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: [
+                                    MediumText(
+                                        "O ${(vm.teamPropsData[index].over
+                                            .toString() == "null") ? "0" : vm
+                                            .teamPropsData[index].over
+                                            .toString()}",
+                                        12,
+                                        AppColor.textGreenColor,
+                                        TextAlign.start),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      );
-                    }));
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              );
+            }));
   }
 
   Future<void> getData() async {

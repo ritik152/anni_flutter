@@ -24,13 +24,17 @@ class TableListVm {
   }
 
   Future<void> getTableListWeek(BuildContext context, String seasonL, String playerId) async {
+    showLoader(context);
     print("Season $seasonL");
+    tableModel = TableModel();
+
     String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$seasonL&PlayerID=$playerId", null, context);
 
     var response = jsonDecode(res);
-    tableModel = TableModel();
+
     tableModel = TableModel.fromJson(response);
     isLoading = false;
+    hideLoader(context);
     if(tableModel.code == 200){
 
     }else{

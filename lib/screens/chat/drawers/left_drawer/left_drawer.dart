@@ -4,6 +4,7 @@ import 'package:anni_ai/screens/chat/chat_vm.dart';
 import 'package:anni_ai/screens/save_chat_list/save_chats.dart';
 import 'package:anni_ai/utils/color.dart';
 import 'package:anni_ai/utils/common_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
@@ -66,35 +67,36 @@ class _LeftDrawerState extends State<LeftDrawer> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(30),
-                              child: (registerModel.body!.image.toString() == "null")
-                                  ? Image.asset(
+                              child:
+                              CachedNetworkImage(
+                                height: 38,
+                                width: 38,
+                                imageUrl: AllKeys.imageUrl + registerModel.body!.image.toString(),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
                                       "assets/images/user.png",
                                       height: 38,
                                       width: 38,
                                       fit: BoxFit.cover,
-                                    )
-                                  : Image.network(
-                                      AllKeys.imageUrl + registerModel.body!.image.toString(),
+                                    ),
+                                progressIndicatorBuilder: (context,
+                                    url, downloadProgress) =>
+                                    SizedBox(
                                       height: 38,
                                       width: 38,
-                                      fit: BoxFit.cover,
-                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return SizedBox(
-                                    height: 35,
-                                    width: 35,
-                                    child: Shimmer.fromColors(
-                                      baseColor: AppColor.fieldBackColor,
-                                      highlightColor: AppColor.liteGrayColor,
-                                      child: Container(
-                                        height: 35,
-                                        width: 35,
-                                        color: Colors.white,
+                                      child: Shimmer.fromColors(
+                                        baseColor:
+                                        AppColor.fieldBackColor,
+                                        highlightColor:
+                                        AppColor.liteGrayColor,
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  );
-                                },
-                                    ),
+                              ),
                             ),
                             const SizedBox(
                               width: 10,

@@ -4,6 +4,7 @@ import 'package:anni_ai/screens/privacy_policy/privacy_policy.dart';
 import 'package:anni_ai/screens/profile/profile_vm.dart';
 import 'package:anni_ai/utils/all_keys.dart';
 import 'package:anni_ai/utils/common_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -74,37 +75,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               border: Border.all(color: AppColor.hintColor)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: (registerModel.body!.image.toString() ==
-                                    "null")
-                                ? Image.asset(
+                            child: CachedNetworkImage(
+                              height: 100,
+                              width: 100,
+                              imageUrl: AllKeys.imageUrl + registerModel.body!.image.toString(),
+                              errorWidget: (context, url, error) =>
+                                  Image.asset(
                                     "assets/images/user.png",
                                     height: 100,
                                     width: 100,
                                     fit: BoxFit.cover,
-                                  )
-                                : Image.network(
-                                    AllKeys.imageUrl +
-                                        registerModel.body!.image.toString(),
-                                    height: 100,
-                                    width: 100,
-                                    fit: BoxFit.cover,
-                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return SizedBox(
-                                  height: 100,
-                                  width: 100,
-                                  child: Shimmer.fromColors(
-                                    baseColor: AppColor.fieldBackColor,
-                                    highlightColor: AppColor.liteGrayColor,
-                                    child: Container(
-                                      height: 100,
-                                      width: 100,
-                                      color: Colors.white,
+                                  ),
+                              progressIndicatorBuilder: (context,
+                                  url, downloadProgress) =>
+                                  SizedBox(
+                                    height: 38,
+                                    width: 38,
+                                    child: Shimmer.fromColors(
+                                      baseColor:
+                                      AppColor.fieldBackColor,
+                                      highlightColor:
+                                      AppColor.liteGrayColor,
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
-                                );
-                              },
-                                  ),
+                            ),
                           ),
                         ),
                         GestureDetector(
