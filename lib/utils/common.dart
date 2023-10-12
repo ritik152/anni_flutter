@@ -79,7 +79,7 @@ void showLoader(BuildContext context){
 }
 
 void hideLoader(BuildContext context){
-  Navigator.of(context).pop();
+  Navigator.pop(context);
 }
 
 void hideKeyboard() {

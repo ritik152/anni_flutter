@@ -71,9 +71,6 @@ class _ChatState extends State<Chat> {
 
     });
 
-
-
-
     if(widget.from == "signup"){
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const StartChatDialog());
@@ -83,13 +80,12 @@ class _ChatState extends State<Chat> {
         });
 
       });
-    }else {
+    }
+    else {
       Future.delayed(Duration.zero, () {
         showLoader(context);
       });
     }
-
-
 
     getData();
   }
@@ -102,14 +98,12 @@ class _ChatState extends State<Chat> {
     await vm.currentWeek(context);
 
     if(s == "1"){
-      await vm.getPlayerGameStatsByWeek(context);
       vm.getPlayers(context);
+      await vm.getPlayerGameStatsByWeek(context);
       vm.getTeams(context);
     }
 
-
     _setAwaitOptions();
-
 
     flutterTts.setStartHandler(() {
       setState(() {
