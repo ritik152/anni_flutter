@@ -2,8 +2,10 @@ import 'package:anni_ai/screens/player_data/player_data_vm.dart';
 import 'package:anni_ai/screens/player_data/roster/roster.dart';
 import 'package:anni_ai/screens/player_data/table_list/table_list.dart';
 import 'package:anni_ai/utils/common_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../apis/api_controller.dart';
 import '../../utils/color.dart';
 import '../../utils/common.dart';
@@ -103,22 +105,31 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                           flex: 40,
                           child: Container(
                             margin: const EdgeInsets.only(top: 5),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: (vm.allTeamsData.photoUrl.toString() != "null")
-                                  ?Image.network(
-                                  vm.allTeamsData.photoUrl.toString(),
+                            child:ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: CachedNetworkImage(
                                 height: 100,
                                 width: 100,
-                                fit: BoxFit.cover,
-                              )
-                                  :Image.asset(
-                                "assets/images/user.png",
-                                height: 100,
-                                width: 100,
-                                fit: BoxFit.cover,
+                                imageUrl: vm.allTeamsData.photoUrl.toString(),
+                                errorWidget: (context, url, error) => Image.asset("assets/images/football_player.png"),
+                                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                    SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: Shimmer.fromColors(
+                                        baseColor:
+                                        AppColor.fieldBackColor,
+                                        highlightColor:
+                                        AppColor.liteGrayColor,
+                                        child: Container(
+                                          height: 100,
+                                          width: 100,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                               ),
-                            ),
+                            )
                           ),
                         ),
                         const SizedBox(
