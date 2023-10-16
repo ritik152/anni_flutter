@@ -135,10 +135,12 @@ class _RightDrawerState extends State<RightDrawer> {
                           (BuildContext context, int indexList) {
                         return GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(playerId : trendingUpData[indexList].playerID.toString(),
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(
+                                playerId : trendingUpData[indexList].playerID.toString(),
                                 fantasyPoints : trendingUpData[indexList].fantasyPoints.toString(),
                                 totalPlay : trendingUpData[indexList].played.toString(),
-                            keys: trendingUpData[indexList].team.toString())
+                            keys: trendingUpData[indexList].team.toString(),
+                            tab: 0,)
                             )
                             );
                           },

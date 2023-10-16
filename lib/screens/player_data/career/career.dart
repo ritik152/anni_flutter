@@ -1,6 +1,8 @@
 import 'package:anni_ai/screens/player_data/career/career_vm.dart';
+import 'package:anni_ai/utils/all_keys.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../apis/api_controller.dart';
 import '../../../utils/color.dart';
@@ -436,6 +438,12 @@ class _CareerState extends State<Career> {
 
 
   Future<void> getData() async {
+
+    SharedPreferences spf = await SharedPreferences.getInstance();
+
+    if(widget.playerId.toString() == "null"){
+      widget.playerId = spf.getString(AllKeys.playerId).toString();
+    }
 
     var data = await vm.getTableListWeek(context,widget.playerId);
 

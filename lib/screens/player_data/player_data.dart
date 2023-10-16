@@ -14,14 +14,15 @@ import 'overview/overview.dart';
 
 class PlayerData extends StatefulWidget {
   String playerId,fantasyPoints,keys,totalPlay;
+  int tab;
 
-  PlayerData({Key? key, required this.playerId, required this.fantasyPoints, required this.keys, required this.totalPlay}) : super(key: key);
+  PlayerData({Key? key, required this.playerId, required this.fantasyPoints, required this.keys, required this.totalPlay, required this.tab}) : super(key: key);
 
   @override
   State<PlayerData> createState() => _PlayerDataState();
 }
 
-class _PlayerDataState extends State<PlayerData> {
+class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateMixin {
   var vm = PlayerDataVm();
 
   @override
@@ -30,10 +31,13 @@ class _PlayerDataState extends State<PlayerData> {
 
     careerModel = CareerModel();
 
+    vm.tabController = TabController(length: 5, vsync: this);
+
     Future.delayed(Duration.zero, () {
       showLoader(context);
     });
 
+    vm.tabController.animateTo(widget.tab);
     var fPoints = double.parse(widget.fantasyPoints.toString());
     var tPlay = double.parse(widget.totalPlay.toString());
 
@@ -232,6 +236,7 @@ class _PlayerDataState extends State<PlayerData> {
                 child: SizedBox(
                   height: 30,
                   child: TabBar(
+                    controller: vm.tabController,
                     isScrollable: true,
                     padding: EdgeInsets.zero,
                     labelColor: AppColor.greenColor,
@@ -266,6 +271,7 @@ class _PlayerDataState extends State<PlayerData> {
               ),
               Expanded(
                 child: TabBarView(
+                  controller: vm.tabController,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Overview(vm,widget.fantasyPoints,vm.totalPoints,vm.allTeamsData.number.toString(),vm.allTeamsData.position.toString()),

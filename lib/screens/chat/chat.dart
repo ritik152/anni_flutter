@@ -98,8 +98,8 @@ class _ChatState extends State<Chat> {
     await vm.currentWeek(context);
 
     if(s == "1"){
-      vm.getPlayers(context);
       await vm.getPlayerGameStatsByWeek(context);
+      vm.getPlayers(context);
       vm.getTeams(context);
     }
 
@@ -488,7 +488,7 @@ class _ChatState extends State<Chat> {
     Map<String, dynamic> data1 = {};
     Map<String, dynamic> dataHuman = {};
 
-    data1 = {"role": "system","content": "Provide information only  NFL(National Football League).if Not related to the NFL(National Football League) return  BLANK only"};
+    data1 = {"role": "system","content": "Provide information only NFL or National Football League.if Not related to the NFL  return  BLANK only"};
     dataHuman = {"role": "user","content": message.trim()};
 
     map.add(data1);
@@ -539,10 +539,13 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               if(_newVoiceText != ""){
+                if(_newVoiceText.toString().contains("CSP")){
 
-                _speak(_newVoiceText);
-
-              }else{
+                }else{
+                  _speak(_newVoiceText);
+                }
+              }
+              else{
 
                 _speak("It seems like you've entered another random sequence of characters. "
                     "If you have any questions or need assistance with anything, "

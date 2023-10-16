@@ -17,6 +17,7 @@ class PlayerDataVm {
   var career = false;
   var teamId = "";
   var totalPoints = 0.0;
+  late TabController tabController;
   String teamCard = "assets/teams_theme/cowboys.png";
   PlayerDataModel allTeamsData = PlayerDataModel();
 

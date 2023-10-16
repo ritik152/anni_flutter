@@ -434,7 +434,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
     Map<String, dynamic> data1 = {};
     Map<String, dynamic> dataHuman = {};
 
-    data1 = {"role": "system", "content": "Provide information only  NFL, or National Football League . if Not related to the NFL  return BLANK only"};
+    data1 = {"role": "system","content": "Provide information only NFL or National Football League.if Not related to the NFL  return  BLANK only"};
     dataHuman = {"role": "user","content": message.trim()};
 
     if(map.isEmpty){
@@ -475,7 +475,11 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(mute != true){
               if(_newVoiceText != ""){
-                _speak(_newVoiceText);
+                if(_newVoiceText.toString().contains("CSP")){
+
+                }else{
+                  _speak(_newVoiceText);
+                }
               }else{
                 _speak("It seems like you've entered another random sequence of characters. If you have any questions or need assistance with anything, please let me know, and I'll be glad to assist you.");
               }
