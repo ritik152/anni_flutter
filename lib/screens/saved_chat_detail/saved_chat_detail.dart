@@ -475,7 +475,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(mute != true){
               if(_newVoiceText != ""){
-                if(_newVoiceText.toString().contains("CSP")){
+                if(_newVoiceText.toString().contains("CSP") || _newVoiceText.toString().contains("SSP")){
 
                 }else{
                   _speak(_newVoiceText);

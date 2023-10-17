@@ -219,7 +219,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                  child: BoldText("Anni Alerts", 14,
+                                  child: BoldText("Anni Alerts", 15,
                                       AppColor.whiteColor, TextAlign.start)),
                               Expanded(
                                   child: BoldText("View All +", 14,
@@ -268,12 +268,12 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                                       ?"Injury Report":(alertsModel.body![index].type == 2)
                                                       ?"Depth Chart Change!"
                                                       :"Anni Alerts",
-                                                  13,
+                                                  15,
                                                   AppColor.whiteColor,
                                                   TextAlign.start),
                                               MediumText(
                                                   dateFormatAlert( alertsModel.body![index].jsonData!.updated.toString()),
-                                                  10,
+                                                  12,
                                                   AppColor.whiteColor,
                                                   TextAlign.start),
                                             ],
@@ -285,12 +285,12 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                               ?"${alertsModel.body![index].jsonData!.name} (${alertsModel.body![index].jsonData!.position.toString()})"
                                               :(alertsModel.body![index].type == 2)
                                               ?"${alertsModel.body![index].jsonData!.name.toString()} (${alertsModel.body![index].jsonData!.position.toString()})"
-                                              :alertsModel.body![index].jsonData!.title.toString(), 10, AppColor.whiteColor, TextAlign.start),
+                                              :alertsModel.body![index].jsonData!.title.toString(), 13, AppColor.whiteColor, TextAlign.start),
                                           SizedBox(
                                             width: double.infinity,
                                             child: BoldText(
                                                 "Read More",
-                                                12,
+                                                13,
                                                 AppColor.textGreenColor,
                                                 TextAlign.end),
                                           )

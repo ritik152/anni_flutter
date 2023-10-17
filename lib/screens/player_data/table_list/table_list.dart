@@ -1,7 +1,9 @@
 import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/player_data/table_list/table_list_vm.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../utils/all_keys.dart';
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
@@ -21,13 +23,14 @@ class _TableListState extends State<TableList> {
   @override
   void initState() {
     super.initState();
-    vm.getSeasonList();
-    getData(vm.seasonL.toString());
+
+    getSeason();
+
 
   }
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
+    return (vm.isLoading == true)?const SizedBox():(vm.seasonList.body == null)?NoData("No Data", "", context):CustomScrollView(
       slivers: [
         SliverList(
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
@@ -40,14 +43,16 @@ class _TableListState extends State<TableList> {
                         setState(() {
                           vm.click = -1;
                         });
-                      } else {
+                      }
+
+                      else {
                         setState(() {
-                          vm.isLoading = true;
+                          vm.isLoading2 = true;
                           vm.click = index;
                         });
                       }
 
-                      await getData(vm.seasonList[index].toString());
+                      await getData(vm.seasonList.body![index].season.toString());
                     },
                     child: Container(
                       color: AppColor.backColor,
@@ -58,7 +63,7 @@ class _TableListState extends State<TableList> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BoldText("${vm.seasonList[index].toString()} Regular Season", 12, AppColor.textGreenColor,
+                          BoldText("${vm.seasonList.body![index].season.toString()} Regular Season", 12, AppColor.textGreenColor,
                               TextAlign.start),
                           Icon(
                             (vm.click == index)
@@ -70,11 +75,11 @@ class _TableListState extends State<TableList> {
                       ),
                     ),
                   ),
-                  if (vm.click == index && (vm.isLoading != true))
+                  if (vm.click == index && (vm.isLoading2 != true))
                     SizedBox(
                         height: 200,
                         width: MediaQuery.of(context).size.width,
-                      child:  (vm.isLoading == true)?SizedBox(
+                      child:  (vm.isLoading2 == true)?SizedBox(
                           width: MediaQuery.of(context).size.width)
                           :(vm.tableModel.body == null || vm.tableModel.body!.isEmpty)
                           ?NoDataText("No Data", context)
@@ -178,7 +183,7 @@ class _TableListState extends State<TableList> {
                 ],
               );
             },
-            childCount: vm.seasonList.length,
+            childCount: vm.seasonList.body!.length,
           ),
         ),
       ],
@@ -492,9 +497,25 @@ class _TableListState extends State<TableList> {
 
   Future<void> getData(String season) async {
 
-
     await vm.getTableListWeek(context, season,widget.playerId);
 
+    setState(() {
+
+    });
+  }
+
+  Future<void> getSeason() async {
+    SharedPreferences spf = await SharedPreferences.getInstance();
+
+    if(widget.playerId.toString() == "null"){
+      widget.playerId = spf.getString(AllKeys.playerId).toString();
+    }
+    await vm.getSeasonList(context,widget.playerId);
+
+    if(spf.getString(AllKeys.selectedYear).toString() != "null" || spf.getString(AllKeys.selectedYear).toString() == ""){
+      getData(vm.seasonSelect);
+    }
+    spf.setString(AllKeys.selectedYear, "");
     setState(() {
 
     });

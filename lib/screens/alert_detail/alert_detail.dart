@@ -60,8 +60,8 @@ class _AlertDetailState extends State<AlertDetail> {
                   children: [
                     BoldText((widget.detailData.type == 1)?"Injury Report":(widget.detailData.type == 2)
                         ?"Depth Chart Change!"
-                        :"Anni Alerts", 13, AppColor.whiteColor, TextAlign.start),
-                    MediumText(dateFormat(widget.detailData.jsonData!.updated.toString()), 10, AppColor.whiteColor, TextAlign.start),
+                        :"Anni Alerts", 15, AppColor.whiteColor, TextAlign.start),
+                    MediumText(dateFormat(widget.detailData.jsonData!.updated.toString()), 12, AppColor.whiteColor, TextAlign.start),
                   ],
                 ),
                 const SizedBox(height: 10,),
@@ -69,7 +69,7 @@ class _AlertDetailState extends State<AlertDetail> {
                     ?"${widget.detailData.jsonData!.name.toString()} sustained a ${widget.detailData.jsonData!.bodyPart.toString()} injury during ${widget.detailData.jsonData!.practice.toString()} or during their matchup with ${widget.detailData.jsonData!.opponent.toString()}."
                     :(widget.detailData.type == 2)
                     ?"${widget.detailData.jsonData!.name.toString()} has been ${(widget.detailData.jsonData!.depthOrder == 1)?"Demoted":"Promoted"} to ${getOrdinal(int.parse(widget.detailData.jsonData!.depthOrder.toString()))} ${widget.detailData.jsonData!.position.toString()}"
-                    :widget.detailData.jsonData!.content.toString(), 12, AppColor.whiteColor, TextAlign.start),
+                    :widget.detailData.jsonData!.content.toString(), 14, AppColor.whiteColor, TextAlign.start),
               ],
             ),
           )

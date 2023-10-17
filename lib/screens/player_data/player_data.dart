@@ -141,39 +141,21 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CommonText("Free Agent", 10,
-                                      AppColor.whiteColor, TextAlign.start),
-                                  BoldText("#${(vm.allTeamsData.number.toString() == "null")?"":vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor,
-                                      TextAlign.start),
-                                  Container(
-                                    height: 20,
-                                    width: 1.2,
-                                    color: AppColor.black,
-                                  ),
-                                  BoldText((vm.allTeamsData.position.toString() == "null")?"":vm.allTeamsData.position.toString(), 10, AppColor.whiteColor,
-                                      TextAlign.start),
-                                  Container(
-                                    height: 20,
-                                    width: 1.2,
-                                    color: AppColor.black,
-                                  ),
-                                  BoldText((vm.allTeamsData.team.toString() == "null")?"":vm.allTeamsData.team.toString(), 10, AppColor.whiteColor,
-                                      TextAlign.start),
+                                  CommonText("Free Agent", 10,AppColor.whiteColor, TextAlign.start),
+                                  BoldText("#${(vm.allTeamsData.number.toString() == "null")?"":vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor, TextAlign.start),
+                                  Container(height: 20, width: 1.2, color: AppColor.black,),
+                                  BoldText((vm.allTeamsData.position.toString() == "null")?"":vm.allTeamsData.position.toString(), 10, AppColor.whiteColor,TextAlign.start),
+                                  Container(height: 20, width: 1.2, color: AppColor.black,),
+                                  BoldText((vm.allTeamsData.team.toString() == "null")?"":vm.allTeamsData.team.toString(), 10, AppColor.whiteColor, TextAlign.start),
                                 ],
                               ),
-                              BoldText((vm.allTeamsData.firstName.toString() == "null")?"":vm.allTeamsData.firstName.toString(), 15, AppColor.whiteColor,
-                                  TextAlign.start),
-                              BoldText((vm.allTeamsData.lastName.toString() == "null")?"":vm.allTeamsData.lastName.toString(), 19, AppColor.whiteColor,
-                                  TextAlign.start),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              BoldText((vm.allTeamsData.firstName.toString() == "null")?"":vm.allTeamsData.firstName.toString(), 15, AppColor.whiteColor, TextAlign.start),
+                              BoldText((vm.allTeamsData.lastName.toString() == "null")?"":vm.allTeamsData.lastName.toString(), 19, AppColor.whiteColor, TextAlign.start),
+                              const SizedBox(height: 10,),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,

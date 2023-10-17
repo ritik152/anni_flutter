@@ -177,14 +177,14 @@ class _GraphTabState extends State<GraphTab> {
                           leftTitles: AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: true,
-                              interval: 100,
+                              interval: 50,
                               getTitlesWidget: vm.leftTitleWidgets,
                               reservedSize: 30,
                             ),
                           )),
                       lineBarsData: [
                         LineChartBarData(
-                          dotData: FlDotData(
+                          dotData: const FlDotData(
                             show: false,
                           ),
                           spots: (otherData.length > 1)
@@ -249,6 +249,7 @@ class _GraphTabState extends State<GraphTab> {
                                   FlSpot(17, 0),
                                   FlSpot(18, 0),
                                 ],
+                          dashArray: [10, 6],
                           isCurved: true,
                           barWidth: 3,
                           color: Colors.red,

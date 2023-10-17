@@ -33,5 +33,6 @@ class AllKeys {
   static String userEmail = "email";
   static String phoneNum = "phoneNum";
   static String playerId = "playerId";
+  static String selectedYear = "selectedYear";
 
 }

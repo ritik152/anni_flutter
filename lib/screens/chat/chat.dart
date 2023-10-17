@@ -539,7 +539,7 @@ class _ChatState extends State<Chat> {
             var _newVoiceText = model.body?.choices?.first.message.content.toString();
             if(vm.mute != true){
               if(_newVoiceText != ""){
-                if(_newVoiceText.toString().contains("CSP")){
+                if(_newVoiceText.toString().contains("CSP") || _newVoiceText.toString().contains("SSP")){
 
                 }else{
                   _speak(_newVoiceText);

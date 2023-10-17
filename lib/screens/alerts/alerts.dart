@@ -100,11 +100,11 @@ class _AlertsState extends State<Alerts> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MediumText((allAlerts[index].type == 1)
+                        BoldText((allAlerts[index].type == 1)
                             ?"Injury Report":(allAlerts[index].type == 2)
                             ?"Depth Chart Change!"
-                            :"Anni Alerts", 14, AppColor.whiteColor, TextAlign.start),
-                        MediumText(vm.changeFormat(allAlerts[index].jsonData!.updated.toString()), 10, AppColor.whiteColor, TextAlign.start),
+                            :"Anni Alerts", 15, AppColor.whiteColor, TextAlign.start),
+                        MediumText(vm.changeFormat(allAlerts[index].jsonData!.updated.toString()), 12, AppColor.whiteColor, TextAlign.start),
                       ],
                     ),
                     const SizedBox(height: 10,),
@@ -112,7 +112,7 @@ class _AlertsState extends State<Alerts> {
                         ?allAlerts[index].jsonData!.name.toString()+ " (${allAlerts[index].jsonData!.position.toString()})"
                         :(allAlerts[index].type == 2)
                         ?"${allAlerts[index].jsonData!.name.toString()} (${allAlerts[index].jsonData!.position.toString()})"
-                        :allAlerts[index].jsonData!.title.toString(), 12, AppColor.whiteColor, TextAlign.start),
+                        :allAlerts[index].jsonData!.title.toString(), 13, AppColor.whiteColor, TextAlign.start),
                     const SizedBox(height: 10,),
                     SizedBox(
                       width: double.infinity,

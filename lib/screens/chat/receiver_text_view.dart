@@ -26,6 +26,94 @@ class ReceiverTextView extends StatefulWidget {
 
 class _ReceiverTextViewState extends State<ReceiverTextView> {
 
+  var yr = 2023;
+  var id = "";
+  var mess = "Oops ! Only have season statistics up to the 2005 to $season";
+  var check = true;
+  var checkUser = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    if(widget.chatData.aiMessage.contains("CSP")){
+      final split = widget.chatData.aiMessage.split('_');
+      final Map<int, String> values = {
+        for (int i = 0; i < split.length; i++)
+          i: split[i]
+      };
+
+      print(values);
+
+      id = values[1].toString();
+
+      for(var i = 0; i < trendingUpData.length; i++){
+        if(id == trendingUpData[i].playerID.toString()){
+          print("_______________");
+          checkUser = true;
+          break;
+        }else{
+          checkUser = false;
+          mess = "Oops ! I didn't find this player";
+          print("Nooooooooooooooooo $i");
+
+        }
+      }
+
+      setState(() {
+
+      });
+
+    }
+
+    else{
+
+      final split = widget.chatData.aiMessage.split('_');
+
+      final Map<int, String> values = {
+        for (int i = 0; i < split.length; i++)
+          i: split[i]
+      };
+
+      print(values);
+
+      id = values[1].toString();
+      yr = int.parse(values[2].toString());
+
+      if(yr < 2005 || yr > int.parse(season)){
+
+        check = false;
+
+        mess = "Oops ! Only have season statistics up to the 2005 to $season";
+
+      }
+
+      for(var i = 0; i < trendingUpData.length; i++){
+
+        if(id == trendingUpData[i].playerID.toString()){
+
+          print("_______________");
+          checkUser = true;
+          break;
+
+        }else{
+
+          checkUser = false;
+          mess = "Oops ! I didn't find this player";
+          print("Nooooooooooooooooo $i");
+
+        }
+
+      }
+
+    }
+
+    setState(() {
+
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -53,36 +141,64 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         (widget.chatData.aiMessage != "")?
-                        (widget.chatData.aiMessage.contains("CSP")) ?GestureDetector(
+                        (widget.chatData.aiMessage.contains("CSP") || widget.chatData.aiMessage.contains("SSP"))?GestureDetector(
                           onTap: () async {
-                            showLoader(context);
-                            SharedPreferences spf = await SharedPreferences.getInstance();
-                            final clickId = widget.chatData.aiMessage.replaceAll(RegExp('CSP_'), '');
-                            print("Click id = $clickId");
-                            for(var i = 0; i < trendingUpData.length; i++){
-                              if(clickId == trendingUpData[i].playerID.toString()){
 
-                                Timer(const Duration(seconds: 2), () {
-                                  hideLoader(context);
-                                  spf.setString(AllKeys.playerId, trendingUpData[i].playerID.toString());
+                            if(checkUser == true && check == true){
+                              showLoader(context);
+                              SharedPreferences spf = await SharedPreferences.getInstance();
+                              var clickId = "";
+                              var year = season.toString();
+                              if(widget.chatData.aiMessage.contains("CSP")){
+                                clickId = widget.chatData.aiMessage.replaceAll(RegExp('CSP_'), '');
+                              }else{
 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(
-                                      playerId : trendingUpData[i].playerID.toString(),
-                                      fantasyPoints : trendingUpData[i].fantasyPoints.toString(),
-                                      totalPlay : trendingUpData[i].played.toString(),
-                                      keys: trendingUpData[i].team.toString(),
-                                      tab: 4)
-                                  )
-                                  );
-                                });
+                                final split = widget.chatData.aiMessage.split('_');
+                                final Map<int, String> values = {
+                                  for (int i = 0; i < split.length; i++)
+                                    i: split[i]
+                                };
+
+                                print(values);
+
+                                final value1 = values[0];
+                                clickId = values[1].toString();
+                                year = values[2].toString();
+
+                                print(value1);
 
                               }
 
+                              for(var i = 0; i < trendingUpData.length; i++){
+                                if(clickId == trendingUpData[i].playerID.toString()){
+
+                                  Timer(const Duration(seconds: 2), () {
+                                    hideLoader(context);
+
+                                    spf.setString(AllKeys.playerId, trendingUpData[i].playerID.toString());
+                                    spf.setString(AllKeys.selectedYear, year);
+
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> PlayerData(
+                                        playerId : trendingUpData[i].playerID.toString(),
+                                        fantasyPoints : trendingUpData[i].fantasyPoints.toString(),
+                                        totalPlay : trendingUpData[i].played.toString(),
+                                        keys: trendingUpData[i].team.toString(),
+                                        tab: widget.chatData.aiMessage.contains("SSP")?1:4
+                                    )
+                                    )
+                                    );
+                                  });
+
+                                  break;
+                                }else{
+
+                                }
+                              }
                             }
 
-
                           },
-                            child: BoldText("Please click here to view career stats", 14, AppColor.whiteColor, TextAlign.start)) :CommonText(widget.chatData.aiMessage.replaceFirst('\n', '', 1), 14, AppColor.whiteColor, TextAlign.start)
+                            child: (check == false || checkUser == false)?CommonText(mess, 14, AppColor.whiteColor, TextAlign.start):BoldText("Please click here to view career stats", 14, AppColor.whiteColor, TextAlign.start))
+                            :CommonText(widget.chatData.aiMessage.replaceFirst('\n', '', 1), 14, AppColor.whiteColor, TextAlign.start)
                             : CommonText("It seems like you've entered another random sequence of characters. If you have any questions or need assistance with anything, please let me know, and I'll be glad to assist you.", 14, AppColor.whiteColor, TextAlign.start),
                         const SizedBox(height: 5,),
 
