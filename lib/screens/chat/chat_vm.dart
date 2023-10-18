@@ -101,6 +101,7 @@ class ChatVm{
   }
 
   getAlerts(BuildContext context) async {
+
     String res = await getMethodWithQuery("GET", "${AllKeys.getNews}?page=1&limit=10", null, context);
 
     var response = jsonDecode(res);

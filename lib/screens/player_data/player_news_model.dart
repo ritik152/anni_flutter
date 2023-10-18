@@ -89,8 +89,8 @@ class JsonData {
   bool? isTopNews;
   bool? isTransaction;
   bool? isRumor;
-  Null? moreLink;
-  Null? moreName;
+  var moreLink;
+  var moreName;
   PlayerInfo? playerInfo;
   RotoworldPlayerMeta? rotoworldPlayerMeta;
 
@@ -185,7 +185,7 @@ class RotoworldPlayerMeta {
   String? playerLastName;
   String? rotoworldPlayerId;
   int? statsPlayerID;
-  Null? sportRadarPlayerID;
+  var sportRadarPlayerID;
   String? playerStatus;
   String? teamKey;
   String? teamCity;

@@ -237,6 +237,19 @@ class _LeftDrawerState extends State<LeftDrawer> {
                                 padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
+                                  // var show = false;
+                                  // if(alertsModel.body![index].type == 1){
+                                  //   if(alertsModel.body![index].jsonData!.name != null && alertsModel.body![index].jsonData!.bodyPart != null && alertsModel.body![index].jsonData!.practice != null && alertsModel.body![index].jsonData!.opponent != null ){
+                                  //     show = true;
+                                  //   }
+                                  // }else if(alertsModel.body![index].type == 2){
+                                  //   if(alertsModel.body![index].jsonData!.name != null && alertsModel.body![index].jsonData!.depthOrder != null && alertsModel.body![index].jsonData!.position != null){
+                                  //     show = true;
+                                  //   }
+                                  // }else if(alertsModel.body![index].jsonData!.content != "" || alertsModel.body![index].jsonData!.content != "null"){
+                                  //   show = true;
+                                  // }
+
                                   return GestureDetector(
                                     onTap: () async {
                                       await Navigator.push(context, MaterialPageRoute(

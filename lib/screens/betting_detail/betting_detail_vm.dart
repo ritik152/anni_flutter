@@ -44,30 +44,38 @@ class BettingDetailVm {
             if(bettingDataNew.bettingOutcomes![j].bettingOutcomeType.toString() == "Under"){
               bettingDataNew.under = bettingDataNew.bettingOutcomes![j].value.toString();
             }
+
+            teamPropsData.add(bettingDataNew);
           }
 
         }
 
-        teamPropsData.add(bettingDataNew);
+
       }
 
       if(bettingDataNew.bettingMarketType.toString() == "Player Prop"){
 
         for(var j = 0; j < bettingDataNew.bettingOutcomes!.length; j++){
+
           if(bettingDataNew.bettingOutcomes![j].sportsBook!.sportsbookID.toString() == "8"){
             if(bettingDataNew.bettingOutcomes![j].bettingOutcomeType.toString() == "Over"){
               bettingDataNew.over =bettingDataNew.bettingOutcomes![j].value.toString();
+              print("QWERT  Player Name ${bettingDataNew.playerName.toString()} - ${bettingDataNew.bettingMarketID.toString()} - value ${bettingDataNew.bettingOutcomes![j].value.toString()}");
             }
             if(bettingDataNew.bettingOutcomes![j].bettingOutcomeType.toString() == "Under"){
               bettingDataNew.under = bettingDataNew.bettingOutcomes![j].value.toString();
             }
+
+            if(bettingDataNew.playerID.toString() != "null"){
+
+              playersPropsData.add(bettingDataNew);
+
+            }
+
           }
 
         }
 
-        if(bettingDataNew.playerID.toString() != "null"){
-          playersPropsData.add(bettingDataNew);
-        }
 
       }
 
