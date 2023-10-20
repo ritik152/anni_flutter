@@ -268,10 +268,10 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Overview(vm,widget.fantasyPoints,vm.totalPoints,vm.allTeamsData.number.toString(),vm.allTeamsData.position.toString()),
-                      TableList(playerId : vm.allTeamsData.playerID.toString()),
+                      TableList(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString()),
                       GraphTab(playerId : vm.allTeamsData.playerID.toString()),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
-                      Career(playerId : vm.allTeamsData.playerID.toString())
+                      Career(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString())
                     ]),
               ),
             ],

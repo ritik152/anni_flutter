@@ -53,6 +53,7 @@ class _AlertsState extends State<Alerts> {
       backgroundColor: AppColor.black,
       body: Column(
         children: [
+
           Container(
             decoration: BoxDecoration(
                 color: AppColor.backColor,
@@ -83,20 +84,22 @@ class _AlertsState extends State<Alerts> {
               controller: vm.scrollController,
               itemBuilder: (context,index){
 
-                /*var show = false;
-                if(alertsModel.body![index].type == 1){
-                  if(alertsModel.body![index].jsonData!.name != null && alertsModel.body![index].jsonData!.bodyPart != null && alertsModel.body![index].jsonData!.practice != null && alertsModel.body![index].jsonData!.opponent != null ){
+                var show = false;
+                if(allAlerts[index].type == 1){
+                  if(allAlerts[index].jsonData!.name != null && allAlerts[index].jsonData!.bodyPart != null &&allAlerts[index].jsonData!.opponent != null ){
                     show = true;
                   }
-                }else if(alertsModel.body![index].type == 2){
-                  if(alertsModel.body![index].jsonData!.name != null && alertsModel.body![index].jsonData!.depthOrder != null && alertsModel.body![index].jsonData!.position != null){
+                }
+                else if(alertsModel.body![index].type == 2){
+                  if(alertsModel.body![index].jsonData!.name != null &&allAlerts[index].jsonData!.depthOrder != null &&allAlerts[index].jsonData!.position != null){
                     show = true;
                   }
-                }else if(alertsModel.body![index].jsonData!.content != "" || alertsModel.body![index].jsonData!.content != "null"){
+                }
+                else if(alertsModel.body![index].jsonData!.content != "" ||allAlerts[index].jsonData!.content != "null"){
                   show = true;
-                }*/
+                }
 
-            return GestureDetector(
+            return (show == true)?GestureDetector(
               onTap: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> AlertDetail(detailData : allAlerts[index])));
               },
@@ -135,11 +138,15 @@ class _AlertsState extends State<Alerts> {
                   ],
                 ),
               ),
-            );
+            ):const SizedBox();
           }))
+
         ],
+
       ),
+
     );
+
   }
 
   Future<void> getData() async {
@@ -149,4 +156,5 @@ class _AlertsState extends State<Alerts> {
 
     });
   }
+
 }

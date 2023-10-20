@@ -66,7 +66,7 @@ class _AlertDetailState extends State<AlertDetail> {
                 ),
                 const SizedBox(height: 10,),
                 CommonText((widget.detailData.type == 1)
-                    ?"${widget.detailData.jsonData!.name.toString()} sustained a ${widget.detailData.jsonData!.bodyPart.toString()} injury during ${widget.detailData.jsonData!.practice.toString()} or during their matchup with ${widget.detailData.jsonData!.opponent.toString()}."
+                    ?"${widget.detailData.jsonData!.name.toString()} sustained a ${widget.detailData.jsonData!.bodyPart.toString()} injury${(widget.detailData.jsonData!.practice.toString() != "null")?" during ${widget.detailData.jsonData!.practice.toString()} or":""} during their matchup with ${widget.detailData.jsonData!.opponent.toString()}."
                     :(widget.detailData.type == 2)
                     ?"${widget.detailData.jsonData!.name.toString()} has been ${(widget.detailData.jsonData!.depthOrder == 1)?"Demoted":"Promoted"} to ${getOrdinal(int.parse(widget.detailData.jsonData!.depthOrder.toString()))} ${widget.detailData.jsonData!.position.toString()}"
                     :widget.detailData.jsonData!.content.toString(), 14, AppColor.whiteColor, TextAlign.start),
