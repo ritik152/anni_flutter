@@ -8,6 +8,7 @@ import '../../apis/api_controller.dart';
 import '../../apis/common_model.dart';
 import '../../utils/all_keys.dart';
 import '../../utils/common.dart';
+import '../../utils/player_images.dart';
 import '../alerts/alerts_model.dart';
 import '../betting_data/all_teams_model.dart';
 import '../betting_detail/players_model.dart';
@@ -149,8 +150,34 @@ class SavedChatVm{
   }
 
 
-
   Future<void> getPlayers(BuildContext context) async {
+
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/headshots/json/Headshots?key=${AllKeys.sportsKey}", null, null, context);
+
+    var response = jsonDecode(res);
+    hideLoader(context);
+    List<dynamic> list = [];
+
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+
+      PlayerImages allPlayersData = PlayerImages.fromJson(list[i]);
+
+      allPlayers.add(allPlayersData);
+
+    }
+
+    for (var k = 0; k < trendingUpData.length; k++) {
+      for (var j = 0; j < allPlayers.length; j++) {
+        if (trendingUpData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
+          trendingUpData[k].playerImg = allPlayers[j].hostedHeadshotNoBackgroundUrl.toString();
+        }
+      }
+    }
+  }
+
+ /* Future<void> getPlayers(BuildContext context) async {
 
     String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/scores/json/Players?key=${AllKeys.sportsKey}", null, null, context);
 
@@ -177,7 +204,7 @@ class SavedChatVm{
         }
       }
     }
-  }
+  }*/
 
   Future<void> getTeams(BuildContext context) async {
     String res = await thirdPartyMethod("GET",

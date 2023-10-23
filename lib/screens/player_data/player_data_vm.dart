@@ -4,6 +4,7 @@ import 'package:anni_ai/screens/player_data/ownership_data_model.dart';
 import 'package:anni_ai/screens/player_data/player_data_model.dart';
 import 'package:anni_ai/screens/player_data/player_news_model.dart';
 import 'package:anni_ai/utils/common.dart';
+import 'package:anni_ai/utils/player_images.dart';
 import 'package:flutter/material.dart';
 
 import '../../apis/api_controller.dart';
@@ -23,10 +24,10 @@ class PlayerDataVm {
 
   List<OwnershipDataModel> ownershipModelList = [];
   List<PlayerNewsModel> playerNewsModel = [];
+  List<PlayerImages> playerImages = [];
   PlayerNewsModel playerNewsData = PlayerNewsModel();
 
-  Future<void> playerDetail(
-      BuildContext context, String playerId, String keys) async {
+  Future<void> playerDetail(BuildContext context, String playerId, String keys) async {
     String res = await thirdPartyMethod(
         "GET",
         "https://api.sportsdata.io/v3/nfl/scores/json/Player/$playerId?key=${AllKeys.sportsKey}",
@@ -192,5 +193,30 @@ class PlayerDataVm {
     }
 
     hideLoader(context);
+  }
+
+  Future<void> getPlayerImage(BuildContext context) async {
+
+    String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/headshots/json/Headshots?key=${AllKeys.sportsKey}", null, null, context);
+
+    var response = jsonDecode(res);
+
+    List<dynamic> list = [];
+
+    list.addAll(response);
+
+    for (var i = 0; i < list.length; i++) {
+
+      PlayerImages allPlayersData = PlayerImages.fromJson(list[i]);
+
+      playerImages.add(allPlayersData);
+
+    }
+      for (var j = 0; j < playerImages.length; j++) {
+        if (allTeamsData.playerID.toString() == playerImages[j].playerID.toString()) {
+          allTeamsData.photoUrl = playerImages[j].hostedHeadshotNoBackgroundUrl.toString();
+        }
+      }
+
   }
 }

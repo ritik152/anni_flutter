@@ -151,9 +151,8 @@ class _RosterState extends State<Roster> {
         }
 
         for (var j = 0; j < allPlayers.length; j++) {
-          if (rostedData.body![i].playerID.toString() ==
-              allPlayers[j].playerID.toString()) {
-            rostedData.body![i].playerImg = allPlayers[j].photoUrl.toString();
+          if (rostedData.body![i].playerID.toString() == allPlayers[j].playerID.toString()) {
+            rostedData.body![i].playerImg = allPlayers[j].hostedHeadshotNoBackgroundUrl.toString();
           }
         }
       }

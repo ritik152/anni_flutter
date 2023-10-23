@@ -13,6 +13,7 @@ import '../screens/player_data/table_list/table_model.dart';
 import '../screens/save_chat_list/SavedChatModel.dart';
 import '../utils/all_keys.dart';
 import '../utils/common.dart';
+import '../utils/player_images.dart';
 import 'RegisterModel.dart';
 
 String key_splite = "_*_";
@@ -27,7 +28,8 @@ AlertsModel alertsModel = AlertsModel();
 List<AlartData> allAlerts = [];
 List<TrendingData> trendingUpData = [];
 List<TrendingData> duplicateItems = [];
-List<PlayersModel> allPlayers = [];
+List<PlayerImages> allPlayers = [];
+// List<PlayersModel> allPlayers = [];
 List<AllTeamsModel> allTeams = [];
 CareerModel careerModel = CareerModel();
 TableModel tableModel = TableModel();

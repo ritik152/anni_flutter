@@ -111,7 +111,7 @@ class BettingDetailVm {
     for (var k = 0; k < playersPropsData.length; k++) {
       for (var j = 0; j < allPlayers.length; j++) {
         if (playersPropsData[k].playerID.toString() == allPlayers[j].playerID.toString()) {
-          playersPropsData[k].playerImg = allPlayers[j].photoUrl.toString();
+          playersPropsData[k].playerImg = allPlayers[j].hostedHeadshotNoBackgroundUrl.toString();
         }
       }
     }

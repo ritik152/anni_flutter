@@ -7,6 +7,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../utils/color.dart';
 import '../../utils/common_widget.dart';
+import '../../utils/player_images.dart';
 import '../betting_detail/players_model.dart';
 
 class ComparePlayer extends StatefulWidget {
@@ -34,10 +35,10 @@ class _ComparePlayerState extends State<ComparePlayer> {
   @override
   Widget build(BuildContext context) {
     void filterSearch(String query) {
-      List<PlayersModel> dummySearchList = [];
+      List<PlayerImages> dummySearchList = [];
       dummySearchList.addAll(vm.allPlayersDuplicate);
       if (query.isNotEmpty) {
-        List<PlayersModel> dummyListData = [];
+        List<PlayerImages> dummyListData = [];
         dummySearchList.forEach((item) {
           if (item.name!.contains(query.trim()) ||
               item.name!.toLowerCase().contains(query.trim())) {
@@ -163,7 +164,7 @@ class _ComparePlayerState extends State<ComparePlayer> {
                                       child: CachedNetworkImage(
                                         height: 40,
                                         width: 40,
-                                        imageUrl: vm.allPlayers[index].photoUrl.toString(),
+                                        imageUrl: vm.allPlayers[index].hostedHeadshotNoBackgroundUrl.toString(),
                                         errorWidget: (context, url, error) => Image.asset("assets/images/football_player.png"),
                                         progressIndicatorBuilder: (context, url, downloadProgress) =>
                                             SizedBox(

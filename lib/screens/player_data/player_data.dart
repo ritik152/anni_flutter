@@ -284,6 +284,7 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
   Future<void> getData() async {
 
     await vm.playerDetail(context,widget.playerId,widget.keys);
+    await vm.getPlayerImage(context);
     await vm.playerNews(context,widget.playerId);
     await vm.ownershipDetail(context);
     setState(() {
