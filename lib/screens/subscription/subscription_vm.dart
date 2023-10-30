@@ -24,6 +24,7 @@ class SubscriptionVM with ChangeNotifier{
     final bool available = await InAppPurchase.instance.isAvailable();
     if (!available)
     {
+
       debugPrint('Unable to reach to store');
       if (defaultTargetPlatform == TargetPlatform.iOS) {
 
@@ -49,6 +50,7 @@ class SubscriptionVM with ChangeNotifier{
     debugPrint('${products.first}');
     notifyListeners();
     return products;
+
   }
 
   //Subscription
@@ -65,15 +67,11 @@ class SubscriptionVM with ChangeNotifier{
     ProductDetails? productToBuy;
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-        var index = productList.indexWhere((element) =>
-        element.id == iMonthlyId);
+        var index = productList.indexWhere((element) => element.id == iMonthlyId);
         productToBuy = productList.elementAt(index);
     }
     else{
-
-
-        var index = productList.indexWhere((element) =>
-        element.id == gMonthlyId);
+        var index = productList.indexWhere((element) => element.id == gMonthlyId);
         productToBuy = productList.elementAt(index);
 
     }

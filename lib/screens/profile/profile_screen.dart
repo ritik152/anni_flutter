@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:anni_ai/apis/api_controller.dart';
+import 'package:anni_ai/dialogs/subscription_exp_dialog.dart';
 import 'package:anni_ai/screens/privacy_policy/privacy_policy.dart';
 import 'package:anni_ai/screens/profile/profile_vm.dart';
 import 'package:anni_ai/utils/all_keys.dart';
@@ -245,29 +246,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
 
                   //-------------------------------------------------Legal-------------------------
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColor.liteGrayColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 20),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "assets/icons/legal.png",
-                          height: 20,
-                          width: 20,
-                          color: AppColor.greenColor,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        BoldText(
-                            "Legal", 14, AppColor.whiteColor, TextAlign.start)
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        barrierDismissible: false,
+                          context: context,
+                          builder: (context)=> const SubscriptionExpire());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColor.liteGrayColor,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      margin:
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 20),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/icons/legal.png",
+                            height: 20,
+                            width: 20,
+                            color: AppColor.greenColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BoldText(
+                              "Legal", 14, AppColor.whiteColor, TextAlign.start)
+                        ],
+                      ),
                     ),
                   ),
 

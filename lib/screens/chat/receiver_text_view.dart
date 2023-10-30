@@ -66,7 +66,7 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
 
     }
 
-    else{
+    else if(widget.chatData.aiMessage.contains("SSP")){
 
       final split = widget.chatData.aiMessage.split('_');
 

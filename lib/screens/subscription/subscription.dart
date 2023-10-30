@@ -3,7 +3,6 @@ import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import '../../utils/buttons.dart';
 import '../../utils/color.dart';
-import '../chat/chat.dart';
 
 class Subscription extends StatefulWidget {
   const Subscription({Key? key}) : super(key: key);

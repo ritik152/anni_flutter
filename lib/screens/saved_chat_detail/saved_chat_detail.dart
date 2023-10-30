@@ -205,7 +205,7 @@ class _SavedChatDetailState extends State<SavedChatDetail> {
                     Container(
                       margin: const EdgeInsets.only(top: 60),
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.30,
+                      height: 210,
                       child: VideoPlayer(widget.vm.controller),
                         // Image.asset("assets/images/anni_image.png",width: double.infinity,height: 200,fit: BoxFit.cover,),
                     ),

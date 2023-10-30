@@ -61,9 +61,10 @@ class _ChatState extends State<Chat> {
 
     initTts("1");
 
-    vm.controller = VideoPlayerController.asset('assets/video/test.mp4');
+    vm.controller = VideoPlayerController.asset('assets/video/anni_avatar.mp4');
     vm.controller.setLooping(true);
     vm.controller.setVolume(0.0);
+
     vm.controller.initialize().then((value){
       setState(() {
 
@@ -215,12 +216,12 @@ class _ChatState extends State<Chat> {
                 children: [
                   SizedBox(
                       width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.30,
+                      height: 210,
                       child: VideoPlayer(vm.controller)),
 
                   Container(
                     alignment: Alignment.centerRight,
-                    height: MediaQuery.of(context).size.height * 0.29,
+                    height: 200,
                     margin: const EdgeInsets.only(right: 10),
                     padding: const EdgeInsets.only(top: 30),
                     child: Column(

@@ -12,14 +12,15 @@ import '../../../dialogs/filter_graph.dart';
 import '../../compare_player/compare_player.dart';
 
 class GraphTab extends StatefulWidget {
-  
   String playerId;
 
-  GraphTab({Key? key, required this.playerId,}) : super(key: key);
+  GraphTab({
+    Key? key,
+    required this.playerId,
+  }) : super(key: key);
 
   @override
   State<GraphTab> createState() => _GraphTabState();
-
 }
 
 class _GraphTabState extends State<GraphTab> {
@@ -67,8 +68,10 @@ class _GraphTabState extends State<GraphTab> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BoldText(vm.categorySelect, 13, AppColor.whiteColor, TextAlign.start),
-                          BoldText("per game", 13, AppColor.hintColor, TextAlign.start)
+                          BoldText(vm.categorySelect, 13, AppColor.whiteColor,
+                              TextAlign.start),
+                          BoldText("per game", 13, AppColor.hintColor,
+                              TextAlign.start)
                         ],
                       ),
                       Image.asset(
@@ -84,22 +87,24 @@ class _GraphTabState extends State<GraphTab> {
             Expanded(
                 child: GestureDetector(
               onTap: () async {
-                if(vm.comparePlayerName != "Compare..."){
+                if (vm.comparePlayerName != "Compare...") {
                   vm.comparePlayerName = "Compare...";
                   otherData.clear();
                   vm.otherPlayerId = "";
-                  setState(() {
-
-                  });
-                }else{
-                  var playerId = await Navigator.push(context, MaterialPageRoute(builder: (context) => ComparePlayer(vm: vm,playerId : widget.playerId)));
+                  setState(() {});
+                } else {
+                  var playerId = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ComparePlayer(
+                              vm: vm, playerId: widget.playerId)));
                   if (playerId != "") {
                     vm.otherPlayerId = playerId.toString();
-                    await vm.getOtherListWeek(context, vm.yearSelect, vm.otherPlayerId);
+                    await vm.getOtherListWeek(
+                        context, vm.yearSelect, vm.otherPlayerId);
                     setState(() {});
                   }
                 }
-
               },
               child: Container(
                 // color: AppColor.hintColor,
@@ -109,7 +114,8 @@ class _GraphTabState extends State<GraphTab> {
                   decoration: BoxDecoration(
                       color: AppColor.backColor,
                       borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -130,15 +136,16 @@ class _GraphTabState extends State<GraphTab> {
                               width: 20,
                             )
                           : GestureDetector(
-                        onTap: (){
-                          vm.comparePlayerName = "Compare...";
-                          otherData.clear();
-                          vm.otherPlayerId = "";
-                          setState(() {
-
-                          });
-                        },
-                          child: Icon(Icons.close,color: AppColor.greenColor,)),
+                              onTap: () {
+                                vm.comparePlayerName = "Compare...";
+                                otherData.clear();
+                                vm.otherPlayerId = "";
+                                setState(() {});
+                              },
+                              child: Icon(
+                                Icons.close,
+                                color: AppColor.greenColor,
+                              )),
                     ],
                   ),
                 ),
@@ -229,25 +236,25 @@ class _GraphTabState extends State<GraphTab> {
                                     FlSpot(18, otherData[18]),
                                 ]
                               : [
-                                  FlSpot(0, 0),
-                                  FlSpot(1, 0),
-                                  FlSpot(2, 0),
-                                  FlSpot(3, 0),
-                                  FlSpot(4, 0),
-                                  FlSpot(5, 0),
-                                  FlSpot(6, 0),
-                                  FlSpot(7, 0),
-                                  FlSpot(8, 0),
-                                  FlSpot(9, 0),
-                                  FlSpot(10, 0),
-                                  FlSpot(11, 0),
-                                  FlSpot(12, 0),
-                                  FlSpot(13, 0),
-                                  FlSpot(14, 0),
-                                  FlSpot(15, 0),
-                                  FlSpot(16, 0),
-                                  FlSpot(17, 0),
-                                  FlSpot(18, 0),
+                                  const FlSpot(0, 0),
+                                  const FlSpot(1, 0),
+                                  const FlSpot(2, 0),
+                                  const FlSpot(3, 0),
+                                  const FlSpot(4, 0),
+                                  const FlSpot(5, 0),
+                                  const FlSpot(6, 0),
+                                  const FlSpot(7, 0),
+                                  const FlSpot(8, 0),
+                                  const FlSpot(9, 0),
+                                  const FlSpot(10, 0),
+                                  const FlSpot(11, 0),
+                                  const FlSpot(12, 0),
+                                  const FlSpot(13, 0),
+                                  const FlSpot(14, 0),
+                                  const FlSpot(15, 0),
+                                  const FlSpot(16, 0),
+                                  const FlSpot(17, 0),
+                                  const FlSpot(18, 0),
                                 ],
                           dashArray: [10, 6],
                           isCurved: true,
@@ -256,7 +263,7 @@ class _GraphTabState extends State<GraphTab> {
                         ),
                         // The orange line
                         LineChartBarData(
-                          dotData: FlDotData(
+                          dotData: const FlDotData(
                             show: false,
                           ),
                           spots: (selfData.length > 1)
@@ -301,54 +308,54 @@ class _GraphTabState extends State<GraphTab> {
                                     FlSpot(18, selfData[18]),
                                 ]
                               : [
-                                  FlSpot(0, 0),
-                                  FlSpot(1, 0),
-                                  FlSpot(2, 0),
-                                  FlSpot(3, 0),
-                                  FlSpot(4, 0),
-                                  FlSpot(5, 0),
-                                  FlSpot(6, 0),
-                                  FlSpot(7, 0),
-                                  FlSpot(8, 0),
-                                  FlSpot(9, 0),
-                                  FlSpot(10, 0),
-                                  FlSpot(11, 0),
-                                  FlSpot(12, 0),
-                                  FlSpot(13, 0),
-                                  FlSpot(14, 0),
-                                  FlSpot(15, 0),
-                                  FlSpot(16, 0),
-                                  FlSpot(17, 0),
-                                  FlSpot(18, 0),
+                                  const FlSpot(0, 0),
+                                  const FlSpot(1, 0),
+                                  const FlSpot(2, 0),
+                                  const FlSpot(3, 0),
+                                  const FlSpot(4, 0),
+                                  const FlSpot(5, 0),
+                                  const FlSpot(6, 0),
+                                  const FlSpot(7, 0),
+                                  const FlSpot(8, 0),
+                                  const FlSpot(9, 0),
+                                  const FlSpot(10, 0),
+                                  const FlSpot(11, 0),
+                                  const FlSpot(12, 0),
+                                  const FlSpot(13, 0),
+                                  const FlSpot(14, 0),
+                                  const FlSpot(15, 0),
+                                  const FlSpot(16, 0),
+                                  const FlSpot(17, 0),
+                                  const FlSpot(18, 0),
                                 ],
                           isCurved: true,
                           barWidth: 3,
                           color: AppColor.greenColor,
                         ),
                         LineChartBarData(
-                          dotData: FlDotData(
+                          dotData: const FlDotData(
                             show: false,
                           ),
                           spots: [
-                            FlSpot(0, 0),
-                            FlSpot(1, 0),
-                            FlSpot(2, 0),
-                            FlSpot(3, 0),
-                            FlSpot(4, 0),
-                            FlSpot(5, 0),
-                            FlSpot(6, 0),
-                            FlSpot(7, 0),
-                            FlSpot(8, 0),
-                            FlSpot(9, 0),
-                            FlSpot(10, 0),
-                            FlSpot(11, 0),
-                            FlSpot(12, 0),
-                            FlSpot(13, 0),
-                            FlSpot(14, 0),
-                            FlSpot(15, 0),
-                            FlSpot(16, 0),
-                            FlSpot(17, 0),
-                            FlSpot(18, 100),
+                            const FlSpot(0, 0),
+                            const FlSpot(1, 0),
+                            const FlSpot(2, 0),
+                            const FlSpot(3, 0),
+                            const FlSpot(4, 0),
+                            const FlSpot(5, 0),
+                            const FlSpot(6, 0),
+                            const FlSpot(7, 0),
+                            const FlSpot(8, 0),
+                            const FlSpot(9, 0),
+                            const FlSpot(10, 0),
+                            const FlSpot(11, 0),
+                            const FlSpot(12, 0),
+                            const FlSpot(13, 0),
+                            const FlSpot(14, 0),
+                            const FlSpot(15, 0),
+                            const FlSpot(16, 0),
+                            const FlSpot(17, 0),
+                            const FlSpot(18, 100),
                           ],
                           isCurved: true,
                           barWidth: 3,
