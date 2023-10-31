@@ -46,6 +46,7 @@ class BettingDetailVm {
             }
 
             teamPropsData.add(bettingDataNew);
+
           }
 
         }

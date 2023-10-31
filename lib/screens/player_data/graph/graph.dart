@@ -12,18 +12,18 @@ import '../../../dialogs/filter_graph.dart';
 import '../../compare_player/compare_player.dart';
 
 class GraphTab extends StatefulWidget {
+
   String playerId;
 
-  GraphTab({
-    Key? key,
-    required this.playerId,
-  }) : super(key: key);
+  GraphTab({Key? key, required this.playerId,}) : super(key: key);
 
   @override
   State<GraphTab> createState() => _GraphTabState();
+
 }
 
 class _GraphTabState extends State<GraphTab> {
+
   var vm = GraphVm();
 
   @override
@@ -376,5 +376,7 @@ class _GraphTabState extends State<GraphTab> {
     await vm.getTableListWeek(context, vm.yearSelect, widget.playerId);
 
     setState(() {});
+
   }
+
 }

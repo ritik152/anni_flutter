@@ -143,8 +143,8 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CommonText("Free Agent", 10,AppColor.whiteColor, TextAlign.start),
-                                  BoldText("#${(vm.allTeamsData.number.toString() == "null")?"":vm.allTeamsData.number.toString()}", 10, AppColor.whiteColor, TextAlign.start),
+                                  CommonText(" ", 10,AppColor.whiteColor, TextAlign.start),
+                                  BoldText("#${(vm.allTeamsData.fantasyPositionDepthOrder.toString() == "null")?"":vm.allTeamsData.fantasyPositionDepthOrder.toString()}", 10, AppColor.whiteColor, TextAlign.start),
                                   Container(height: 20, width: 1.2, color: AppColor.black,),
                                   BoldText((vm.allTeamsData.position.toString() == "null")?"":vm.allTeamsData.position.toString(), 10, AppColor.whiteColor,TextAlign.start),
                                   Container(height: 20, width: 1.2, color: AppColor.black,),

@@ -167,8 +167,6 @@ class ChatVm{
       final bValue = b.fantasyPoints;
       return bValue.compareTo(aValue);
     });
-
-
   }
 
   Future<void> getPlayers(BuildContext context) async {

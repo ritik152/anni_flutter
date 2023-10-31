@@ -17,8 +17,8 @@ class SubscriptionVM with ChangeNotifier{
   final gMonthlyId = 'anni_monthly';
   final iMonthlyId = 'anni_monthly';
   List<ProductDetails> productList = [];
-  static SubscriptionVM instance = SubscriptionVM();
 
+  static SubscriptionVM instance = SubscriptionVM();
 
   Future<List<ProductDetails>> fetchSubscriptions() async {
     final bool available = await InAppPurchase.instance.isAvailable();
@@ -31,13 +31,11 @@ class SubscriptionVM with ChangeNotifier{
       }
     }
 
-    const Set<String> _androidSubscriptionIds = <String>{
+    const Set<String> subscriptionIds = <String>{
       'anni_monthly'
     };
 
-    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails((defaultTargetPlatform == TargetPlatform.iOS)
-        ? {'auria_ai_weekly_sub','auria_ai_monthly_sub','auria_ai_yearly_sub'}
-        : _androidSubscriptionIds,);
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails(subscriptionIds,);
 
     if (response.notFoundIDs.isNotEmpty) {
       debugPrint('No Products Found');
@@ -71,6 +69,7 @@ class SubscriptionVM with ChangeNotifier{
         productToBuy = productList.elementAt(index);
     }
     else{
+
         var index = productList.indexWhere((element) => element.id == gMonthlyId);
         productToBuy = productList.elementAt(index);
 
