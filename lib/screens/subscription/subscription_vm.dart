@@ -79,7 +79,6 @@ class SubscriptionVM with ChangeNotifier{
 
       print("QWERTYUIOP______________$details");
 
-
       Map<String,String> map = {
         "transaction_id":details.purchaseID.toString(),
         "amount":productToBuy!.rawPrice.toString(),
