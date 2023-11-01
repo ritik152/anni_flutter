@@ -90,7 +90,7 @@ class SubscriptionVM with ChangeNotifier{
       var response = jsonDecode(res);
 
       CommonModel commonModel = CommonModel.fromJson(response);
-      if (commonModel.success == 200){
+      if (commonModel.code == 200){
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Chat()), (route) => false);
       }else{
         showToast(commonModel.message ?? '');
