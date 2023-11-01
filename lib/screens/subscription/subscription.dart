@@ -152,7 +152,7 @@ class _SubscriptionState extends State<Subscription> {
                     }),
               ),
               const SizedBox(height: 20,),
-              BoldText("3-day trial,then ${vm.productList[0].price}/mo", 14, AppColor.greenColor, TextAlign.center),
+              BoldText("7-day trial,then ${vm.productList[0].price}/mo", 14, AppColor.greenColor, TextAlign.center),
               const SizedBox(height: 5,),
               MediumText("Secured with iTunes,Cancel anytime", 12, AppColor.whiteColor, TextAlign.center),
               const SizedBox(height: 20,),

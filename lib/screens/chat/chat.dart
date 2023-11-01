@@ -19,11 +19,13 @@ import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
 
 class Chat extends StatefulWidget {
+
   String? from;
   Chat({Key? key,this.from}) : super(key: key);
 
   @override
   State<Chat> createState() => _ChatState();
+
 }
 
 enum TtsState { playing, stopped, paused, continued }

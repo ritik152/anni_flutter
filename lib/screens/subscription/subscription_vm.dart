@@ -79,6 +79,25 @@ class SubscriptionVM with ChangeNotifier{
 
       print("QWERTYUIOP______________$details");
 
+
+      Map<String,String> map = {
+        "transaction_id":details.purchaseID.toString(),
+        "amount":productToBuy!.rawPrice.toString(),
+        "type":'1',
+        "json_data":details.verificationData.serverVerificationData,
+      };
+      String res = await methodWithHeader("POST", AllKeys.subscription, map, null, context);
+
+      var response = jsonDecode(res);
+
+      CommonModel commonModel = CommonModel.fromJson(response);
+      if (commonModel.success == 200){
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Chat()), (route) => false);
+      }else{
+        showToast(commonModel.message ?? '');
+      }
+
+
     });
 
   }
