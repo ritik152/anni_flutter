@@ -37,7 +37,9 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
     super.initState();
 
     if(widget.chatData.aiMessage.contains("CSP")){
+
       final split = widget.chatData.aiMessage.split('_');
+
       final Map<int, String> values = {
         for (int i = 0; i < split.length; i++)
           i: split[i]
@@ -78,14 +80,17 @@ class _ReceiverTextViewState extends State<ReceiverTextView> {
       print(values);
 
       id = values[1].toString();
-      yr = int.parse(values[2].toString());
 
-      if(yr < 2005 || yr > int.parse(season)){
+      if(values[2] != null){
+        yr = int.parse(values[2].toString());
 
-        check = false;
+        if(yr < 2005 || yr > int.parse(season)){
 
-        mess = "Oops ! Only have season statistics up to the 2005 to $season";
+          check = false;
 
+          mess = "Oops ! Only have season statistics up to the 2005 to $season";
+
+        }
       }
 
       for(var i = 0; i < trendingUpData.length; i++){

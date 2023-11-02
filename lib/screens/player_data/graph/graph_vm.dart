@@ -135,7 +135,7 @@ class GraphVm {
           passingY += double.parse(tableModel.body![i].jsonData!.puntReturnYardsPerAttempt.toString());
           passingY += double.parse(tableModel.body![i].jsonData!.receivingYardsPerReception.toString());
 
-          selfData.add(passingY);
+          selfData.add(double.parse(passingY.toStringAsFixed(2).toString()));
 
         }
       }else if(categoryClick == 1){
@@ -156,7 +156,7 @@ class GraphVm {
           touchdowns += double.parse(tableModel.body![i].jsonData!.interceptionReturnTouchdowns.toString());
           touchdowns += double.parse((tableModel.body![i].jsonData!.offensiveFumbleRecoveryTouchdowns == null)?"0":tableModel.body![i].jsonData!.offensiveFumbleRecoveryTouchdowns.toString());
 
-          selfData.add(touchdowns);
+          selfData.add(double.parse(touchdowns.toStringAsFixed(2).toString()));
 
         }
       }
@@ -168,7 +168,7 @@ class GraphVm {
           reception += double.parse(tableModel.body![i].jsonData!.receptionPercentage.toString());
           reception += double.parse(tableModel.body![i].jsonData!.passingCompletionPercentage.toString());
 
-          selfData.add(reception);
+          selfData.add(double.parse(reception.toStringAsFixed(2).toString()));
 
         }
       }else if(categoryClick == 3){
@@ -183,7 +183,7 @@ class GraphVm {
           double attempts = double.parse(tableModel.body![i].jsonData!.passingAttempts.toString());
           attempts += double.parse(tableModel.body![i].jsonData!.rushingAttempts.toString());
 
-          selfData.add(attempts);
+          selfData.add(double.parse(attempts.toStringAsFixed(2).toString()));
 
         }
       }
@@ -230,7 +230,7 @@ class GraphVm {
           passingY += double.parse(tableModelOther.body![i].jsonData!.puntReturnYardsPerAttempt.toString());
           passingY += double.parse(tableModelOther.body![i].jsonData!.receivingYardsPerReception.toString());
 
-          otherData.add(passingY);
+          otherData.add(double.parse(passingY.toStringAsFixed(2).toString()));
 
         }
       }
@@ -252,7 +252,7 @@ class GraphVm {
           touchdowns += double.parse(tableModelOther.body![i].jsonData!.interceptionReturnTouchdowns.toString());
           touchdowns += double.parse((tableModelOther.body![i].jsonData!.offensiveFumbleRecoveryTouchdowns == null)?"0":tableModelOther.body![i].jsonData!.offensiveFumbleRecoveryTouchdowns.toString());
 
-          otherData.add(touchdowns);
+          otherData.add(double.parse(touchdowns.toStringAsFixed(2).toString()));
 
         }
       }
@@ -264,7 +264,7 @@ class GraphVm {
           reception += double.parse(tableModelOther.body![i].jsonData!.receptionPercentage.toString());
           reception += double.parse(tableModelOther.body![i].jsonData!.passingCompletionPercentage.toString());
 
-          otherData.add(reception);
+          otherData.add(double.parse(reception.toStringAsFixed(2).toString()));
 
         }
       }
@@ -283,13 +283,14 @@ class GraphVm {
 
           attempts += double.parse(tableModelOther.body![i].jsonData!.rushingAttempts.toString());
 
-          otherData.add(attempts);
+          otherData.add(double.parse(attempts.toStringAsFixed(2).toString()));
 
         }
       }
 
       return true;
-    }else{
+    }
+    else{
 
       showError(tableModelOther.message.toString());
 

@@ -10,10 +10,15 @@ import 'package:anni_ai/utils/color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:intl/intl.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
 import 'package:video_player/video_player.dart';
+import '../../apis/api_controller.dart';
+import '../../dialogs/subscription_exp_dialog.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
+import '../profile/profile_screen.dart';
+import '../subscription/subscription.dart';
 import 'chat_loader.dart';
 import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
@@ -63,6 +68,7 @@ class _ChatState extends State<Chat> {
 
     initTts("1");
 
+
     vm.controller = VideoPlayerController.asset('assets/video/anni_avatar.mp4');
     vm.controller.setLooping(true);
     vm.controller.setVolume(0.0);
@@ -104,6 +110,31 @@ class _ChatState extends State<Chat> {
       await vm.getPlayerGameStatsByWeek(context);
       vm.getPlayers(context);
       vm.getTeams(context);
+    }else{
+
+      var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+      var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+      DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+      DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+      if(dtApi.isBefore(dt)){
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          var data = await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const SubscriptionExpire());
+          if(data == true){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Subscription()));
+          }else{
+            var data = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ProfileScreen()));
+          }
+        });
+      }
+
     }
 
     _setAwaitOptions();
@@ -160,6 +191,7 @@ class _ChatState extends State<Chat> {
         ttsState = TtsState.stopped;
       });
     });
+
   }
 
   Future _speak(String? newVoiceText) async {

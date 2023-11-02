@@ -1,6 +1,7 @@
 import 'package:anni_ai/screens/subscription/subscription_vm.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
+import '../../apis/api_controller.dart';
 import '../../utils/buttons.dart';
 import '../../utils/color.dart';
 
@@ -14,12 +15,26 @@ class Subscription extends StatefulWidget {
 class _SubscriptionState extends State<Subscription> {
 
   var vm = SubscriptionVM();
+  DateTime dtApi = DateTime.now();
+  DateTime dt = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     fetchProducts();
+
+    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+    dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+    dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+    setState(() {
+
+    });
+
   }
+
 
   fetchProducts() async{
     var products = await SubscriptionVM.instance.fetchSubscriptions();
@@ -36,11 +51,13 @@ class _SubscriptionState extends State<Subscription> {
       backgroundColor: AppColor.black,
       appBar: AppBar(
       backgroundColor: Colors.transparent,
-      leading: GestureDetector(
+        leading: (dtApi.isAfter(dt))?
+        GestureDetector(
           onTap: (){
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)),
+          child: Icon(Icons.arrow_back_ios,color: AppColor.greenColor,)):
+        const SizedBox(),
       elevation: 0.0,
     ),
       body: (vm.isLoading == true)?Progress():SizedBox(

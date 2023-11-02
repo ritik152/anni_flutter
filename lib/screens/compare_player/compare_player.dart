@@ -133,13 +133,11 @@ class _ComparePlayerState extends State<ComparePlayer> {
                       return GestureDetector(
                         onTap: () async {
                           widget.vm.isLoading = true;
+                          widget.vm.comparePlayerName = await vm.allPlayers[index].name.toString();
                           setState(() {
                             vm.click = index;
                           });
-                          widget.vm.comparePlayerName =
-                              await vm.allPlayers[index].name.toString();
-                          Navigator.pop(context,
-                              vm.allPlayers[index].playerID.toString());
+                          Navigator.pop(context, vm.allPlayers[index].playerID.toString());
                         },
                         child: Container(
                           margin: const EdgeInsets.only(

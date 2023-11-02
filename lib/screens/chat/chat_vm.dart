@@ -1,18 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 import '../../apis/RegisterModel.dart';
 import '../../apis/api_controller.dart';
 import '../../apis/common_model.dart';
+import '../../dialogs/subscription_exp_dialog.dart';
 import '../../utils/all_keys.dart';
+import '../../utils/color.dart';
 import '../../utils/common.dart';
 import '../../utils/player_images.dart';
 import '../alerts/alerts_model.dart';
 import '../betting_data/all_teams_model.dart';
 import '../betting_detail/players_model.dart';
+import '../profile/profile_screen.dart';
 import '../save_chat_list/SavedChatModel.dart';
+import '../subscription/subscription.dart';
 import 'chat_model.dart';
 import 'drawers/right_drawer/trending_up_model.dart';
 
@@ -195,6 +200,32 @@ class ChatVm{
           trendingUpData[k].playerImg = allPlayers[j].hostedHeadshotNoBackgroundUrl.toString();
         }
       }
+    }
+
+
+    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+    DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+    DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+    if(dtApi.isBefore(dt)){
+
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+
+        var data = await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const SubscriptionExpire());
+        if(data == true){
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Subscription()));
+        }else{
+          var data = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ProfileScreen()));
+        }
+      });
     }
   }
 /*

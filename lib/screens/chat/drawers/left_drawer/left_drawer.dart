@@ -71,6 +71,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
                               CachedNetworkImage(
                                 height: 38,
                                 width: 38,
+                                fit: BoxFit.cover,
                                 imageUrl: AllKeys.imageUrl + registerModel.body!.image.toString(),
                                 errorWidget: (context, url, error) =>
                                     Image.asset(

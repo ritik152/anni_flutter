@@ -34,13 +34,13 @@ class _TableListState extends State<TableList> {
         null) ? NoData("No Data", "", context) : CustomScrollView(
       slivers: [
         SliverList(
-          delegate: SliverChildBuilderDelegate((BuildContext context,
-              int index) {
+          delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+            final reversedIndex = vm.seasonList.body!.length - index - 1;
             return Column(
               children: [
                 GestureDetector(
                   onTap: () async {
-                    if (vm.click == index) {
+                    if (vm.click == reversedIndex) {
                       setState(() {
                         vm.click = -1;
                       });
@@ -49,11 +49,11 @@ class _TableListState extends State<TableList> {
                     else {
                       setState(() {
                         vm.isLoading2 = true;
-                        vm.click = index;
+                        vm.click = reversedIndex;
                       });
                     }
 
-                    await getData(vm.seasonList.body![index].season.toString());
+                    await getData(vm.seasonList.body![reversedIndex].season.toString());
                   },
                   child: Container(
                     color: AppColor.backColor,
@@ -64,12 +64,12 @@ class _TableListState extends State<TableList> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BoldText("${vm.seasonList.body![index].season
+                        BoldText("${vm.seasonList.body![reversedIndex].season
                             .toString()} Regular Season", 12,
                             AppColor.textGreenColor,
                             TextAlign.start),
                         Icon(
-                          (vm.click == index)
+                          (vm.click == reversedIndex)
                               ? Icons.keyboard_arrow_up
                               : Icons.keyboard_arrow_down,
                           color: AppColor.greenColor,
@@ -78,7 +78,7 @@ class _TableListState extends State<TableList> {
                     ),
                   ),
                 ),
-                if (vm.click == index && (vm.isLoading2 != true))
+                if (vm.click == reversedIndex && (vm.isLoading2 != true))
                   SizedBox(
                     height: 200,
                     width: MediaQuery

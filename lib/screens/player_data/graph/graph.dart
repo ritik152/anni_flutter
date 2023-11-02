@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/player_data/graph/graph_vm.dart';
 import 'package:anni_ai/utils/color.dart';
+import 'package:anni_ai/utils/common.dart';
 import 'package:anni_ai/utils/common_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +44,16 @@ class _GraphTabState extends State<GraphTab> {
             Expanded(
                 child: GestureDetector(
               onTap: () async {
+
                 var data = await showDialog(
                     barrierColor: AppColor.dialogBackgroundColor,
                     context: context,
-                    builder: (context) =>
-                        FilterGraphDialog(vm: vm, playerId: widget.playerId));
+                    builder: (context) => FilterGraphDialog(vm: vm, playerId: widget.playerId));
 
                 if (data == true) {
-                  setState(() {});
+                  setState(() {
+
+                  });
                 }
               },
               child: Container(
@@ -93,15 +96,13 @@ class _GraphTabState extends State<GraphTab> {
                   vm.otherPlayerId = "";
                   setState(() {});
                 } else {
-                  var playerId = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ComparePlayer(
-                              vm: vm, playerId: widget.playerId)));
+                  var playerId = await Navigator.push(context, MaterialPageRoute(builder: (context) => ComparePlayer(vm: vm, playerId: widget.playerId)));
+
                   if (playerId != "") {
+                    showLoader(context);
                     vm.otherPlayerId = playerId.toString();
-                    await vm.getOtherListWeek(
-                        context, vm.yearSelect, vm.otherPlayerId);
+                    await vm.getOtherListWeek(context, vm.yearSelect, vm.otherPlayerId);
+                    hideLoader(context);
                     setState(() {});
                   }
                 }

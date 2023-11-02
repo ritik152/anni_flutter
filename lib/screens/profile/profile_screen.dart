@@ -26,6 +26,24 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   var vm = ProfileVm();
+  DateTime dtApi = DateTime.now();
+  DateTime dt = DateTime.now();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+    dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+    dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: BoldText(
                       "Profile", 14, AppColor.whiteColor, TextAlign.center),
                 ),
-                GestureDetector(
+                if(dtApi.isAfter(dt))GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -79,6 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CachedNetworkImage(
                               height: 100,
                               width: 100,
+                              fit: BoxFit.cover,
                               imageUrl: AllKeys.imageUrl + registerModel.body!.image.toString(),
                               errorWidget: (context, url, error) =>
                                   Image.asset(
@@ -248,10 +267,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //-------------------------------------------------Legal-------------------------
                   GestureDetector(
                     onTap: (){
-                      showDialog(
-                        barrierDismissible: false,
-                          context: context,
-                          builder: (context)=> const SubscriptionExpire());
+
                     },
                     child: Container(
                       decoration: BoxDecoration(

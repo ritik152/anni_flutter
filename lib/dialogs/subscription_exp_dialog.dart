@@ -3,6 +3,7 @@ import 'package:anni_ai/utils/common_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../utils/color.dart';
+import '../screens/subscription/subscription.dart';
 
 
 class SubscriptionExpire extends StatefulWidget {
@@ -80,7 +81,7 @@ class _SubscriptionExpire extends State<SubscriptionExpire> {
                     width: 170,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pop(context,true);
                         },
                         style: ElevatedButton.styleFrom(
                           foregroundColor: AppColor.greenColor, backgroundColor: AppColor.greenColor,
@@ -92,16 +93,16 @@ class _SubscriptionExpire extends State<SubscriptionExpire> {
                         child:  BoldText("Purchase", 15, AppColor.black, TextAlign.center)),
                   ),
                   const SizedBox(height: 20,),
-                  /*GestureDetector(
+                  GestureDetector(
                     onTap: (){
-                     Navigator.pop(context);
+                     Navigator.pop(context,false);
                     },
                     child: SizedBox(
                       height: 40,
                       width: 80,
-                      child: MediumText("Cancel", 15, AppColor.whiteColor, TextAlign.center),
+                      child: MediumText("Profile", 15, AppColor.whiteColor, TextAlign.center),
                     ),
-                  ),*/
+                  ),
                 ],
               ),
             ),
