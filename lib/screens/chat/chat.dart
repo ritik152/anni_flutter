@@ -576,7 +576,7 @@ class _ChatState extends State<Chat> {
     Map<String, dynamic> data1 = {};
     Map<String, dynamic> dataHuman = {};
 
-    data1 = {"role": "system","content": "Provide information only NFL or National Football League.if Not related to the NFL  return  BLANK only"};
+    data1 = {"role": "system","content": "Provide the following information for NFL games: Player Profile, Player's Career Stats, Player's Season Stats, Player Information, Match Information, and Injuries Information."};
     dataHuman = {"role": "user","content": message.trim()};
 
     map.add(data1);
