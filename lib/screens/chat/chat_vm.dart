@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
@@ -36,6 +38,9 @@ class ChatVm{
   late Timer timer;
   var question = "";
   var mute = false;
+  var showSub = true;
+  final gMonthlyId = 'anni_monthly';
+  final iMonthlyId = 'anni_monthly';
 
   List<String> questionsList = [
     "Who led the NFL in rushing yards in 2022?",
@@ -285,6 +290,37 @@ class ChatVm{
         }
       }
     }
+
+  }
+
+
+  Future<List<ProductDetails>> fetchSubscriptions() async {
+    final bool available = await InAppPurchase.instance.isAvailable();
+    if (!available)
+    {
+
+      debugPrint('Unable to reach to store');
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+
+      }
+    }
+
+    const Set<String> subscriptionIds = <String>{
+      'anni_monthly'
+    };
+
+    final ProductDetailsResponse response = await InAppPurchase.instance.queryProductDetails(subscriptionIds,);
+
+    if (response.notFoundIDs.isNotEmpty) {
+      debugPrint('No Products Found');
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+
+      }
+    }
+
+    List<ProductDetails> products = response.productDetails;
+    debugPrint('${products.first}');
+    return products;
 
   }
 

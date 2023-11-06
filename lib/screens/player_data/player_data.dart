@@ -51,6 +51,10 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
 
     print("QWERTYUIOP ${vm.totalPoints}");
 
+
+    print("player id -- ${widget.playerId}");
+
+
     getData();
   }
 
@@ -271,7 +275,7 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                       TableList(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString()),
                       GraphTab(playerId : vm.allTeamsData.playerID.toString()),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
-                      Career(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString())
+                      Career(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString(),teamId: vm.allTeamsData.teamID.toString())
                     ]),
               ),
             ],
@@ -287,6 +291,11 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
     await vm.getPlayerImage(context);
     await vm.playerNews(context,widget.playerId);
     await vm.ownershipDetail(context);
+
+    if(week != "18"){
+        await vm.getProjections(context,vm.allTeamsData.name.toString());
+    }
+    hideLoader(context);
     setState(() {
 
     });

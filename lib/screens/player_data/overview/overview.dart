@@ -2,7 +2,7 @@ import 'package:anni_ai/apis/api_controller.dart';
 import 'package:anni_ai/screens/player_data/player_data_vm.dart';
 import 'package:anni_ai/utils/common.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
 import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
@@ -203,247 +203,63 @@ class Overview extends StatelessWidget {
             child: BoldText(
                 "Projections", 13, AppColor.whiteColor, TextAlign.start),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
+          if(projectionsModel.isNotEmpty)SizedBox(
+            height: 150,
+            width: double.infinity,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+                itemCount: projectionsModel.length,
+                itemBuilder: (context,index){
+              return  Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      BoldText(
+                          "Wk ${projectionsModel[index].week + 1}", 10, AppColor.whiteColor, TextAlign.start),
+                      CommonText(
+                          "@ ${projectionsModel[index].opponent.toString()}", 10, AppColor.whiteColor, TextAlign.start),
+                      SizedBox(
+                        height: 15,
+                        width: 15,
+                        child: SvgPicture.network(
+                          projectionsModel[index].photoUrl.toString(),
+                          height: 15,
+                          width: 15,
                         ),
-                        BoldText(
-                            "Wk", 10, AppColor.whiteColor, TextAlign.start),
-                        CommonText(
-                            "@ SEA", 10, AppColor.whiteColor, TextAlign.start),
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 10,
-                          width: 10,
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(top: 10, left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.hintColor,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.backColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Final", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        BoldText(
-                            "Wk", 10, AppColor.whiteColor, TextAlign.start),
-                        CommonText(
-                            "@ SEA", 10, AppColor.whiteColor, TextAlign.start),
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 10,
-                          width: 10,
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(top: 10, left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.hintColor,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.backColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Final", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        BoldText(
-                            "Wk", 10, AppColor.whiteColor, TextAlign.start),
-                        CommonText(
-                            "@ SEA", 10, AppColor.whiteColor, TextAlign.start),
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 10,
-                          width: 10,
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(top: 10, left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.hintColor,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.backColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Final", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        BoldText(
-                            "Wk", 10, AppColor.whiteColor, TextAlign.start),
-                        CommonText(
-                            "@ SEA", 10, AppColor.whiteColor, TextAlign.start),
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 10,
-                          width: 10,
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(top: 10, left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.hintColor,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.backColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Final", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        BoldText(
-                            "Wk", 10, AppColor.whiteColor, TextAlign.start),
-                        CommonText(
-                            "@ SEA", 10, AppColor.whiteColor, TextAlign.start),
-                        Image.asset(
-                          "assets/images/star.png",
-                          height: 10,
-                          width: 10,
-                        )
-                      ],
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(top: 10, left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.hintColor,
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              topLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Proj", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                    Container(
-                      width: 130,
-                      margin: const EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                          color: AppColor.backColor,
-                          borderRadius: const BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      padding:
-                          const EdgeInsets.only(top: 13, left: 13, bottom: 13),
-                      child: BoldText(
-                          "Final", 10, AppColor.whiteColor, TextAlign.start),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 130,
+                    margin: const EdgeInsets.only(top: 10, left: 10),
+                    decoration: BoxDecoration(
+                        color: AppColor.hintColor,
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15))),
+                    padding:
+                    const EdgeInsets.only(top: 13, left: 13, bottom: 13),
+                    child: BoldText(
+                        "Proj ", 10, AppColor.whiteColor, TextAlign.start),
+                  ),
+                  Container(
+                    width: 130,
+                    margin: const EdgeInsets.only(left: 10),
+                    decoration: BoxDecoration(
+                        color: AppColor.backColor,
+                        borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15))),
+                    padding: const EdgeInsets.only(top: 13, left: 13, bottom: 13),
+                    child: BoldText("Pts. ${projectionsModel[index].fantasyPoints.toString()}", 10, AppColor.whiteColor, TextAlign.start),
+                  ),
+                ],
+              );
+            }),
           ),
           const SizedBox(
             height: 30,

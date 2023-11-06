@@ -48,8 +48,8 @@ android {
         applicationId "com.anni.ai.anni_ai"
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 5
-        versionName "1.5"
+        versionCode 6
+        versionName "1.6"
         multiDexEnabled true
 
     }

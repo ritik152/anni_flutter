@@ -9,6 +9,7 @@ import '../screens/betting_data/all_teams_model.dart';
 import '../screens/betting_detail/players_model.dart';
 import '../screens/chat/drawers/right_drawer/trending_up_model.dart';
 import '../screens/player_data/career/career_model.dart';
+import '../screens/player_data/overview/projection_model.dart';
 import '../screens/player_data/table_list/table_model.dart';
 import '../screens/save_chat_list/SavedChatModel.dart';
 import '../utils/all_keys.dart';
@@ -36,8 +37,9 @@ TableModel tableModel = TableModel();
 TableModel tableModelOther = TableModel();
 List<double> selfData = [];
 List<double> otherData = [];
+List<ProjectionsModel> projectionsModel = [];
 
-String season = "2022";
+String season = "2023";
 String week = "1";
 //---------------------------------Post Method----------------------------------
 

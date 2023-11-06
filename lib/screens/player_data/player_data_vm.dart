@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:anni_ai/screens/player_data/overview/projection_model.dart';
 import 'package:anni_ai/screens/player_data/ownership_data_model.dart';
 import 'package:anni_ai/screens/player_data/player_data_model.dart';
 import 'package:anni_ai/screens/player_data/player_news_model.dart';
@@ -192,7 +193,7 @@ class PlayerDataVm {
       }
     }
 
-    hideLoader(context);
+
   }
 
   Future<void> getPlayerImage(BuildContext context) async {
@@ -217,6 +218,36 @@ class PlayerDataVm {
           allTeamsData.photoUrl = playerImages[j].hostedHeadshotNoBackgroundUrl.toString();
         }
       }
+
+  }
+
+  Future<void> getProjections(BuildContext context, String playerName) async {
+
+    for(var i = int.parse(week); i < 18 ; i++){
+
+      String res = await thirdPartyMethod("GET", "https://api.sportsdata.io/v3/nfl/projections/json/IdpPlayerGameProjectionStatsByWeek/$season/$i?key=${AllKeys.sportsKey}", null, null, context);
+
+      var response = jsonDecode(res);
+
+      List<dynamic> list = [];
+
+      list.addAll(response);
+
+      for (var i = 0; i < list.length; i++) {
+
+        ProjectionsModel allPlayersData = ProjectionsModel.fromJson(list[i]);
+        if(allPlayersData.name.toString() == playerName.toString()){
+          for (var j = 0; j < allTeams.length; j++) {
+            if (allPlayersData.teamID.toString() == allTeams[j].teamID.toString()) {
+              allPlayersData.photoUrl = allTeams[j].wikipediaLogoUrl.toString();
+              allPlayersData.photoUrl = allTeams[j].wikipediaLogoUrl.toString();
+            }
+          }
+          projectionsModel.add(allPlayersData);
+        }
+
+      }
+    }
 
   }
 }

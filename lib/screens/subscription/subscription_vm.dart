@@ -59,9 +59,6 @@ class SubscriptionVM with ChangeNotifier{
   }
 
   performPayment(BuildContext context) async {
-    if (defaultTargetPlatform == TargetPlatform.iOS){
-
-    }
     ProductDetails? productToBuy;
 
     if (defaultTargetPlatform == TargetPlatform.iOS) {

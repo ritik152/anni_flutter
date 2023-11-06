@@ -10,15 +10,18 @@ import 'package:anni_ai/utils/color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:intl/intl.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:top_modal_sheet/top_modal_sheet.dart';
 import 'package:video_player/video_player.dart';
 import '../../apis/api_controller.dart';
+import '../../apis/common_model.dart';
 import '../../dialogs/subscription_exp_dialog.dart';
+import '../../utils/all_keys.dart';
 import '../../utils/common.dart';
 import '../../utils/common_widget.dart';
 import '../profile/profile_screen.dart';
 import '../subscription/subscription.dart';
+import '../subscription/subscriptions_provider.dart';
 import 'chat_loader.dart';
 import 'drawers/left_drawer/left_drawer.dart';
 import 'drawers/right_drawer/right_drawer.dart';
@@ -39,6 +42,8 @@ class _ChatState extends State<Chat> {
 
   var vm = ChatVm();
   List<Map<String, dynamic>> map = [];
+
+  List<ProductDetails> productList = [];
 
   late FlutterTts flutterTts;
 
@@ -68,7 +73,6 @@ class _ChatState extends State<Chat> {
 
     initTts("1");
 
-
     vm.controller = VideoPlayerController.asset('assets/video/anni_avatar.mp4');
     vm.controller.setLooping(true);
     vm.controller.setVolume(0.0);
@@ -97,44 +101,90 @@ class _ChatState extends State<Chat> {
     }
 
     getData();
+
   }
 
   initTts(String s) async {
 
     flutterTts = FlutterTts();
 
+    var products = await vm.fetchSubscriptions();
+    productList = products;
+
     await vm.currentSeason(context);
+
     await vm.currentWeek(context);
 
     if(s == "1"){
+
       await vm.getPlayerGameStatsByWeek(context);
       vm.getPlayers(context);
       vm.getTeams(context);
-    }else{
 
-      var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
-      var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+    }
 
-      DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
-      DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+    DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+    DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+    await SubscriptionsProvider.instance.restorePurchases((PurchaseDetails details) async {
+      vm.showSub = false;
 
       if(dtApi.isBefore(dt)){
+
+        ProductDetails? productToBuy;
+
+        if (defaultTargetPlatform == TargetPlatform.iOS) {
+          var index = productList.indexWhere((element) => element.id == vm.iMonthlyId);
+          productToBuy = productList.elementAt(index);
+        }
+        else{
+
+          var index = productList.indexWhere((element) => element.id == vm.gMonthlyId);
+          productToBuy = productList.elementAt(index);
+
+        }
+        print("SRTYUIOP   ${details.verificationData}");
+
+        Map<String,String> map = {
+          "transaction_id":details.purchaseID.toString(),
+          "amount":productToBuy!.rawPrice.toString(),
+          "type":'1',
+          "json_data":details.verificationData.serverVerificationData,
+        };
+        String res = await methodWithHeader("POST", AllKeys.subscription, map, null, context);
+
+        var response = jsonDecode(res);
+
+        CommonModel commonModel = CommonModel.fromJson(response);
+        if (commonModel.code == 200){
+         await getProfile(context);
+        }else{
+          showToast(commonModel.message ?? '');
+        }
+      }
+
+    });
+
+    if(vm.showSub == true){
+      if(dtApi.isBefore(dt)){
+
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           var data = await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const SubscriptionExpire());
           if(data == true){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const Subscription()));
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Subscription()));
+
           }else{
-            var data = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const ProfileScreen()));
+
+            var data = await Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+
           }
         });
-      }
 
+      }
     }
 
     _setAwaitOptions();
@@ -148,14 +198,17 @@ class _ChatState extends State<Chat> {
     });
 
     if (isAndroid) {
+
       flutterTts.setInitHandler(() {
         setState(() {
           print("TTS Initialized");
         });
       });
+
     }
 
     flutterTts.setCompletionHandler(() {
+
       setState(() {
         print("Complete");
         vm.controller.pause();

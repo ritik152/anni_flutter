@@ -35,8 +35,14 @@ class Body {
   Rushing? rushing;
   Receiving? receiving;
   Passing? passing;
+  ComparingData? comparingData;
 
-  Body({this.year, this.rushing, this.receiving, this.passing});
+  Body(
+      {this.year,
+        this.rushing,
+        this.receiving,
+        this.passing,
+        this.comparingData});
 
   Body.fromJson(Map<String, dynamic> json) {
     year = json['year'];
@@ -47,6 +53,9 @@ class Body {
         : null;
     passing =
     json['passing'] != null ? new Passing.fromJson(json['passing']) : null;
+    comparingData = json['comparingData'] != null
+        ? new ComparingData.fromJson(json['comparingData'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -61,6 +70,9 @@ class Body {
     if (this.passing != null) {
       data['passing'] = this.passing!.toJson();
     }
+    if (this.comparingData != null) {
+      data['comparingData'] = this.comparingData!.toJson();
+    }
     return data;
   }
 }
@@ -70,6 +82,11 @@ class Rushing {
   var rushingYards;
   var rushingYardsPerAttempt;
   var rushingTouchdowns;
+
+  var colourRushingAttempts;
+  var colourRushingYards;
+  var colourRushingYardsPerAttempt;
+  var colourRushingTouchdowns;
 
   Rushing(
       {this.rushingAttempts,
@@ -100,6 +117,13 @@ class Receiving {
   var receivingYards;
   var receivingYardsPerReception;
   var receivingTouchdowns;
+
+  var receivingTargetsC;
+  var receptionsC;
+  var receivingYardsC;
+  var receivingYardsPerReceptionC;
+  var receivingTouchdownsC;
+
 
   Receiving(
       {this.receivingTargets,
@@ -134,6 +158,13 @@ class Passing {
   var passingTouchdowns;
   var passingInterceptions;
 
+  var passingAttemptsC;
+  var passingCompletionsC;
+  var passingYardsC;
+  var passingTouchdownsC;
+  var passingInterceptionsC;
+
+
   Passing(
       {this.passingAttempts,
         this.passingCompletions,
@@ -156,6 +187,75 @@ class Passing {
     data['PassingYards'] = this.passingYards;
     data['PassingTouchdowns'] = this.passingTouchdowns;
     data['PassingInterceptions'] = this.passingInterceptions;
+    return data;
+  }
+}
+
+class ComparingData {
+  var passingAttempts;
+  var passingCompletions;
+  var passingYards;
+  var passingTouchdowns;
+  var passingInterceptions;
+  var receivingTargets;
+  var receptions;
+  var receivingYards;
+  var receivingYardsPerReception;
+  var receivingTouchdowns;
+  var rushingAttempts;
+  var rushingYards;
+  var rushingYardsPerAttempt;
+  var rushingTouchdowns;
+
+  ComparingData(
+      {this.passingAttempts,
+        this.passingCompletions,
+        this.passingYards,
+        this.passingTouchdowns,
+        this.passingInterceptions,
+        this.receivingTargets,
+        this.receptions,
+        this.receivingYards,
+        this.receivingYardsPerReception,
+        this.receivingTouchdowns,
+        this.rushingAttempts,
+        this.rushingYards,
+        this.rushingYardsPerAttempt,
+        this.rushingTouchdowns});
+
+  ComparingData.fromJson(Map<String, dynamic> json) {
+    passingAttempts = json['PassingAttempts'];
+    passingCompletions = json['PassingCompletions'];
+    passingYards = json['PassingYards'];
+    passingTouchdowns = json['PassingTouchdowns'];
+    passingInterceptions = json['PassingInterceptions'];
+    receivingTargets = json['ReceivingTargets'];
+    receptions = json['Receptions'];
+    receivingYards = json['ReceivingYards'];
+    receivingYardsPerReception = json['ReceivingYardsPerReception'];
+    receivingTouchdowns = json['ReceivingTouchdowns'];
+    rushingAttempts = json['RushingAttempts'];
+    rushingYards = json['RushingYards'];
+    rushingYardsPerAttempt = json['RushingYardsPerAttempt'];
+    rushingTouchdowns = json['RushingTouchdowns'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['PassingAttempts'] = this.passingAttempts;
+    data['PassingCompletions'] = this.passingCompletions;
+    data['PassingYards'] = this.passingYards;
+    data['PassingTouchdowns'] = this.passingTouchdowns;
+    data['PassingInterceptions'] = this.passingInterceptions;
+    data['ReceivingTargets'] = this.receivingTargets;
+    data['Receptions'] = this.receptions;
+    data['ReceivingYards'] = this.receivingYards;
+    data['ReceivingYardsPerReception'] = this.receivingYardsPerReception;
+    data['ReceivingTouchdowns'] = this.receivingTouchdowns;
+    data['RushingAttempts'] = this.rushingAttempts;
+    data['RushingYards'] = this.rushingYards;
+    data['RushingYardsPerAttempt'] = this.rushingYardsPerAttempt;
+    data['RushingTouchdowns'] = this.rushingTouchdowns;
     return data;
   }
 }

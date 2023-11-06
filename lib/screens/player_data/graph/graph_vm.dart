@@ -104,6 +104,7 @@ class GraphVm {
   }
 
   Future<bool> getTableListWeek(BuildContext context, String yearSelect, String playerId) async {
+
     String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$yearSelect&PlayerID=$playerId", null, context);
 
     var response = jsonDecode(res);
