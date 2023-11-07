@@ -913,7 +913,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingAttempts
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -953,7 +953,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingCompletions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -993,7 +993,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingYards
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -1033,7 +1033,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingTouchdowns
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)
                 ),
                 const SizedBox(
@@ -1076,7 +1076,7 @@ class _CareerState extends State<Career> {
                             .passingInterceptions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 10,
@@ -1902,7 +1902,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingAttempts
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -1942,7 +1942,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingCompletions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -1982,7 +1982,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingYards
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -2022,7 +2022,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingTouchdowns
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)
                 ),
                 const SizedBox(
@@ -2065,7 +2065,7 @@ class _CareerState extends State<Career> {
                             .passingInterceptions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -2500,7 +2500,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingAttempts
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -2540,7 +2540,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingCompletions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -2580,7 +2580,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingYards
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -2620,7 +2620,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingTouchdowns
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)
                 ),
                 const SizedBox(
@@ -2663,7 +2663,7 @@ class _CareerState extends State<Career> {
                             .passingInterceptions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -3097,7 +3097,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingAttempts
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -3137,7 +3137,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingCompletions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -3177,7 +3177,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingYards
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,
@@ -3217,7 +3217,7 @@ class _CareerState extends State<Career> {
                             .passing!.passingTouchdowns
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)
                 ),
                 const SizedBox(
@@ -3260,7 +3260,7 @@ class _CareerState extends State<Career> {
                             .passingInterceptions
                             .toString(),
                         10,
-                        AppColor.whiteColor,
+                        AppColor.black,
                         TextAlign.center)),
                 const SizedBox(
                   width: 3,

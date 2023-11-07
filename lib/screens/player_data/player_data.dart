@@ -54,6 +54,10 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
 
     print("player id -- ${widget.playerId}");
 
+    projectionsModel.clear();
+    setState(() {
+
+    });
 
     getData();
   }
@@ -272,7 +276,7 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       Overview(vm,widget.fantasyPoints,vm.totalPoints,vm.allTeamsData.number.toString(),vm.allTeamsData.position.toString()),
-                      TableList(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString()),
+                      TableList(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString(),teamId: vm.allTeamsData.teamID.toString()),
                       GraphTab(playerId : vm.allTeamsData.playerID.toString()),
                       Roster(teamId: vm.teamId,position : vm.allTeamsData.position.toString()),
                       Career(playerId : vm.allTeamsData.playerID.toString(),position: vm.allTeamsData.position.toString(),teamId: vm.allTeamsData.teamID.toString())
@@ -292,8 +296,13 @@ class _PlayerDataState extends State<PlayerData> with SingleTickerProviderStateM
     await vm.playerNews(context,widget.playerId);
     await vm.ownershipDetail(context);
 
+    setState(() {
+
+    });
+
     if(week != "18"){
         await vm.getProjections(context,vm.allTeamsData.name.toString());
+        vm.isLoading = false;
     }
     hideLoader(context);
     setState(() {

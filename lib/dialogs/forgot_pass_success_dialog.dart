@@ -74,7 +74,7 @@ class _ForgotPassSuccess extends State<ForgotPassSuccess> {
           ),
           BoldText("Link Sent!", 16, AppColor.whiteColor, TextAlign.center),
           const SizedBox(height: 5,),
-          MediumText("You should receive an email\nwithin the next few minuets.", 13, AppColor.whiteColor, TextAlign.center),
+          MediumText("You should receive an email\nwithin the next few minutes.", 13, AppColor.whiteColor, TextAlign.center),
           const SizedBox(height: 30,)
         ],
       ),

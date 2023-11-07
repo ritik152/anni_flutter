@@ -161,10 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //-------------------------------------------------Account Settings-------------------------
                   GestureDetector(
                     onTap: () async {
-                      var data = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AccountSettings()));
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => const AccountSettings()));
                       setState(() {});
                     },
                     child: Container(

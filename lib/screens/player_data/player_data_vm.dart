@@ -20,6 +20,8 @@ class PlayerDataVm {
   var teamId = "";
   var totalPoints = 0.0;
   late TabController tabController;
+
+  var isLoading = true;
   String teamCard = "assets/teams_theme/cowboys.png";
   PlayerDataModel allTeamsData = PlayerDataModel();
 
@@ -222,6 +224,7 @@ class PlayerDataVm {
   }
 
   Future<void> getProjections(BuildContext context, String playerName) async {
+
 
     for(var i = int.parse(week); i < 18 ; i++){
 

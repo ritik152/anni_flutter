@@ -198,7 +198,7 @@ class Overview extends StatelessWidget {
                 ],
               ),
             ),
-          Padding(
+          if(projectionsModel.isNotEmpty)Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             child: BoldText(
                 "Projections", 13, AppColor.whiteColor, TextAlign.start),

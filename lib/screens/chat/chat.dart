@@ -108,8 +108,8 @@ class _ChatState extends State<Chat> {
 
     flutterTts = FlutterTts();
 
-    var products = await vm.fetchSubscriptions();
-    productList = products;
+    // var products = await vm.fetchSubscriptions();
+    // productList = products;
 
     await vm.currentSeason(context);
 
@@ -123,69 +123,7 @@ class _ChatState extends State<Chat> {
 
     }
 
-    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
-    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
 
-    DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
-    DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
-
-    await SubscriptionsProvider.instance.restorePurchases((PurchaseDetails details) async {
-      vm.showSub = false;
-
-      if(dtApi.isBefore(dt)){
-
-        ProductDetails? productToBuy;
-
-        if (defaultTargetPlatform == TargetPlatform.iOS) {
-          var index = productList.indexWhere((element) => element.id == vm.iMonthlyId);
-          productToBuy = productList.elementAt(index);
-        }
-        else{
-
-          var index = productList.indexWhere((element) => element.id == vm.gMonthlyId);
-          productToBuy = productList.elementAt(index);
-
-        }
-        print("SRTYUIOP   ${details.verificationData}");
-
-        Map<String,String> map = {
-          "transaction_id":details.purchaseID.toString(),
-          "amount":productToBuy!.rawPrice.toString(),
-          "type":'1',
-          "json_data":details.verificationData.serverVerificationData,
-        };
-        String res = await methodWithHeader("POST", AllKeys.subscription, map, null, context);
-
-        var response = jsonDecode(res);
-
-        CommonModel commonModel = CommonModel.fromJson(response);
-        if (commonModel.code == 200){
-         await getProfile(context);
-        }else{
-          showToast(commonModel.message ?? '');
-        }
-      }
-
-    });
-
-    if(vm.showSub == true){
-      if(dtApi.isBefore(dt)){
-
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
-          var data = await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const SubscriptionExpire());
-          if(data == true){
-
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const Subscription()));
-
-          }else{
-
-            var data = await Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
-
-          }
-        });
-
-      }
-    }
 
     _setAwaitOptions();
 
@@ -244,6 +182,73 @@ class _ChatState extends State<Chat> {
         ttsState = TtsState.stopped;
       });
     });
+
+
+    var d = int.parse(DateTime.now().millisecondsSinceEpoch.toString());
+
+    var timeStampApi = int.parse(registerModel.body!.expireDate!.toString());
+
+    DateTime dtApi = DateTime.fromMillisecondsSinceEpoch(timeStampApi * 1000);
+
+    DateTime dt = DateTime.fromMillisecondsSinceEpoch(d);
+
+    await SubscriptionsProvider.instance.restorePurchases((PurchaseDetails details) async {
+      vm.showSub = false;
+
+      if(dtApi.isBefore(dt)){
+
+        ProductDetails? productToBuy;
+
+        if (defaultTargetPlatform == TargetPlatform.iOS) {
+          var index = productList.indexWhere((element) => element.id == vm.iMonthlyId);
+          productToBuy = productList.elementAt(index);
+        }
+        else{
+
+          var index = productList.indexWhere((element) => element.id == vm.gMonthlyId);
+          productToBuy = productList.elementAt(index);
+
+        }
+        print("SRTYUIOP   ${details.verificationData}");
+
+        Map<String,String> map = {
+          "transaction_id":details.purchaseID.toString(),
+          "amount":productToBuy!.rawPrice.toString(),
+          "type":'1',
+          "json_data":details.verificationData.serverVerificationData,
+        };
+        String res = await methodWithHeader("POST", AllKeys.subscription, map, null, context);
+
+        var response = jsonDecode(res);
+
+        CommonModel commonModel = CommonModel.fromJson(response);
+        if (commonModel.code == 200){
+          await getProfile(context);
+        }else{
+          showToast(commonModel.message ?? '');
+        }
+      }
+
+    });
+
+    if(vm.showSub == true){
+      if(dtApi.isBefore(dt)){
+
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          var data = await showDialog(barrierDismissible: false, barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const SubscriptionExpire());
+          if(data == true){
+
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Subscription()));
+
+          }else{
+
+            var data = await Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
+
+          }
+        });
+
+      }
+    }
 
   }
 
@@ -331,8 +336,8 @@ class _ChatState extends State<Chat> {
                             ),
                             GestureDetector(
                               onTap: () async {
-                                var value = await showTopModalSheet<String>(
-                                    context, NewChat());
+                                var value = await showTopModalSheet<String>(context, NewChat());
+
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(8.0),
@@ -688,7 +693,7 @@ class _ChatState extends State<Chat> {
               Expanded(
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.pop(context,false);
                       },
                       child: BoldText(
                           "Cancel", 13, Colors.white, TextAlign.center))),
@@ -703,9 +708,9 @@ class _ChatState extends State<Chat> {
                     radios: 30,
                     onTap: () {
                       vm.chatArray.clear();
-                      setState(() {
-
-                      });
+                      vm.controller.pause();
+                      vm.controller.seekTo(const Duration(seconds: 0));
+                      _stop();
                       Navigator.pop(context);
                     }),
               )),

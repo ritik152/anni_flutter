@@ -162,7 +162,6 @@ Future<bool> getProfile(BuildContext context) async {
   var response = jsonDecode(res);
 
   registerModel = RegisterModel.fromJson(response);
-
   if(registerModel.code == 200){
     // showToast(registerModel.message.toString());
     return true;

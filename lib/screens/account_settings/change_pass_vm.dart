@@ -104,12 +104,13 @@ class ChangePasswordVM with ChangeNotifier{
 
     CommonModel commonModel = CommonModel.fromJson(response);
 
-    hideLoader(context);
     if(commonModel.code == 200){
-      getProfile(context);
+      await getProfile(context);
+      hideLoader(context);
       var data = await showDialog(barrierColor: AppColor.dialogBackgroundColor, context: context, builder: (context)=> const ChangePassSuccess());
       Navigator.pop(context);
     }else{
+      hideLoader(context);
       showError(commonModel.message.toString());
     }
 
@@ -129,12 +130,15 @@ class ChangePasswordVM with ChangeNotifier{
 
     CommonModel commonModel = CommonModel.fromJson(response);
 
-    hideLoader(context);
+
     hideKeyboard();
     if(commonModel.code == 200){
+      await getProfile(context);
       showToast(commonModel.message.toString());
-      getProfile(context);
+      hideLoader(context);
+
     }else{
+      hideLoader(context);
       showError(commonModel.message.toString());
     }
 

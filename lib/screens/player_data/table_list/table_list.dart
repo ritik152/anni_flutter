@@ -8,9 +8,9 @@ import '../../../utils/color.dart';
 import '../../../utils/common_widget.dart';
 
 class TableList extends StatefulWidget {
-  String playerId, position;
+  String playerId, position,teamId;
 
-  TableList({Key? key, required this.playerId, required this.position})
+  TableList({Key? key, required this.playerId, required this.position, required this.teamId})
       : super(key: key);
 
   @override
@@ -2184,7 +2184,7 @@ class _TableListState extends State<TableList> {
   }
 
   Future<void> getData(String season) async {
-    await vm.getTableListWeek(context, season, widget.playerId);
+    await vm.getTableListWeek(context, season, widget.playerId,widget.position,widget.teamId);
 
     setState(() {
 

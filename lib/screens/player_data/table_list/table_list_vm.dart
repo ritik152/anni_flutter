@@ -56,16 +56,18 @@ class TableListVm {
   }
 
 
-  Future<void> getTableListWeek(BuildContext context, String seasonL, String playerId) async {
+  Future<void> getTableListWeek(BuildContext context, String seasonL, String playerId, String position, String teamId) async {
     showLoader(context);
     print("Season $seasonL");
     tableModel = TableModel();
 
-    String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$seasonL&PlayerID=$playerId", null, context);
+    String res = await getMethodWithQuery("GET", "getProjectionStatsByWeek?page=1&limit=20&Season=$seasonL&PlayerID=$playerId&TeamID=$teamId&Position=$position", null, context);
 
     var response = jsonDecode(res);
 
     tableModel = TableModel.fromJson(response);
+
+    tableModel.body = tableModel.body!.reversed.toList();
     isLoading2 = false;
     hideLoader(context);
     if(tableModel.code == 200){
